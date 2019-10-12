@@ -1,0 +1,169 @@
+CONTROLADOR Institucion:
+
+class InstitucionController extends Controller
+{
+
+public function agregar(Request $form){
+
+
+
+
+$reglas["nombre_referencia"=>"string|unique:instituciones,nombre_referencia","delitos"=>"integer","descripcion_caso"=>"string","fecha_ingreso"=>"date","modalidad_ingreso"=>"integer","organismos"=>"integer",
+"cual_otro_organismo"=>"string","cavaj"=>"integer","fiscalia_juzgado"=>"string","causa_id_judicial"=>"integer","comisaria"=>"string","denuncias_previas"=>"integer",
+"departamento_judicial"=>"integer ","estado"=>"integer","motivospasivos"=>"integer","cual_motivospasivos"=>"string"];
+
+
+
+$mensajes=["string"=>"El campo debe ser un texto","integer"=>"El campo debe ser un número entero",
+"date"=>"El campo debe ser una fecha","unique"=>"El campo está repetido"];
+
+
+
+$this->validate($form,$reglas,$mensajes);
+
+
+
+$institucion= new Institucion();
+
+
+
+$institucion->nombre_referencia= $form["nombre_referencia"];
+
+$institucion->delitos[]= $form["delitos[]"];
+
+$institucion->descripcion_caso= $form["descripcion_caso"];
+
+$institucion->fecha_ingreso= $form["fecha_ingreso"];
+
+$institucion->modalidad_ingreso= $form["modalidad_ingreso"];
+
+$institucion->organismos= $form["organismos"];
+
+$institucion->cual_otro_organismo= $form["cual_otro_organismo"];
+
+$institucion->cavaj[]= $form["cavaj[]"];
+
+$institucion->fiscalia_juzgado= $form["fiscalia_juzgado"];
+
+$institucion->causa_id_judicial= $form["causa_id_judicial"];
+
+$institucion->comisaria= $form["comisaria"];
+
+$institucion->denuncias_previas= $form["denuncias_previas"];
+
+$institucion->departamento_judicial= $form["departamento_judicial"];
+
+$institucion->estado= $form["estado"];
+
+$institucion->motivospasivos= $form["motivospasivos"];
+
+$institucion->cual_otro_motivospasivos= $form["cual_otro_motivospasivos"];
+
+
+
+$institucion->save( );
+
+
+
+return redirect ("victima");
+
+
+
+}
+
+}
+
+
+CONTROLADOR Profesional_Interviniente:
+
+class Profesional_Interviniente extends Controller
+{
+
+ 
+public function agregar(Request $form){
+
+$reglas="nombre_profesional_interviniente"=>"string","desde_profesional_interviniente"=>"date","actual_profesional_interviniente"=>"date","hasta_profesional_interviniente"=>"date"];
+  
+
+$mensajes=["string"=>"El campo debe ser un texto","date"=>"El campo debe ser una fecha"];
+
+  
+
+$this->validate($form,$reglas,$mensajes);
+
+
+
+$profesional_interviniente= new Profesional_interviniente( );
+
+ 
+ 
+$profesional_interviniente->nombre_profesional_interviniente= $form ["nombre_profesional_interviniente"];
+  
+$profesional_interviniente->desde_profesional_interviniente= $form ["desde_profesional_interviniente"];
+  
+$profesional_interviniente->actual_profesional_interviniente= $form ["actual_profesional_interviniente"];
+  
+$profesional_interviniente->hasta_profesional_interviniente= $form ["hasta_profesional_interviniente"];
+
+
+
+$profesional_interviniente->save( );
+
+  
+
+return redirect ("victima");
+
+}
+
+}
+
+
+
+CONTROLADOR Personas_asistidas:
+
+class Persona_AsistidaController extends Controller
+{
+
+
+public function agregar(Request $form){
+
+
+
+
+$reglas=["nombre_persona_asistida"=>"string","vinculo_persona_asistida"=>"integer","otro_vinculo_persona_asistida_cual"=>"string","telefono_persona_asistida"=>"integer",
+    "domicilio_persona_asistida"=>"string","localidad_persona_asistida"=>"string",
+    "localidad_persona_asistida"=>"string"];
+
+    
+
+$mensajes=["string"=>"El campo debe ser un texto","integer"=>"El campo debe ser un número entero"];
+
+    
+
+$this->validate($form,$reglas,$mensajes);
+
+    
+
+$persona_asistida= new Persona_asistida( );
+
+
+    
+$persona_asistida->nombre_persona_asistida= $form [ "nombre_persona_asistida"];
+    
+$persona_asistida->vinculo_persona_asistida= $form [ "vinculo_persona_asistida"];
+    
+$persona_asistida->cual_otro_vinculo_persona_asistida= $form [ "cual_otro_vinculo_persona_asistida"];
+    
+$persona_asistida->telefono_persona_asistida= $form [ "telefono_persona_asistida"];
+    
+$persona_asistida->domicilio_persona_asistida= $form [ "domicilio_persona_asistida"];
+    
+$persona_asistida->localidad_persona_asistida= $form [ "localidad_persona_asistida"];
+
+    
+$persona_asistida->save( );
+
+    return redirect ("victima");
+
+}
+}
