@@ -81,7 +81,7 @@
 <input type="text" disabled style="background-color: grey;color:white"class="form-control" name="nombre_profesional_interviniente" id="nombre_profesional_interviniente"  
   
 
-              @foreach ($usuarios as $usuario)
+              @foreach($usuarios as $usuario)
                @if($usuario->id==$nombre_profesional_interviniente)
             
               value="{{ $usuario->nombre_y_apellido}}"
@@ -145,8 +145,6 @@
                        divC.style.display = "";
                    }}
         </script>
-
- 
 
 
 <!BOTONES>

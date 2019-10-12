@@ -29,7 +29,7 @@
 <!-A CASO>
 
 <section class="container jumbotron shadow bg-white">
-<h4>Datos institucionales</h4><br>
+<h4 style="text-decoration:underline;">Datos institucionales:</h4><br>
 
 <div>
   <label class="font-weight-bold">Nombre de referencia: </label>
@@ -210,7 +210,7 @@
 
 
 <!-A PROFESIONAL INTERVINIENTE>
-<h5>Profesionales intervinientes</h5><br>
+<h4 style="text-decoration:underline;">Profesionales intervinientes</h5><br>
 
 @if($casoActual->profesionales)
 <div style="display:block">
@@ -275,7 +275,7 @@
 
 
 <section class="container jumbotron shadow bg-white">
-<h4>Caracterización de la victima y su contexto</h4><br>
+<h4 style="text-decoration:underline;">Caracterización de la/s victima/s y su contexto:</h4><br>
 @foreach ($victimas as $victima)
   @if ($victima->idCaso == session("idCaso"))
     <div>
@@ -291,6 +291,16 @@
      <div>
     <label class="font-weight-bold">Otro Teléfono Victima: </label>
     {{$victima->otro_telefono_victima}}
+    </div>
+
+      <div>
+    <label class="font-weight-bold">Domicilio Victima: </label>
+    {{$victima->domicilio_victima_asistida}}
+    </div>
+
+      <div>
+    <label class="font-weight-bold">Localidad Victima: </label>
+    {{$victima->localidad_hecho}}
     </div>
 
     <div>
@@ -540,24 +550,45 @@
     @endif
     </div>
     <br>
+     <p>________________________________________________________________________________________________________________________________________________</p>
   @endif
 @endforeach
+
     <br>
 </section>
 
     <!-A PERSONA ASISTIDA>
 
-<section class="container jumbotron shadow bg-white">
-    @if($casoActual->persona_asistida ==1)
-    <div style="display:none">
-    @else <div style="display:block">
-    <h4>Personas asistidas</h4><br>
-    @foreach ($casoActual->personas as $persona)
+ 
 
-    <div>
+<section class="container jumbotron shadow bg-white">
+  <h4 style="text-decoration:underline;">Personas Asistidas:</h4><br>
+
+   @if($casoActual->personas)
+<div style="display:block">
+@else <div style="display:none">
+@endif
+
+
+@foreach($victimas as $victima)
+
+ @if($victima->idCaso==session("idCaso"))
+
+
+
+  
+ @foreach($personas_nuevas as $persona_nueva)
+     @if ($persona_nueva->idCaso == session("idCaso")&&$persona_nueva->idVictim == $victima->id)
+
+      @foreach($personas as $persona)
+      @if ($persona_nueva->idPersona==$persona->id)
+
+<storng style="text-decoration-line: underline">Víctima:</storng>
+<strong >{{$victima->victima_nombre_y_apellido}}</storng><br>
+
     <label class="font-weight-bold">Nombre y apellido de la persona asistida: </label>
     {{$persona->nombre_persona_asistida}}
-    </div>
+  
 
     <div>
     <label class="font-weight-bold">Tipo de vínculo con la víctima: </label>
@@ -582,6 +613,12 @@
     @else{{$persona->telefono_persona_asistida}}
     @endif
     </div>
+<div>
+ <label class="font-weight-bold">Otro Teléfono de contacto: </label>
+    @if($persona->otro_telefono_persona_asistida == 0) Se desconoce
+    @else{{$persona->otro_telefono_persona_asistida}}
+    @endif
+    </div>
 
     <div>
     <label class="font-weight-bold">Domicilio del contacto: </label>
@@ -593,14 +630,20 @@
     {{$persona->localidad_persona_asistida}}
     </div>
 
-    <div>
-    <label class="font-weight-bold">Se relaciona con: </label>
+   <!--  <div>
+   <label class="font-weight-bold">Se relaciona con: </label>
     {{$persona->victims->implode("victima_nombre_y_apellido", " / ")}}
-    </div>
+    </div>-->
 
     <br>
-    @endforeach
+    <p>________________________________________________________________________________________________________________________________________________</p>
     @endif
+    @endforeach
+
+    @endif
+    @endforeach
+      @endif
+    @endforeach
     </div>
     </section>
 
@@ -608,9 +651,28 @@
 <!-C CONVIVIENTE>
 
 <section class="container jumbotron shadow bg-white">
-<h4>Referentes afectivos</h4><br>
-@foreach ($convivientes as $conviviente)
-  @if ($conviviente->idCaso == session("idCaso"))
+<h4 style="text-decoration:underline;">Referentes afectivos</h4><br>
+
+
+   @if($casoActual->convivientes)
+<div style="display:block">
+@else <div style="display:none">
+@endif
+
+ @foreach($victimas as $victima)
+
+ @if($victima->idCaso==session("idCaso"))
+
+
+
+ @foreach($convivientes_nuevos as $conviviente_nuevo)
+     @if ($conviviente_nuevo->idCaso == session("idCaso")&&$conviviente_nuevo->idVictim == $victima->id)
+
+      @foreach($convivientes as $conviviente)
+      @if ($conviviente_nuevo->idConviviente==$conviviente->id)
+
+<storng style="text-decoration-line: underline">Víctima:</storng>
+<strong >{{$victima->victima_nombre_y_apellido}}</storng><br>
 
     <div>
     <label class="font-weight-bold">Nombre y apellido: </label>
@@ -664,14 +726,20 @@
     @endif
     </div>
 
-    <div>
+    <!--<div>
     <label class="font-weight-bold">Se relaciona con: </label>
     {{$conviviente->victims->implode("victima_nombre_y_apellido", " / ")}}
-    </div>
+    </div>-->
 
     <br>
-  @endif
-  @endforeach
+     <p>________________________________________________________________________________________________________________________________________________</p>
+   @endif
+    @endforeach
+
+    @endif
+    @endforeach
+      @endif
+    @endforeach
     <br>
 </section>
 <!-D DELITO>
@@ -682,9 +750,31 @@
 <!-E IMPUTADOS>
 
 <section class="container jumbotron shadow bg-white">
-<h4>Datos del imputado</h4><br>
-@foreach ($imputados as $imputado)
-  @if ($imputado->idCaso == session("idCaso"))
+<h4 style="text-decoration:underline;">Datos del imputado</h4><br>
+
+
+   @if($casoActual->imputados)
+<div style="display:block">
+@else <div style="display:none">
+@endif
+
+ @foreach($victimas as $victima)
+
+ @if($victima->idCaso==session("idCaso"))
+
+
+
+
+
+ @foreach($imputados_nuevos as $imputado_nuevo)
+     @if ($imputado_nuevo->idCaso == session("idCaso")&&$imputado_nuevo->idVictim == $victima->id)
+
+      @foreach($imputados as $imputado)
+      @if ($imputado_nuevo->idImputado==$imputado->id)
+  
+
+<storng style="text-decoration-line: underline">Víctima:</storng>
+<strong >{{$victima->victima_nombre_y_apellido}}</storng><br>
 
 <div>
 <label class="font-weight-bold">Nombre y apellido: </label>
@@ -806,12 +896,18 @@
 {{$imputado->causa_id_judicial}}
 </div>
 
-<div>
+<!--<div>
 <label class="font-weight-bold">Se relaciona con: </label>
 {{$imputado->victims->implode("victima_nombre_y_apellido", " / ")}}
-</div>
+</div>-->
 
 <br>
+
+@endif
+@endforeach
+
+@endif
+@endforeach
 
 @endif
 @endforeach
@@ -820,7 +916,7 @@
 
 <!-F ORGANISMOS>
 <section class="container jumbotron shadow bg-white">
-<h4>Atención del caso</h4><br>
+<h4 style="text-decoration:underline;">Atención del caso</h4><br>
 
 @if($casoActual->instituciones)
 
@@ -981,7 +1077,7 @@
 
 <!-G DOCUMENTACION>
 <section class="container jumbotron shadow bg-white">
-<h4>Documentación disponible</h4><br>
+<h4 style="text-decoration:underline;">Documentación disponible</h4><br>
 
 @if($casoActual->documentos)
 
@@ -1006,20 +1102,43 @@
 
 <!-G2 INTERVENCIONES>
 <section class="container jumbotron shadow bg-white">
-<h4>Intervenciones</h4><br>
-@if($casoActual->intervenciones)
+  <h4 style="text-decoration:underline;">Intervenciones Realizadas:</h4><br>
 
-<div>
-@foreach($casoActual->intervenciones as $intervencion)
-{{$intervencion->fecha_intervencion . " - " . $intervencion->detalle_intervencion}}<br><br>
-@endforeach
-</div>
 
-@else
+
+   @if($casoActual->intervenciones)
+<div style="display:block">
+@else <div style="display:none">
 @endif
-  <br>
+
+ @foreach($victimas as $victima)
+
+ @if($victima->idCaso==session("idCaso"))
+
+
+
+  
+ @foreach($intervenciones as $intervencion)
+     @if ($intervencion->idCaso == session("idCaso")&&$intervencion->idVictim == $victima->id)
+       <li style="list-style: none">
+
+ <strong ><label for="detalle_intervencion">Víctima:</label></strong> 
+{{$victima->victima_nombre_y_apellido}}<br>
+ <strong ><label for="detalle_intervencion">Fecha de Intervención:</label></strong> 
+{{$intervencion->fecha_intervencion}}<br>
+ <strong ><label for="detalle_intervencion">Detalle Intervención:</label></strong> 
+{{$intervencion->detalle_intervencion}}<br>
+
+
  
-</div>
+  <p>________________________________________________________________________________________________________________________________________________</p>
+
+       </li>
+     @endif
+ @endforeach
+     @endif
+ @endforeach
+</section>
 
 
 

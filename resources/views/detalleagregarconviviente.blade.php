@@ -225,9 +225,28 @@ session_start();
         @if(old("vinculo_victima")==6)
         <option value="6"selected>Otro</option>
         @else  <option value="6" >Otro</option>@endif
+
+        @if(old("vinculo_victima")==7)
+        <option value="7"selected>Ex-Pareja</option>
+        @else  <option value="7" >Ex-Pareja</option>@endif
+
   </select>
   {!! $errors->first('vinculo_victima', '<p class="help-block" style="color:red";>:message</p>') !!}
   </div>
+
+
+
+ @if(old("vinculo_victima") == 1)
+    <div id="cualC5_familiar" {{ $errors->has('vinculo_otro_familiar') ? 'has-error' : ''}}>
+  @else
+    <div id="cualC5_familiar" style="display: none">
+  @endif
+
+  <label for="vinculo_otro_familiar">Especificar Vínculo Familar?</label>
+  <input type="text" class="form-control vinculo_otro_familiar" name="vinculo_otro_familiar" value="{{old("vinculo_otro_familiar")}}"id="vinculo_otro_familiar">
+  {!! $errors->first('vinculo_otro_familiar', '<p class="help-block" style="color:red";>:message</p>') !!}
+  </div>
+
 
   @if(old("vinculo_victima") == 6)
     <div id="cualC5" {{ $errors->has('vinculo_otro') ? 'has-error' : ''}}>
@@ -250,7 +269,17 @@ session_start();
      									 divC = document.getElementById("cualC5");
      									 $('#vinculo_otro').val('');
      									 divC.style.display="none";
-     							 }}
+     							 }
+
+if (sel.value=="1"){
+                       divC = document.getElementById("cualC5_familiar");
+                       divC.style.display = "";
+                   }else{
+                       divC = document.getElementById("cualC5_familiar");
+                       $('#vinculo_otro_familiar').val('');
+                       divC.style.display="none";
+                   }
+                  }
         </script>
 
 <!C4 Nivel educativo>

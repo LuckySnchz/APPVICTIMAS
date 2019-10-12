@@ -99,60 +99,170 @@
               @if($vinculo_victima==4)
               <option value="4" selected >Otro</option>
               @else<option value="4" >Otro</option>@endif
+
+               @if($vinculo_victima==5)
+              <option value="5" selected >Ex-Pareja</option>
+              @else<option value="5" >Ex-Pareja</option>@endif
+
               </select>
       {!! $errors->first('vinculo_persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
       </div>
 
-      @if($vinculo_victima== 4)
+      @if($vinculo_victima== 1||$errors->has('vinculo_otro_familiar'))
+        <div id="vinculo_victima_cual_familiar" {{ $errors->has('vinculo_otro_familiar') ? 'has-error' : ''}}>
+        @else
+          <div id="vinculo_victima_cual_familiar" style="display: none;">
+      @endif
+      <br><label for="">Especificar Vínculo Familar?</label>
+      <div class="">
+      <input class="form-control" name="vinculo_otro_familiar" id="vinculo_otro_familiar" type="text" value="{{$vinculo_otro_familiar}}"><br>
+      {!! $errors->first('vinculo_otro_familiar', '<p class="help-block" style="color:red";>:message</p>') !!}
+      </div>
+      </div>
+
+      @if($vinculo_victima== 4||$errors->has('vinculo_otro'))
         <div id="vinculo_victima_cual" {{ $errors->has('vinculo_otro') ? 'has-error' : ''}}>
         @else
           <div id="vinculo_victima_cual" style="display: none;">
       @endif
       <br><label for="">Cuál?</label>
       <div class="">
-      <input class="form-control" name="vinculo_otro" id="vinculo_victima_cual_otro" type="text" value="{{$vinculo_otro}}"><br>
+      <input class="form-control" name="vinculo_otro" id="vinculo_otro" type="text" value="{{$persona->vinculo_otro}}"><br>
       {!! $errors->first('vinculo_otro', '<p class="help-block" style="color:red";>:message</p>') !!}
       </div>
       </div>
       </div>
 
-<!-A14III telefono>
+<!-A 14III. telefono>
 
-      <div class="form-group"{{ $errors->has('telefono_persona_asistida') ? 'has-error' : ''}}>
-      <label for="telefono_persona_asistida">A 14III. Teléfono de contacto: </label>
-      <input disabled type="text" class="form-control" name="telefono_persona_asistida" id="telefono_persona_asistida" value="{{$telefono_persona_asistida}}">
+       <div class="form-group"{{ $errors->has('telefono_persona_asistida') ? 'has-error' : ''}}>
 
- @if($telefono_persona_asistida==0) 
 
-      <label for="bloqueo1" class="form-check-label">Se desconoce</label>
-      <input disabled type="checkbox" id="bloqueo1" name="telefono_persona_asistida" value="0" checked onchange="checkA14(this)">
-      @else
+    @if(old('telefono_persona_asistida')=="0")
 
-        <label for="bloqueo1" class="form-check-label">Se desconoce</label>
-      <input disabled type="checkbox" id="bloqueo1" name="telefono_persona_asistida" value="0"  onchange="checkA14(this)">
-      @endif
+<label >A 14III. teléfono de persona asistida:</label>
+<strong>Ingresa el número de teléfono, si es celular sin el 15. Característica sin el 0 y Presiona Ingresar!!</strong><br><br>
 
-      {!! $errors->first('telefono_persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
-      </div>
-      <script>
-           function checkA14(checkbox)
-           {
-               if (checkbox.checked)
-                   {
-                       $('#telefono_persona_asistida').val('Se desconoce');
-                       document.getElementById('telefono_persona_asistida').setAttribute("readonly", "readonly");
-                   }else
-                       {
-                           $('#telefono_persona_asistida').val('');
-                           document.getElementById('telefono_persona_asistida').removeAttribute("readonly");
-                       }
+    <input  name="telefono_persona_asistida" placeholder="Ingresar 10 dígitos, el sisrema le dará el formato 221-463-2683 o 114-563-2889" style="background-color:#e9ecef;color:black" value="{{$persona->telefono_persona_asistida}}"id="telefono_persona_asistida" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" onKeypress="addDashesPhoneUno(this)" type="tel" disabled readonly="readonly"/><br>
+
+    <label class="form-check-label">Se desconoce</label>
+    <input disabled name="telefono_persona_asistida" value="000-000-0000" id="bloqueo1" type="checkbox" checked onchange="checkA14(this)">
+    @else
+
+<label for="edad">A 14III.teléfono de persona asistida:</label><br>
+<strong>*Ingresa el número de teléfono, si es celular sin el 15. Característica sin el 0 y Presiona Ingresar!!</strong><br><br>
+    <input disabled type="tel" name="telefono_persona_asistida" style="background-color: white;color:black" value="{{$persona->telefono_persona_asistida}}"   id="telefono_persona_asistida" class="form-control" placeholder="Ingresar 10 dígitos, el sisrema le dará el formato 221-463-2683 o 114-563-2889" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+onKeypress="addDashesPhoneUno(this)"required ><br>
+
+    <label class="form-check-label" >Se desconoce</label>
+    <input disabled name="telefono_persona_asistida" value="000-000-0000" id="bloqueo1" type="checkbox" onchange="checkA14(this)">
+  @endif
+
+    {!! $errors->first('telefono_persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
+    </div>
+
+
+
+<script type="text/javascript">
+  function addDashesPhoneUno(f1) {
+  var r1 = /(\D+)/g,
+  npa1 = '',
+  nxx1 = '',
+  last41 = '';
+  f1.value = f1.value.replace(r1, '');
+  npa1 = f1.value.substr(0, 3);
+  nxx1 = f1.value.substr(3, 3);
+  last41 = f1.value.substr(6, 4);
+  f1.value = npa1 + '-' + nxx1 + '-' + last41;
+}
+</script>
+<script type="text/javascript">
+       function checkA14(checkbox) {
+          if (checkbox.checked)
+                {
+                    $('#telefono_persona_asistida').val('Se Desconoce');
+                    document.getElementById('telefono_persona_asistida').setAttribute("readonly","readonly");
+                    document.getElementById('telefono_persona_asistida').style.background="#e9ecef";
+                    divAY= document.getElementById("telefono_persona_asistida").disabled=true;
+
            }
-        </script>
+           else{
+                    $('#telefono_persona_asistida').val('');
+                  document.getElementById('telefono_persona_asistida').style.background="white";
+                    document.getElementById('telefono_persona_asistida').removeAttribute("readonly");
+                  divA = document.getElementById("telefono_persona_asistida").disabled=false;
 
-<!-A14IV Domicilio>
+           }}
+    </script>
+
+
+
+
+<!-A 14IV. Otro telefono>
+
+       <div class="form-group"{{ $errors->has('otro_telefono_persona_asistida') ? 'has-error' : ''}}>
+
+
+    @if(old('otro_telefono_persona_asistida')=="0")
+
+<label >A 14IV. Otro teléfono de persona asistida:</label>
+<strong>Ingresa el número de teléfono, si es celular sin el 15. Característica sin el 0 y Presiona Ingresar!!</strong><br><br>
+
+    <input disabled name="otro_telefono_persona_asistida" placeholder="Ingresar 10 dígitos, el sisrema le dará el formato 221-463-2683 o 114-563-2889" style="background-color: #e9ecef;color:black" value="{{$persona->otro_telefono_persona_asistida}}"   id="otro_telefono_persona_asistida" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" onKeypress="addDashesPhoneDos(this)" type="tel" readonly="readonly"/><br>
+
+    <label class="form-check-label">Se desconoce</label>
+    <input disables name="otro_telefono_persona_asistida" value="000-000-0000" id="bloqueo1" type="checkbox" checked onchange="checkA15(this)">
+    @else
+
+<label for="edad">A 14IV. Otro teléfono de persona asistida:</label><br>
+<strong>*Ingresa el número de teléfono, si es celular sin el 15. Característica sin el 0 y Presiona Ingresar!!</strong><br><br>
+    <input disabled="" type="tel" name="otro_telefono_persona_asistida" style="background-color: white;color:black" value="{{$persona->otro_telefono_persona_asistida}}"   id="otro_telefono_persona_asistida" class="form-control" placeholder="Ingresar 10 dígitos, el sisrema le dará el formato 221-463-2683 o 114-563-2889" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+onKeypress="addDashesPhoneDos(this)"required ><br>
+
+    <label class="form-check-label" >Se desconoce</label>
+    <input disabled name="otro_telefono_persona_asistida" value="000-000-0000" id="bloqueo1" type="checkbox" onchange="checkA15(this)">
+  @endif
+
+    {!! $errors->first('otro_telefono_persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
+    </div>
+      
+
+<script type="text/javascript">
+  function addDashesPhoneDos(f2) {
+  var r2= /(\D+)/g,
+  npa2 = '',
+  nxx2 = '',
+  last42 = '';
+  f2.value = f2.value.replace(r2, '');
+  npa2 = f2.value.substr(0, 3);
+  nxx2 = f2.value.substr(3, 3);
+  last42 = f2.value.substr(6, 4);
+  f2.value = npa2 + '-' + nxx2 + '-' + last42;
+}
+</script>
+<script type="text/javascript">
+       function checkA15(checkbox) {
+          if (checkbox.checked)
+                {
+                    $('#otro_telefono_persona_asistida').val('Se Desconoce');
+                    document.getElementById('otro_telefono_persona_asistida').setAttribute("readonly","readonly");
+                    document.getElementById('otro_telefono_persona_asistida').style.background="#e9ecef";
+                    divAY= document.getElementById("otro_telefono_persona_asistida").disabled=true;
+
+           }
+           else{
+                    $('#otro_telefono_persona_asistida').val('');
+                  document.getElementById('otro_telefono_persona_asistida').style.background="white";
+                    document.getElementById('otro_telefono_persona_asistida').removeAttribute("readonly");
+                  divA = document.getElementById("otro_telefono_persona_asistida").disabled=false;
+
+           }}
+    </script>
+
+<!-A14V Domicilio>
 
       <div class="form-group"{{ $errors->has('domicilio_persona_asistida') ? 'has-error' : ''}}>
-      <label for="domicilio_persona_asistida">A 14 IV. Domicilio del contacto: </label>
+      <label for="domicilio_persona_asistida">A 14 V. Domicilio del contacto: </label>
       <input disabled type="text" class="form-control" name="domicilio_persona_asistida" id="domicilio_persona_asistida"value="{{$domicilio_persona_asistida}}">
  @if($domicilio_persona_asistida=="Se desconoce") 
 
@@ -182,10 +292,10 @@
                        }
            }
         </script>
-<!-A14V Localidad de residencia>
+<!-A14VI Localidad de residencia>
 
       <div class="form-group"{{ $errors->has('localidad_persona_asistida') ? 'has-error' : ''}}>
-      <label for="localidad_persona_asistida">A 14 V. Localidad de residencia: </label>
+      <label for="localidad_persona_asistida">A 14 VI. Localidad de residencia: </label>
       <input  disabled type="text" class="form-control" name="localidad_persona_asistida" id="localidad_persona_asistida" value="{{$localidad_persona_asistida}}">
 
        @if($localidad_persona_asistida=="Se desconoce") 
@@ -315,7 +425,7 @@
                 divC = document.getElementById("personas_asistidas");
                 $('#Nombre_apellido_persona_asistida').val('');
                 $('#vinculo_victima').val('');
-                $('#vinculo_victima_cual_otro').val('');
+                $('#vinculo_otro').val('');
                 $('#telefono_contacto').val('');
                 $('#domicilio_contacto').val('');
                 $('#localidad_residencia').val('');
@@ -324,21 +434,22 @@
       </script>
       <script>
          function selectOnChangeA14II(sel) {
+           if (sel.value=="1"){
+             divC = document.getElementById("vinculo_victima_cual_familiar");
+             divC.style.display = "";}
+             else{
+                divC = document.getElementById("vinculo_victima_cual_familiar");
+                $('#vinculo_otro').val('');
 
-           if (sel.value=="1"||sel.value=="2"||sel.value=="3"||sel.value=="4"){
-              divCcc = document.getElementById("vinculo_victima");
-       divCcc.style.backgroundColor = 'white';
-           }
-        
+                divC.style.display = "none";}
 
 
-
-           if (sel.value=="4"){
+                 if (sel.value=="4"){
              divC = document.getElementById("vinculo_victima_cual");
              divC.style.display = "";}
              else{
                 divC = document.getElementById("vinculo_victima_cual");
-                $('#vinculo_victima_cual_otro').val('');
+                $('#vinculo_otro-familiar').val('');
 
                 divC.style.display = "none";}
          }

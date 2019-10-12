@@ -215,6 +215,77 @@ onKeypress="addDashesPhoneDos(this)" required >
     </script>
 
 
+<!-DOMICILIO Y LOCALIDAD DE LA VICTIMA>
+
+
+<div class="form-group" id="localidad_hecho" {{ $errors->has('localidad_hecho') ? 'has-error' : ''}}>
+
+    <label for="cityId2">B 2III. Localidad:</label>
+    <select class="form-control" name="localidad_hecho" onChange="selectOnChangeA2(this)">
+              <option value="" selected=disabled>Seleccionar...</option>
+              @foreach ($ciudades as $ciudad)
+             @if($localidad_hecho==$ciudad->id)
+                <option selected value="{{ $ciudad->id }}">{{ $ciudad->localidad_nombre}}</option>
+              @else <option  value="{{ $ciudad->id }}">{{ $ciudad->localidad_nombre}}</option>
+              @endif
+            @endforeach
+            </select>
+
+  
+    {!! $errors->first('localidad_hecho', '<p class="help-block" style="color:red";>:message</p>') !!}
+   </div><br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-B 2II. Domicilio>
+
+     <div class="form-group" {{ $errors->has('domicilio_victima_asistida') ? 'has-error' : ''}}>
+    <label for="">B 2II Domicilio de la víctima:</label>
+
+    <input type="text" class="form-control" name="domicilio_victima_asistida" id="domicilio_victima_asistida" value="{{$victim->domicilio_victima_asistida}}">
+
+    <label for="bloqueo1" class="form-check-label">Se desconoce</label>
+    <input type="checkbox" id="bloqueo1" name="domicilio_victima_asistida" value="Se desconoce" onchange="checkA14IV(this)">
+    {!! $errors->first('domicilio_victima_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
+    </div>
+
+    <script>
+         function checkA14IV(checkbox)
+         {
+             if (checkbox.checked)
+                 {
+                     $('#domicilio_victima_asistida').val('Se desconoce');
+                     document.getElementById('domicilio_victima_asistida').setAttribute("readonly", "readonly");
+                 }else
+                     {
+                         $('#domicilio_victima_asistida').val('');
+                         document.getElementById('domicilio_victima_asistida').removeAttribute("readonly");
+                     }
+         }
+      </script>
+
+
+
 
 <!B3 Género>
 
@@ -627,7 +698,7 @@ document.getElementById('victima_numero_documento').style.background="white";
 
   <div class="form-group"{{ $errors->has('condiciones_de_trabajo') ? 'has-error' : ''}}>
   <label for="modalidad_id">B 11.Condiciones de trabajo:</label>
-  <select class="form-control" name="condiciones_de_trabajo" id="condiciones_de_trabajo">
+  <select class="form-control" name="condiciones_de_trabajo" style="background-color: grey;color:white" id="condiciones_de_trabajo">
       <option value="" selected=disabled>Seleccionar...</option>
       @if($condiciones_de_trabajo == 1) <option value="1" selected>Desocupado(a)</option>
       @else <option value="1" >Desocupado(a)</option>@endif
@@ -650,7 +721,7 @@ document.getElementById('victima_numero_documento').style.background="white";
 <!B12 Necesidades insatisfechas>
 <div class="form-group"{{ $errors->has('necesidades_socioeconomicas_insatisfechas') ? 'has-error' : ''}}>
   <label for="modalidad_id">B 12.¿Tiene necesidades socioeconómicas insatisfechas?:</label>
-  <select class="form-control" name="necesidades_socioeconomicas_insatisfechas" id="necesidades_insatisfechas" onChange="selectOnChangeB11(this)">
+  <select class="form-control" name="necesidades_socioeconomicas_insatisfechas" id="necesidades_insatisfechas" onChange="selectOnChangeB11(this)" style="background-color: grey;color:white">
               <option value="" selected=disabled>Seleccionar...</option>
               @if($necesidades_socioeconomicas_insatisfechas == 1)<option value="1" selected>Sí</option>
               @else<option value="1" >Sí</option>@endif
@@ -757,7 +828,7 @@ document.getElementById('victima_numero_documento').style.background="white";
 
 <div class="form-group"{{ $errors->has('programa_subsidio') ? 'has-error' : ''}}>
    <label for="modalidad_id">B 13.¿Percibe algún tipo de programa o subsidio social?:</label>
-   <select class="form-control" name="programa_subsidio" id="programa_subsidio" onChange="selectOnChangeB12(this)">
+   <select class="form-control" name="programa_subsidio" id="programa_subsidio" onChange="selectOnChangeB12(this)" style="background-color: grey;color:white">
               <option value="" selected=disabled>Seleccionar...</option>
               @if($programa_subsidio == 1)<option value="1" selected>Sí</option>
               @else<option value="1" >Sí</option>@endif
@@ -909,7 +980,7 @@ document.getElementById('victima_numero_documento').style.background="white";
 <!B15 Discapacidad>
 <div class="form-group" {{ $errors->has('tiene_discapacidad') ? 'has-error' : ''}}>
 <label for="">B 15. ¿Presenta algún tipo de discapacidad?</label><br>
-<select class="form-control"  name="tiene_discapacidad" onChange="selectOnChangeB14(this)">
+<select class="form-control"  name="tiene_discapacidad" onChange="selectOnChangeB14(this)" style="background-color: grey;color:white">
         <option value="" selected=disabled>Seleccionar...</option>
         @if ($tiene_discapacidad == 1) <option value="1" selected>Si</option>
         @else <option value="1" >Si</option> @endif
@@ -1004,7 +1075,7 @@ $('#desconoce').click(function () {
 
     <div class="form-group"{{ $errors->has('tienelesion') ? 'has-error' : ''}}>
     <label class="">B 16. ¿Presenta lesiones físicas visibles? </label>
-    <select class="form-control" id="tienelesion" name="tienelesion" onChange="selectOnChangeB15(this)">
+    <select class="form-control" id="tienelesion" name="tienelesion" onChange="selectOnChangeB15(this)" style="background-color: grey;color:white">
             <option value="" selected=disabled>Seleccionar...</option>
             @if($tienelesion== 1)<option value="1" selected>Si</option>
             @else<option value="1" >Si</option>@endif
@@ -1046,7 +1117,7 @@ $('#desconoce').click(function () {
 
     <div class="form-group"{{ $errors->has('enfermedadcronica') ? 'has-error' : ''}}>
     <label class="">B 17. ¿Tiene enfermedades crónicas?</label>
-    <select class="form-control" id="enfermedadcronica" name="enfermedadcronica" onChange="selectOnChange16(this)">
+    <select class="form-control" id="enfermedadcronica" name="enfermedadcronica" onChange="selectOnChange16(this)" style="background-color: grey;color:white">
             <option value="" selected=disabled>Seleccionar...</option>
             @if($enfermedadcronica == 1)<option value="1" selected>Si</option>
             @else<option value="1" >Si</option>@endif
@@ -1065,7 +1136,7 @@ $('#desconoce').click(function () {
       @endif
 
     <label class="">B 17 I. Tipo de enfermedad crónica:</label>
-    <input name="tipo_enfermedad_cronica" placeholder="Enfermedad crónica" id="victima_enfermedad_cronica" class="form-control" type="text" value="{{$tipo_enfermedad_cronica}}">
+    <input name="tipo_enfermedad_cronica" placeholder="Enfermedad crónica" id="victima_enfermedad_cronica" class="form-control" type="text" value="{{$tipo_enfermedad_cronica}}" style="background-color: grey;color:white">
     {!! $errors->first('tipo_enfermedad_cronica', '<p class="help-block" style="color:red";>:message</p>') !!}
     <br>
     </div>
@@ -1098,7 +1169,7 @@ $('#desconoce').click(function () {
 
 <div class="form-group"{{ $errors->has('tiene_limitacion') ? 'has-error' : ''}}>
 <label>B 18. ¿Presenta algún tipo de limitación para comunicarse? </label><br>
-<select class="form-control" name="tiene_limitacion" OnChange="selectOnChangeB17(this)">
+<select class="form-control" name="tiene_limitacion" OnChange="selectOnChangeB17(this)" style="background-color: grey;color:white">
         <option value="" selected=disabled>Seleccionar...</option>
         @if($tiene_limitacion == 1)<option value="1" selected>Si</option>
         @else<option value="1" >Si</option>@endif

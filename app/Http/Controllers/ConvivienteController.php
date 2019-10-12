@@ -37,7 +37,11 @@ class ConvivienteController extends Controller
     return $input->agregar_conviviente == 1 || $input->cantVictimas ==1;
           });
 
-    $validator->sometimes('vinculo_otro', "required|min:3|max:60|regex:/^([a-zA-ZñÑ.\s*-])+$/", function ($input) {
+      $validator->sometimes('vinculo_otro_familiar', "required|min:3|max:255|regex:/^([a-zA-ZñÑ.\s*-])+$/", function ($input) {
+      return $input->vinculo_victima == 1;
+    });
+
+    $validator->sometimes('vinculo_otro', "required|min:3|max:255|regex:/^([a-zA-ZñÑ.\s*-])+$/", function ($input) {
       return $input->vinculo_victima == 6;
     });
 
@@ -68,6 +72,7 @@ class ConvivienteController extends Controller
     $conviviente->edad= $form["edad"];
     $conviviente->vinculo_victima= $form["vinculo_victima"];
     $conviviente->vinculo_otro= $form["vinculo_otro"];
+     $conviviente->vinculo_otro_familiar= $form["vinculo_otro_familiar"];
     $conviviente->niveleducativo_id= $form["niveleducativo_id"];
     $conviviente->condiciones_de_trabajo= $form["condiciones_de_trabajo"];
     $conviviente->userID_create= Auth::id();
@@ -78,13 +83,12 @@ class ConvivienteController extends Controller
 
     $conviviente->save();
 
-    $conviviente->victims()->attach($form ["idVictim"], array("vinculo_victima"=> $form ["vinculo_victima"],"vinculo_otro"=> $form ["vinculo_otro"]));
-
+    $conviviente->victims()->attach($form ["idVictim"],array("vinculo_victima"=> $form ["vinculo_victima"],"vinculo_otro"=> $form ["vinculo_otro"],"vinculo_otro_familiar"=> $form ["vinculo_otro_familiar"],"idCaso"=> session("idCaso")));
 
     return redirect("agregarconviviente");
   }}
 
-  public function duplicar($id,$vinculo_victima,$vinculo_otro=0) {
+  public function duplicar($id,$vinculo_victima,$vinculo_otro=0,$vinculo_otro_familiar=0) {
 
   if(Conviviente_nuevo::where("idVictim",session("idVictim"))->where("idConviviente",$id)->count()==0)
   {
@@ -94,6 +98,7 @@ class ConvivienteController extends Controller
       $conviviente_nuevo->idConviviente= $id;
       $conviviente_nuevo->vinculo_victima= $vinculo_victima;
       $conviviente_nuevo->vinculo_otro= $vinculo_otro;
+      $conviviente_nuevo->vinculo_otro_familiar= $vinculo_otro_familiar;
       $conviviente_nuevo->save();
 
 

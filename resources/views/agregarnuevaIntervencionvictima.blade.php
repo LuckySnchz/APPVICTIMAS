@@ -34,7 +34,7 @@
 
     <section class="container" >
 
-    <form class="" action="/agregarnuevaIntervencionvictima" method="post">
+    <form class="" action="/agregarnuevaintervencionvictima" method="post">
       {{csrf_field()}}
     <input type="hidden" name="idCaso" value="{{session("idCaso")}}">
        <input type="hidden" name="idVictim" value="{{session("idVictim")}}">

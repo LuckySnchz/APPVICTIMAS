@@ -41,10 +41,6 @@ $validator->sometimes('vinculo_victima', 'required',function ($input) {
     return $input->agregar_imputado == 1 || $input->cantVictimas ==1;
           });
 
-
-
-
-
 $validator->sometimes('caratulacion_judicial', 'required|min:3|max:255|regex:/^([0-9a-zA-ZñÑ.\s*-])+$/', function ($input) {return $input->agregar_imputado == 1 || $input->cantVictimas ==1;
         });
 
@@ -68,7 +64,15 @@ $validator->sometimes('fiscalia_juzgado', 'required|min:3|max:255|regex:/^([0-9a
   return $input->agregar_imputado == 1 || $input->cantVictimas ==1;
         });
 
-$validator->sometimes('causa_id_judicial', 'required|integer|max:2147483646', function ($input) {
+$validator->sometimes('causa_id_judicial','required|regex:/^([0-9a-zA-ZñÑ.\s*-])+$/', function ($input) {
+  return $input->agregar_imputado == 1 || $input->cantVictimas ==1;
+        });
+
+$validator->sometimes('otra_causa_id_judicial','required|regex:/^([0-9a-zA-ZñÑ.\s*-])+$/', function ($input) {
+  return $input->agregar_imputado == 1 || $input->cantVictimas ==1;
+        });
+
+$validator->sometimes('otra_otra_causa_id_judicial','required|regex:/^([0-9a-zA-ZñÑ.\s*-])+$/', function ($input) {
   return $input->agregar_imputado == 1 || $input->cantVictimas ==1;
         });
 
@@ -80,6 +84,13 @@ $validator->sometimes('causa_id_judicial', 'required|integer|max:2147483646', fu
     $validator->sometimes('vinculo_otro', "required|min:3|max:255|regex:/^([a-zA-ZñÑ.\s*-])+$/", function ($input) {
       return $input->vinculo_victima == 6;
                     });
+
+
+
+    $validator->sometimes('vinculo_otro_familiar', "required|min:3|max:255|regex:/^([a-zA-ZñÑ.\s*-])+$/", function ($input) {
+      return $input->vinculo_victima == 1;
+                    });
+
 
     $validator->sometimes('antecedentes', "required|min:3|max:255|regex:/^([0-9a-zA-ZñÑ.,;\s*-])+$/", function ($input) {
       return $input->antecedentes_id == 1;
@@ -111,6 +122,7 @@ $validator->sometimes('causa_id_judicial', 'required|integer|max:2147483646', fu
     $imputado->documento_nro= $form["documento_nro"];
     $imputado->vinculo_victima= $form["vinculo_victima"];
     $imputado->vinculo_otro= $form["vinculo_otro"];
+    $imputado->vinculo_otro_familiar= $form["vinculo_otro_familiar"];
     $imputado->caratulacion_judicial= $form["caratulacion_judicial"];
     $imputado->antecedentes_id= $form["antecedentes_id"];
     $imputado->antecedentes= $form["antecedentes"];
@@ -120,13 +132,15 @@ $validator->sometimes('causa_id_judicial', 'required|integer|max:2147483646', fu
     $imputado->defensoria_nro= $form["defensoria_numero"];
     $imputado->fiscalia_juzgado= $form["fiscalia_juzgado"];
     $imputado->causa_id_judicial= $form["causa_id_judicial"];
+    $imputado->otra_causa_id_judicial= $form["otra_causa_id_judicial"];
+    $imputado->otra_otra_causa_id_judicial= $form["otra_otra_causa_id_judicial"];
     $imputado->idVictim= session("idVictim");
     $imputado->idCaso= session("idCaso");
     $imputado->userID_create= Auth::id();
 
     $imputado->save();
 
-    $imputado->victims()->attach($form ["idVictim"], array("vinculo_victima"=> $form ["vinculo_victima"],"vinculo_otro"=> $form ["vinculo_otro"]));
+    $imputado->victims()->attach($form ["idVictim"], array("vinculo_victima"=> $form ["vinculo_victima"],"vinculo_otro"=> $form ["vinculo_otro"],"vinculo_otro_familiar"=> $form ["vinculo_otro_familiar"],"idCaso"=> session("idCaso")));
       return redirect("/paneldecontrolvictima/{$imputado->idCaso}/#v4");
 
 
@@ -135,14 +149,15 @@ public function detalle($id) {
     $imputados=Imputado::all();
     $imputado = Imputado::find($id);
     session(["idImputado" => $id]);
- $nombre_y_apellido=$imputado->nombre_y_apellido;
-  
+    $victim_im=Imputado_nuevo::all();
+    $nombre_y_apellido=$imputado->nombre_y_apellido;  
     $apodo= $imputado->apodo;
     $tipo_documento_id= $imputado->tipo_documento_id;
     $tipo_documento_otro=$imputado->tipo_documento_otro;
     $documento_nro=$imputado->documento_nro;
     $vinculo_victima=$imputado->vinculo_victima;
     $vinculo_otro= $imputado->vinculo_otro;
+    $vinculo_otro_familiar= $imputado->vinculo_otro_familiar;
     $caratulacion_judicial=$imputado->caratulacion_judicial;
     $antecedentes_id=$imputado->antecedentes_id;
     $antecedentes=$imputado->antecedentes;
@@ -152,8 +167,10 @@ public function detalle($id) {
     $defensoria_nro=$imputado->defensoria_nro;
     $fiscalia_juzgado=$imputado->fiscalia_juzgado;
     $causa_id_judicial= $imputado->causa_id_judicial;
+    $otra_causa_id_judicial= $imputado->otra_causa_id_judicial;
+    $otra_otra_causa_id_judicial= $imputado->otra_otra_causa_id_judicial;
 
-    return view("detalleimputado", compact("imputados","imputado","nombre_y_apellido","apodo","tipo_documento_id","tipo_documento_otro","documento_nro","vinculo_victima","vinculo_otro","caratulacion_judicial","antecedentes_id","antecedentes","detenido","lugar_de_alojamiento","defensor_particular","defensoria_nro","fiscalia_juzgado","causa_id_judicial"));
+    return view("detalleimputado", compact("imputados","imputado","nombre_y_apellido","apodo","tipo_documento_id","tipo_documento_otro","documento_nro","vinculo_victima","vinculo_otro","caratulacion_judicial","antecedentes_id","antecedentes","detenido","lugar_de_alojamiento","defensor_particular","defensoria_nro","fiscalia_juzgado","causa_id_judicial","otra_otra_causa_id_judicial","otra_causa_id_judicial","vinculo_otro_familiar","victim_im"));
   }
 
   public function detalleimputado($id) {
@@ -166,11 +183,11 @@ public function detalle($id) {
   
     $apodo= $imputado->apodo;
     $tipo_documento_id= $imputado->tipo_documento_id;
-
     $tipo_documento_otro=$imputado->tipo_documento_otro;
     $documento_nro=$imputado->documento_nro;
     $vinculo_victima=$imputado->vinculo_victima;
     $vinculo_otro= $imputado->vinculo_otro;
+    $vinculo_otro_familiar= $imputado->vinculo_otro_familiar;
     $caratulacion_judicial=$imputado->caratulacion_judicial;
     $antecedentes_id=$imputado->antecedentes_id;
     $antecedentes=$imputado->antecedentes;
@@ -180,11 +197,12 @@ public function detalle($id) {
     $defensoria_nro=$imputado->defensoria_nro;
     $fiscalia_juzgado=$imputado->fiscalia_juzgado;
     $causa_id_judicial= $imputado->causa_id_judicial;
-
+    $otra_causa_id_judicial= $imputado->otra_causa_id_judicial;
+    $otra_otra_causa_id_judicial= $imputado->otra_otra_causa_id_judicial;
 
      if(Imputado_nuevo::where("idVictim",session("idVictim"))->where("idImputado",$id)->count()==0){
 
-    return view("detalleimputadovinculo", compact("imputados","imputado","nombre_y_apellido","apodo","tipo_documento_id","tipo_documento_otro","documento_nro","vinculo_victima","vinculo_otro","caratulacion_judicial","antecedentes_id","antecedentes","detenido","lugar_de_alojamiento","defensor_particular","defensoria_nro","fiscalia_juzgado","causa_id_judicial"));
+    return view("detalleimputadovinculo", compact("imputados","imputado","nombre_y_apellido","apodo","tipo_documento_id","tipo_documento_otro","documento_nro","vinculo_victima","vinculo_otro","caratulacion_judicial","antecedentes_id","antecedentes","detenido","lugar_de_alojamiento","defensor_particular","defensoria_nro","fiscalia_juzgado","causa_id_judicial","otra_otra_causa_id_judicial","otra_causa_id_judicial","vinculo_otro_familiar"));
   }
   else{  
          $duplicado=Imputado::find($id)->nombre_y_apellido;
@@ -221,8 +239,9 @@ public function detalle($id) {
 
 'fiscalia_juzgado'=> 'required|min:3|max:255|regex:/^([0-9a-zA-ZñÑ.\s*-])+$/', 
 
-'causa_id_judicial'=>'required|integer|max:2147483646', 
-
+'causa_id_judicial'=>'required|regex:/^([0-9a-zA-ZñÑ.\s*-])+$/',
+'otra_causa_id_judicial'=>'required|regex:/^([0-9a-zA-ZñÑ.\s*-])+$/',
+'otra_otra_causa_id_judicial'=>'required|regex:/^([0-9a-zA-ZñÑ.\s*-])+$/',
     ];
 
 
@@ -241,6 +260,12 @@ public function detalle($id) {
     $validator->sometimes('tipo_documento_otro', "required|min:3|max:255|regex:/^([a-zA-ZñÑ.\s*-])+$/", function ($input) {
       return $input->tipo_documento_id == 9;
             });
+
+
+$validator->sometimes('vinculo_otro_familiar', "required|min:3|max:255|regex:/^([a-zA-ZñÑ.\s*-])+$/", function ($input) {
+      return $input->vinculo_victima == 1;
+                    });
+
 
     $validator->sometimes('vinculo_otro', "required|min:3|max:255|regex:/^([a-zA-ZñÑ.\s*-])+$/", function ($input) {
       return $input->vinculo_victima == 6;
@@ -270,6 +295,7 @@ public function detalle($id) {
       $imputado->documento_nro= $form["documento_nro"];
       $imputado->vinculo_victima= $form["vinculo_victima"];
       $imputado->vinculo_otro= $form["vinculo_otro"];
+      $imputado->vinculo_otro_familiar= $form["vinculo_otro_familiar"];
       $imputado->antecedentes_id= $form["antecedentes_id"]; 
        $imputado->detenido= $form["detenido"];
        $imputado->antecedentes= $form["antecedentes"];
@@ -277,10 +303,14 @@ public function detalle($id) {
       $imputado->caratulacion_judicial=$form["caratulacion_judicial"];
       $imputado->fiscalia_juzgado=$form["fiscalia_juzgado"];
       $imputado->causa_id_judicial= $form["causa_id_judicial"];
+       $imputado->otra_causa_id_judicial= $form["otra_causa_id_judicial"];
+        $imputado->otra_otra_causa_id_judicial= $form["otra_otra_causa_id_judicial"];
       $imputado->defensoria_nro= $form["defensoria_numero"];
       $imputado->idCaso= $form ["idCaso"];
       $imputado->save();
-       return redirect("paneldecontrolvictima/{$imputado->idCaso}#v4");}
+
+
+  return redirect("paneldecontrolvictima/{$imputado->idCaso}#v4");}
 
   public function editarimputado(Request $form) {
   
@@ -295,6 +325,11 @@ public function detalle($id) {
       return $input->vinculo_victima == 6;
     });
 
+
+      $validator->sometimes('vinculo_otro_familiar', 'required|min:3|max:255|regex:/^([a-zA-ZñÑ.\s*-])+$/', function ($input) {
+      return $input->vinculo_victima == 1;
+    });
+
     if ($validator->fails()) {
         return back()
                     ->withErrors($validator)
@@ -302,20 +337,48 @@ public function detalle($id) {
     }
 
 
- $imputado = Imputado::find($form["idImputado"]);
+/* $imputado = Imputado::find($form["idImputado"]);
      
       $imputado->vinculo_victima= $form["vinculo_victima"];
       $imputado->vinculo_otro= $form["vinculo_otro"];
-      
+      $imputado->vinculo_otro_familiar= $form["vinculo_otro_familiar"];      
       $imputado->idCaso= $form ["idCaso"];
-      $imputado->save();
+      $Imputado->userID_create= $form["userID_create"];
+      $Imputado->userID_modify= Auth::id();
+      $imputado->save();*/
+      if ($form["vinculo_victima"] == 1){
      
       $imputado_nuevo = new Imputado_nuevo();      
       $imputado_nuevo->idVictim= session("idVictim");
       $imputado_nuevo->idImputado= $form["idImputado"];
       $imputado_nuevo->vinculo_victima=$form["vinculo_victima"];
+      $imputado_nuevo->vinculo_otro= NULL;
+      $imputado_nuevo->vinculo_otro_familiar= $form["vinculo_otro_familiar"];
+      $imputado_nuevo->idCaso= session("idCaso");
+      $imputado_nuevo->save();}
+
+
+elseif ($form["vinculo_victima"] == 6){
+
+  $imputado_nuevo = new Imputado_nuevo();      
+      $imputado_nuevo->idVictim= session("idVictim");
+      $imputado_nuevo->idImputado= $form["idImputado"];
+      $imputado_nuevo->vinculo_victima=$form["vinculo_victima"];
       $imputado_nuevo->vinculo_otro= $form["vinculo_otro"];
+      $imputado_nuevo->vinculo_otro_familiar= NULL;
+      $imputado_nuevo->idCaso= session("idCaso");
       $imputado_nuevo->save();
+}
+
+ else{
+ $imputado_nuevo = new Imputado_nuevo();      
+      $imputado_nuevo->idVictim= session("idVictim");
+      $imputado_nuevo->idImputado= $form["idImputado"];
+      $imputado_nuevo->vinculo_victima=$form["vinculo_victima"];
+    $imputado_nuevo->idCaso= session("idCaso");
+      $imputado_nuevo->save();
+}
+
 
 
         return redirect("agregarimputado");}

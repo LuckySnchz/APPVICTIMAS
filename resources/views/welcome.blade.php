@@ -87,7 +87,7 @@
 
         <div class="content">
    
-                <h1 class="text-center" style="margin-top: 30%;font-size: 3em">Sistema de asistencia a la víctima</h1>
+                <h1 class="text-center" style="margin-top: -2%;font-size: 3em">Sistema de asistencia a la víctima</h1>
   
             <img class="m-5" src="/img/prov.png" alt=""> @if (Route::has('login'))
             <div class="mt-5">
@@ -96,7 +96,7 @@
                 
                
 
-                <a  style="margin-bottom: 20%;font-size: 2em;margin-left: -10%"class="boton col-l btn btn-secondary" href="{{ route('login') }}">Iniciar sesión</a> {{-- TODAVIA NO VOY
+                <a  style="margin-bottom: 25%;font-size: 2em;margin-left: -10%"class="boton col-l btn btn-secondary" href="{{ route('login') }}">Iniciar sesión</a> {{-- TODAVIA NO VOY
                 A MOSTRAR EL REGISTRATE --}} {{-- <a href="{{ route('register') }}">Registrate</a> --}} @endauth
             </div>
             @endif

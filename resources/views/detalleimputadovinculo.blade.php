@@ -219,15 +219,31 @@
       @else<option value="4" >Conocido</option>@endif
 
       @if($vinculo_victima == 5) <option value="5" selected>Sin vínculo</option>
-      @else<option value="4" >Sin Vínculo</option>@endif
+      @else<option value="5" >Sin Vínculo</option>@endif
 
       @if($vinculo_victima == 6) <option value="6" selected>Otro</option>
       @else<option value="6" >Otro</option>@endif
 
       @if($vinculo_victima == 7) <option value="7" selected>Se desconoce</option>
       @else<option value="7" >Se desconoce</option>@endif
+
+      @if($vinculo_victima == 8) <option value="8" selected>Ex-Pareja</option>
+      @else<option value="8" >Ex-Pareja</option>@endif
   </select>
   {!! $errors->first('vinculo_id', '<p class="help-block" style="color:red";>:message</p>') !!}
+  </div>
+
+
+@if(old("vinculo_victima") == 1)
+    <div id="cualE4_familiar" {{ $errors->has('vinculo_otro_familiar') ? 'has-error' : ''}}>
+  @else
+    <div id="cualE4_familiar" style="display: none">
+  @endif
+
+  <label for="vinculo_otro_familiar">Especificar Vínculo Familar?</label>
+  <input type="text" class="form-control vinculo_otro_familiar" name="vinculo_otro_familiar" id="vinculo_otro_familiar" 
+  value="{{$vinculo_otro_familiar}}">
+  {!! $errors->first('vinculo_otro_familiar', '<p class="help-block" style="color:red";>:message</p>') !!}
   </div>
 
   @if($vinculo_victima == 6||$errors->has('vinculo_otro'))
@@ -248,6 +264,14 @@
               divCcc = document.getElementById("vinculo_victima");
        divCcc.style.backgroundColor = 'white';
            }
+                                    if (sel.value=="1"){
+                                       divC = document.getElementById("cualE4_familiar");
+                                       divC.style.display = "";
+                                   }else{
+                                       divC = document.getElementById("cualE4_familiar");
+                                       $('#vinculo_otro_familiar').val('');
+                                       divC.style.display="none";
+                                   }
                      							 if (sel.value=="6"){
                      									 divC = document.getElementById("cualE4");
                      									 divC.style.display = "";
@@ -448,13 +472,82 @@
  {!! $errors->first('fiscalia_juzgado', '<p class="help-block" style="color:red";>:message</p>') !!}
   </div>
 
-<!-E12 Causa o Id Judicial->
+<!-E12I Causa o Id Judicial->
 
   <div class="form-group "{{ $errors->has('causa_id_judicial') ? 'has-error' : ''}}>
-         <label for="causa_id_judicial">E 12. N° Causa o Id Judicial:</label>
-         <input disabled type="text" class="form-control" name="causa_id_judicial" value="{{$causa_id_judicial}}">
+         <label for="causa_id_judicial">E 12 I. N° Causa o Id Judicial:</label>
+         <input disabled  type="text" class="form-control" name="causa_id_judicial" id="causa_id_judicial"value="{{$causa_id_judicial}}">
+  
+
+
+<label for="bloqueo12I" class="form-check-label">Se desconoce</label>
+  <input disabled  type="checkbox" id="bloqueo12I" name="causa_id_judicial" value="Se desconoce" onchange="checkE12I(this)">
     {!! $errors->first('causa_id_judicial', '<p class="help-block" style="color:red";>:message</p>') !!}
   </div>
+      <script>
+                     function checkE12I(checkbox)
+                     {
+                         if (checkbox.checked)
+                             {
+                                 $('#causa_id_judicial').val('Se desconoce');
+                                 document.getElementById('causa_id_judicial').setAttribute("readonly", "readonly");
+                             }else
+                                 {
+                                     $('#causa_id_judicial').val('');
+                                     document.getElementById('causa_id_judicial').removeAttribute("readonly");
+                                 }
+                     }
+                  </script>
+
+<!-E12 II Causa o Id Judicial->
+
+  <div class="form-group "{{ $errors->has('otra_causa_id_judicial') ? 'has-error' : ''}}>
+         <label for="otra_causa_id_judicial">E 12 II. N° Causa o Id Judicial:</label>
+         <input disabled  type="text" class="form-control" name="otra_causa_id_judicial" id="otra_causa_id_judicial" value="{{$otra_causa_id_judicial}}">
+ <label for="bloqueo12II" class="form-check-label">Se desconoce</label>
+
+  <input disabled  type="checkbox" id="bloqueo12II" name="otra_causa_id_judicial" value="Se desconoce" onchange="checkE12II(this)">
+    {!! $errors->first('otra_causa_id_judicial', '<p class="help-block" style="color:red";>:message</p>') !!}
+  </div>
+      <script>
+                     function checkE12II(checkbox)
+                     {
+                         if (checkbox.checked)
+                             {
+                                 $('#otra_causa_id_judicial').val('Se desconoce');
+                                 document.getElementById('otra_causa_id_judicial').setAttribute("readonly", "readonly");
+                             }else
+                                 {
+                                     $('#otra_causa_id_judicial').val('');
+                                     document.getElementById('otra_causa_id_judicial').removeAttribute("readonly");
+                                 }
+                     }
+                  </script>
+
+<!-E12 III Causa o Id Judicial->
+
+  <div class="form-group "{{ $errors->has('otra_otra_causa_id_judicial') ? 'has-error' : ''}}>
+         <label for="otra_otra_causa_id_judicial">E 12 III. N° Causa o Id Judicial:</label>
+         <input disabled  type="text" class="form-control" name="otra_otra_causa_id_judicial" id="otra_otra_causa_id_judicial" value="{{$otra_otra_causa_id_judicial}}">
+         <label for="bloqueo12I" class="form-check-label">Se desconoce</label>
+     <input disabled  type="checkbox" id="bloqueo12III" name="otra_otra_causa_id_judicial" value="Se desconoce" onchange="checkE12III(this)">
+    {!! $errors->first('otra_otra_causa_id_judicial', '<p class="help-block" style="color:red";>:message</p>') !!}
+  </div>
+      <script>
+                     function checkE12III(checkbox)
+                     {
+                         if (checkbox.checked)
+                             {
+                                 $('#otra_otra_causa_id_judicial').val('Se desconoce');
+                                 document.getElementById('otra_otra_causa_id_judicial').setAttribute("readonly", "readonly");
+                             }else
+                                 {
+                                     $('#otra_otra_causa_id_judicial').val('');
+                                     document.getElementById('otra_otra_causa_id_judicial').removeAttribute("readonly");
+                                 }
+                     }
+                  </script>
+
 </div>
 </div>
 

@@ -9,6 +9,12 @@ use App\Necesidad;
 use App\Programa;
 use App\Limitacion;
 use App\Discapacidad;
+use App\Intervencion;
+use App\Persona;
+use App\Conviviente;
+use App\Imputado;
+
+
 use Validator;
 
 class VictimController extends Controller
@@ -27,6 +33,8 @@ public function agregar(Request $form){
   "genero"=>"required|integer",
   "victima_fecha_nacimiento"=> "required|date_format:Y-m-d|before:$hoy|after:1899-12-31",
   'telefono_victima'=>'required|regex:/^([0-9-])+$/',
+  'domicilio_victima_asistida'=>'required|min:3|max:255|regex:/^([0-9a-zA-ZñÑ.\s*-])+$/',
+  'localidad_hecho'=> 'required',
   'otro_telefono_victima'=>'required|regex:/^([0-9-])+$/',
   "victima_edad"=>"required|integer",
   "franjaetaria"=>"required",
@@ -129,6 +137,8 @@ public function agregar(Request $form){
     $victim->victima_nombre_y_apellido= $form ["victima_nombre_y_apellido"];
     $victim->telefono_victima= $form ["telefono_victima"];
     $victim->otro_telefono_victima= $form ["otro_telefono_victima"];
+    $victim->domicilio_victima_asistida=$form["domicilio_victima_asistida"]; 
+    $victim->localidad_hecho=$form["localidad_hecho"];
     $victim->genero= $form ["genero"];
     $victim->victima_fecha_nacimiento= $form ["victima_fecha_nacimiento"];
     $victim->victima_edad= $form ["victima_edad"];
@@ -201,6 +211,39 @@ public function agregar(Request $form){
       }
 
       public function eliminarvictima($id) {
+
+    $Intervenciones=Intervencion::all();
+       foreach ($Intervenciones as $Intervencion) {
+         if($Intervencion->idVictim==$id){
+   
+                $Intervencion->delete();
+         }
+       }
+
+       $Personas=Persona::all();
+       foreach ($Personas as $Persona) {
+         if($Persona->idVictim==$id){
+   
+                $Persona->delete();
+         }
+       }
+
+         $Convivientes=Conviviente::all();
+       foreach ($Convivientes as $Conviviente) {
+         if($Conviviente->idVictim==$id){
+   
+                $Conviviente->delete();
+         }
+       }
+
+         $Imputados=Imputado::all();
+       foreach ($Imputados as $Imputado) {
+         if($Imputado->idVictim==$id){
+   
+                $Imputado->delete();
+         }
+       }
+
          $victimaelim=Victim::find($id)->getIdCaso();
         $victima = Victim::find($id);
         $victima->delete();
@@ -216,6 +259,8 @@ public function agregar(Request $form){
         $victim->victima_nombre_y_apellido= $form ["victima_nombre_y_apellido"];
         $victim->telefono_victima= $form ["telefono_victima"];
         $victim->otro_telefono_victima= $form ["otro_telefono_victima"];
+        $victim->domicilio_victima_asistida=$form["domicilio_victima_asistida"];
+        $victim->localidad_hecho=$form["localidad_hecho"];
         $victim->genero= $form ["genero"];
         $victim->victima_fecha_nacimiento= $form ["victima_fecha_nacimiento"];
         $victim->victima_edad= $form ["victima_edad"];

@@ -26,9 +26,7 @@
 <br>
 <h4 style="text-align: center"> Agregar Casos, Incidencias o Derivaciones</h4>
 <br>
-<div class="alert alert-danger">
-  <a href="https://docs.google.com/document/d/1rg4RCh0M84-GbQgQ9vI_btGZWzgfO-U22FjL29Yf2xQ/edit?usp=sharing"style="margin-left: 38%;font-size: 1.5em;color: black">Preguntas Frecuentes?</a>
-  </div>
+
 @if(session()->has('message'))
     <div class="alert alert-success">
         {{ session()->get('message') }}
@@ -37,7 +35,7 @@
 
 
           
- @if(Auth::user()->getId()==15||Auth::user()->getId()==16||Auth::user()->getId()==27||Auth::user()->getId()==110||Auth::user()->getId()==111)
+ @if(Auth::user()->getId()==111)
    <div class="list-group">
      <a href="agregarCaso" target="_self" class="list-group-item list-group-item-action flex-column align-items-start active">
        <div class="d-flex w-100 justify-content-between">
@@ -151,7 +149,7 @@
       <li class="list-inline-item"><a href='/paneldecontrolcaso/{{$caso->id}}' class="mr-3"><i class="fas fa-envelope mr-1"></i>Editar</a></li>
       <li class="list-inline-item"><a href='/informe/{{$caso->id}}' class="mr-3"><i class="fas fa-user mr-1"></i>Informe</a></li>
 
-      <li class="list-inline-item"><a href='/agregarnuevaIntervencionvictima/{{$caso->id}}' class="mr-3"><i class="fas fa-rss mr-1"></i>Agregar intervención</a></li>
+      <li class="list-inline-item"><a href='/agregarnuevaintervencionvictima/{{$caso->id}}' class="mr-3"><i class="fas fa-rss mr-1"></i>Agregar intervención</a></li>
     </ul>
    
     <div class="row media mt-2 px-1">
@@ -381,7 +379,7 @@
       <li class="list-inline-item"><a href='/paneldecontrolcaso/{{$caso->id}}' class="mr-3"><i class="fas fa-envelope mr-1"></i>Editar</a></li>
       <li class="list-inline-item"><a href='/informe/{{$caso->id}}' class="mr-3"><i class="fas fa-user mr-1"></i>Informe</a></li>
    
-      <li class="list-inline-item"><a href='/agregarnuevaIntervencionvictima/{{$caso->id}}' class="mr-3"><i class="fas fa-rss mr-1"></i>Agregar intervención</a></li>
+      <li class="list-inline-item"><a href='/agregarnuevaintervencionvictima/{{$caso->id}}' class="mr-3"><i class="fas fa-rss mr-1"></i>Agregar intervención</a></li>
     </ul>
    
     <div class="row media mt-2 px-1">
@@ -408,7 +406,7 @@
     <!--<ul class="list-unstyled list-inline mb-0">
       <li class="list-inline-item"><a href='/paneldecontrolcaso/{{$caso->id}}' class="mr-3"><i class="fas fa-envelope mr-1"></i>Editar</a></li>
       <li class="list-i}line-item"><a href='/informe/{{$caso->id}}' class="mr-3"><i class="fas fa-user mr-1"></i>Informe</a></li>
-      <li class="list-inline-item"><a href='/agregarnuevaIntervencion/{{$caso->id}}' class="mr-3"><i class="fas fa-rss mr-1"></i>Agregar intervención</a></li>
+      <li class="list-inline-item"><a href='/agregarnuevaintervencion/{{$caso->id}}' class="mr-3"><i class="fas fa-rss mr-1"></i>Agregar intervención</a></li>
     </ul>
     </div>
     <div class="row media mt-2 px-1">
@@ -452,7 +450,7 @@
       <li class="list-inline-item"><a href='/paneldecontrolcaso/{{$caso->id}}' class="mr-3"><i class="fas fa-envelope mr-1"></i>Editar</a></li>
       <li class="list-inline-item"><a href='/informe/{{$caso->id}}' class="mr-3"><i class="fas fa-user mr-1"></i>Informe</a></li>
   
-      <li class="list-inline-item"><a href='/agregarnuevaIntervencionvictima/{{$caso->id}}' class="mr-3"><i class="fas fa-rss mr-1"></i>Agregar intervención</a></li>
+      <li class="list-inline-item"><a href='/agregarnuevaintervencionvictima/{{$caso->id}}' class="mr-3"><i class="fas fa-rss mr-1"></i>Agregar intervención</a></li>
     </ul>
    
     <div class="row media mt-2 px-1">
@@ -502,7 +500,7 @@
       <li class="list-inline-item"><a href='/paneldecontrolcaso/{{$caso->id}}' class="mr-3"><i class="fas fa-envelope mr-1"></i>Editar</a></li>
       <li class="list-inline-item"><a href='/informe/{{$caso->id}}' class="mr-3"><i class="fas fa-user mr-1"></i>Informe</a></li>
    
-      <li class="list-inline-item"><a href='/agregarnuevaIntervencionvictima/{{$caso->id}}' class="mr-3"><i class="fas fa-rss mr-1"></i>Agregar intervención</a></li>
+      <li class="list-inline-item"><a href='/agregarnuevaintervencionvictima/{{$caso->id}}' class="mr-3"><i class="fas fa-rss mr-1"></i>Agregar intervención</a></li>
     </ul>
    
     <div class="row media mt-2 px-1">
@@ -540,7 +538,7 @@
       <li class="list-inline-item"><a href='/paneldecontrolcaso/{{$caso->id}}' class="mr-3"><i class="fas fa-envelope mr-1"></i>Editar</a></li>
       <li class="list-inline-item"><a href='/informe/{{$caso->id}}' class="mr-3"><i class="fas fa-user mr-1"></i>Informe</a></li>
 
-      <li class="list-inline-item"><a href='/agregarnuevaIntervencionvictima/{{$caso->id}}' class="mr-3"><i class="fas fa-rss mr-1"></i>Agregar intervención</a></li>
+      <li class="list-inline-item"><a href='/agregarnuevaintervencionvictima/{{$caso->id}}' class="mr-3"><i class="fas fa-rss mr-1"></i>Agregar intervención</a></li>
     </ul>
    
     <div class="row media mt-2 px-1">

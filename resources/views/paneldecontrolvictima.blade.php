@@ -34,7 +34,7 @@ session_start();
          <section class="container jumbotron shadow p-3 mb-5 bg-white rounded"style="height: 120px" >
     
 <br><br>
-              <strong> <a type="button"  href="/paneldecontrolcaso/{{$caso->id}}" target="_self" style="width:100%; color:white;background-color:rgb(137, 210, 14);margin-bottom: -5%;margin-top: -12%;margin-left: 0.1%;color: black" class="btn col-XL" class="btn btn-danger">IR A CASO</button> </a></strong>
+              <strong> <a type="button"  href="/paneldecontrolcaso/{{$caso->id}}" target="_self" style="width:100%; color:white;background-color:rgb(137, 210, 14);margin-bottom: -5%;margin-top: -8%;margin-left: 0.1%;color: black" class="btn col-XL" class="btn btn-danger">IR A CASO</button> </a></strong>
               <br><br>
 
                 
@@ -169,8 +169,6 @@ session_start();
 
 @foreach($victimas as $victima)
 
-
-
  @if($victima->idCaso==session("idCaso")&&$victima->id==session("idVictim"))
 
   <div class="container jumbotron shadow p-3 mb-5 bg-white rounded" style="max-width: 80%;margin-top: 5%;text-align: center">
@@ -225,6 +223,124 @@ session_start();
           @endforeach
            </div>
            
+
+
+ 
+
+
+    <form class="" action="/agregarnuevaintervencionvictimapanel" method="post">
+      {{csrf_field()}}
+    <input type="hidden" name="idCaso" value="{{session("idCaso")}}">
+       <input type="hidden" name="idVictim" value="{{session("idVictim")}}">
+
+
+
+
+
+
+ <!-VICTIMA SELECCIONADA>
+ @foreach($victimas as $victima)
+
+ @if($victima->idCaso==session("idCaso")&&$victima->id==session("idVictim"))
+<div class="container jumbotron shadow p-3 mb-5 bg-white rounded" style="max-width: 80%;margin-top: 5%;text-align: center">
+  <strong><h4 class="text-center" style="height: 1%;color:white;background-color: black;max-width: 100%">Realizar Intervenciones:</h4></strong>
+
+
+
+   <a name="Ancla" id="victima"></a>
+ 
+  <strong> <label style="text-decoration: underline;margin-left: -1%;color: red;text-decoration: underline;">Víctima Seleccionada: </label></strong>
+
+
+ @foreach($victimas as $victima)
+
+          @if($victima->id==session("idVictim"))
+  <strong style="color:red"> {{$victima->victima_nombre_y_apellido}}</strong>
+
+@endif
+@endforeach
+
+    <div class="form-group" {{ $errors->has('fecha_intervencion') ? 'has-error' : ''}}>
+     <strong> <label>Fecha intervención: </label></strong>
+      <input type="date" name="fecha_intervencion" class="form-control" value="{{old("fecha_intervencion")}}">
+      {!! $errors->first('fecha_intervencion', '<p class="help-block" style="color:red";>:message</p>') !!}
+      </div>    
+
+      <div class="form-group" {{ $errors->has('detalle_intervencion') ? 'has-error' : ''}}">
+       <strong><label for="detalle_intervencion">Detalle intervención:</label></strong> 
+
+<textarea class="form-control" id="detalle_intervencion" name="detalle_intervencion">{{old('detalle_intervencion')}}</textarea>
+
+        
+        {!! $errors->first('detalle_intervencion', '<p class="help-block" style="color:red";>:message</p>') !!}</div>
+   
+  <div class="btn-1" > <button class="btn btn-primary col-xl" name="button"  style="width:100%;margin-left: -0.1%" >Agregar/Enviar</button><br><br><br><br>
+
+</div>
+
+@endif
+@endforeach
+
+ 
+    </div>
+  </div>
+
+
+
+<!BOTONES>
+<!-MOSTRAR INTERVENCIONES CORRESPONDIENTES A ESTA VICTIMA>
+
+ @foreach($victimas as $victima)
+
+ @if($victima->idCaso==session("idCaso")&&$victima->id==session("idVictim"))
+
+
+ <div class="container jumbotron shadow p-3 mb-5 bg-white rounded" style="max-width: 80%;margin-top: 5%;text-align: center">
+  <strong><h4 class="text-center" style="height: 1%;color:white;background-color: black;max-width: 100%">Intervenciones Realizadas:</h4></strong>
+ @foreach($intervenciones as $intervencion)
+     @if ($intervencion->idCaso == session("idCaso"))
+       <li style="list-style: none">
+
+ <strong ><label for="detalle_intervencion" style="text-decoration: underline;color: red">Víctima Intervenida:</label></strong> 
+ @foreach($victimas as $victima)
+ @if($victima->id==$intervencion->idVictim)
+{{$victima->victima_nombre_y_apellido}}
+@endif
+@endforeach
+
+  <input type="date" class="form-control" id="victima_fecha_nacimiento" disabled name="victima_fecha_nacimiento" value="{{$intervencion->fecha_intervencion}}"><br>
+
+ <textarea class="form-control" disabled > {{$intervencion->detalle_intervencion}}</textarea><br>
+         
+   <strong> <a  style="color:black; margin-left: -3%" href="/detallenuevaintervencionpanel/{{$intervencion->id}}" target="_self">Editar</a></strong>         
+ <strong> <a  style="color:red"  onclick="return confirm('Deseas eliminar esta Intercención?')" href="/eliminarnuevaintervencionpanel/{{$intervencion->id}}" target="_self">Eliminar</a></strong>
+  <p>_____________________________________________________________________________________________________________</p>
+
+       </li>
+     @endif
+ @endforeach
+     @endif
+ @endforeach
+</div>
+  
+      </form>
+
+</div>
+<script type="text/javascript">
+ function mostrar(){
+document.getElementById('victima').style.display = '';
+}
+</script>
+
+
+
+
+
+
+
+
+
+
 
  <a name="Ancla" id="v2"></a>
  @foreach($victimas as $victima)
@@ -281,13 +397,6 @@ session_start();
 
    <a type="button" onclick="return confirm('Deseas eliminar a {{$persona->nombre_persona_asistida}}?')" href="/eliminarpersona/{{$persona->id}}" target="_self" style="width:100%;color:black;border: solid black 1px" class="btn btn-danger">Eliminar</button> </a><br><br>
   
-
-      
-
-
-
-
-
 
                   
                   @endif

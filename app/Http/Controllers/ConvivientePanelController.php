@@ -24,6 +24,11 @@ class ConvivientePanelController extends Controller
 
     $validator = Validator::make($form->all(), $reglas);
 
+       $validator->sometimes('vinculo_otro_familiar', 'required|min:3|max:255|regex:/^([a-zA-ZñÑ.\s*-])+$/', function ($input) {
+      return $input->vinculo_victima == 1;
+    });
+
+
     $validator->sometimes('vinculo_otro', 'required|min:3|max:255|regex:/^([a-zA-ZñÑ.\s*-])+$/', function ($input) {
       return $input->vinculo_victima == 6;
     });
@@ -40,6 +45,7 @@ class ConvivientePanelController extends Controller
     $conviviente->edad= $form["edad_conviviente"];
     $conviviente->vinculo_victima= $form["vinculo_victima"];
     $conviviente->vinculo_otro= $form["vinculo_otro"];
+    $conviviente->vinculo_otro_familiar= $form["vinculo_otro_familiar"];
     $conviviente->niveleducativo_id= $form["niveleducativo_id"];
     $conviviente->condiciones_de_trabajo= $form["condiciones_de_trabajo"];
 
@@ -48,9 +54,28 @@ class ConvivientePanelController extends Controller
     $conviviente->idCaso= $form ["idCaso"];
 
              $conviviente->save();
-             return redirect("paneldecontrolvictima/{$conviviente->idCaso}#v3");}
 
 
+$convivientes_nuevos=Conviviente_nuevo::all();
+    foreach($convivientes_nuevos as $conviviente_nuevo){
+
+if($conviviente_nuevo->idVictim==session("idVictim")&&$conviviente_nuevo->idConviviente==session("idConviviente")){
+
+$conviviente_nuevo->delete();
+    }}
+ 
+    
+       $imputado_nuevo = new Imputado_nuevo();
+
+       $imputado_nuevo->idVictim= session("idVictim");
+       $imputado_nuevo->idImputado= $form["idImputado"];
+       $imputado_nuevo->vinculo_victima=$form["vinculo_victima"];
+       $imputado_nuevo->vinculo_otro=$form["vinculo_otro"];
+       $imputado_nuevo->vinculo_otro_familiar=$form["vinculo_otro_familiar"];
+
+       $imputado_nuevo->save();
+
+return redirect("paneldecontrolvictima/{$conviviente->idCaso}#v3");}
 
 
 public function vinculoconviviente(request $form) {
@@ -62,6 +87,10 @@ public function vinculoconviviente(request $form) {
 
     $validator = Validator::make($form->all(), $reglas);
 
+    $validator->sometimes('vinculo_otro_familiar', 'required|min:3|max:255|regex:/^([a-zA-ZñÑ.\s*-])+$/', function ($input) {
+      return $input->vinculo_victima == 1;
+    });
+
     $validator->sometimes('vinculo_otro', 'required|min:3|max:255|regex:/^([a-zA-ZñÑ.\s*-])+$/', function ($input) {
       return $input->vinculo_victima == 6;
     });
@@ -72,18 +101,18 @@ public function vinculoconviviente(request $form) {
                     ->withInput();
     }
 
-    $conviviente = Conviviente::find(session("idConviviente"));
+   /* $conviviente = Conviviente::find(session("idConviviente"));
 
    
     $conviviente->vinculo_victima= $form["vinculo_victima"];
     $conviviente->vinculo_otro= $form["vinculo_otro"];
-    
+    $conviviente->vinculo_otro_familiar= $form["vinculo_otro_familiar"];
     $conviviente->userID_modify= Auth::id();
 
     $conviviente->idCaso= $form ["idCaso"];
 
-             $conviviente->save();
-
+             $conviviente->save();*/
+ if ($form["vinculo_victima"] == 1){
       $conviviente_nuevo = new Conviviente_nuevo();
 
 
@@ -91,12 +120,41 @@ public function vinculoconviviente(request $form) {
       $conviviente_nuevo->idVictim= session("idVictim");
       $conviviente_nuevo->idConviviente= $form["idConviviente"];
       $conviviente_nuevo->vinculo_victima=$form["vinculo_victima"];
-      $conviviente_nuevo->vinculo_otro= $form["vinculo_otro"];
-
+      $conviviente_nuevo->vinculo_otro= NULL;
+      $conviviente_nuevo->vinculo_otro_familiar= $form["vinculo_otro_familiar"];
+      $conviviente_nuevo->idCaso= session("idCaso");
       $conviviente_nuevo->save();
 
 
         return redirect("agregarconviviente");}
+
+
+ if ($form["vinculo_victima"] == 6){
+      $conviviente_nuevo = new Conviviente_nuevo();
+      $conviviente_nuevo->idVictim= session("idVictim");
+      $conviviente_nuevo->idConviviente= $form["idConviviente"];
+      $conviviente_nuevo->vinculo_victima=$form["vinculo_victima"];
+      $conviviente_nuevo->vinculo_otro= $form["vinculo_otro"];
+      $conviviente_nuevo->vinculo_otro_familiar= NULL;
+     $conviviente_nuevo->idCaso= session("idCaso");
+      $conviviente_nuevo->save();
+
+
+        return redirect("agregarconviviente");}
+
+else{
+      $conviviente_nuevo = new Conviviente_nuevo();
+      $conviviente_nuevo->idVictim= session("idVictim");
+      $conviviente_nuevo->idConviviente= $form["idConviviente"];
+      $conviviente_nuevo->vinculo_victima=$form["vinculo_victima"];
+      $conviviente_nuevo->idCaso= session("idCaso");
+      $conviviente_nuevo->save();
+
+
+        return redirect("agregarconviviente");}
+
+
+      }
         
 
 
@@ -109,11 +167,12 @@ public function vinculoconviviente(request $form) {
       $edad_conviviente=$conviviente->edad;
       $vinculo_victima=$conviviente->vinculo_victima;
       $vinculo_otro=$conviviente->vinculo_otro;
+      $vinculo_otro_familiar=$conviviente->vinculo_otro_familiar;
       $niveleducativo_id=$conviviente->niveleducativo_id;
       $condiciones_de_trabajo=$conviviente->condiciones_de_trabajo;
  if(Conviviente_nuevo::where("idVictim",session("idVictim"))->where("idConviviente",$id)->count()==0){
 
-      return view("detalleconvivientevinculo", compact("conviviente","convivientes","nombre_y_apellido","edad_conviviente","vinculo_victima","vinculo_otro","niveleducativo_id","condiciones_de_trabajo"));
+      return view("detalleconvivientevinculo", compact("conviviente","convivientes","nombre_y_apellido","edad_conviviente","vinculo_victima","vinculo_otro","vinculo_otro_familiar","niveleducativo_id","condiciones_de_trabajo"));
     }
 else{
           $duplicado=Conviviente::find($id)->nombre_y_apellido;
@@ -130,14 +189,16 @@ public function detalle($id) {
       $convivientes=Conviviente::all();
       $conviviente = Conviviente::find($id);
       session(["idConviviente" => $id]);
+      $victim_ra=Conviviente_nuevo::all();
       $nombre_y_apellido=$conviviente->nombre_y_apellido;
       $edad_conviviente=$conviviente->edad;
       $vinculo_victima=$conviviente->vinculo_victima;
       $vinculo_otro=$conviviente->vinculo_otro;
+      $vinculo_otro_familiar=$conviviente->vinculo_otro_familiar;
       $niveleducativo_id=$conviviente->niveleducativo_id;
       $condiciones_de_trabajo=$conviviente->condiciones_de_trabajo;
 
-      return view("detalleconviviente", compact("conviviente","convivientes","nombre_y_apellido","edad_conviviente","vinculo_victima","vinculo_otro","niveleducativo_id","condiciones_de_trabajo"));
+      return view("detalleconviviente", compact("conviviente","convivientes","nombre_y_apellido","edad_conviviente","vinculo_victima","vinculo_otro","vinculo_otro_familiar","niveleducativo_id","condiciones_de_trabajo","victim_ra"));
     
         }
 
@@ -166,6 +227,10 @@ public function detalle($id) {
     return $input->agregar_conviviente == 1 || $input->cantVictimas ==1;
           });
 
+
+ $validator->sometimes('vinculo_otro_familiar', "required|min:3|max:255|regex:/^([a-zA-ZñÑ.\s*-])+$/", function ($input) {
+      return $input->vinculo_victima == 1;
+    }); 
     $validator->sometimes('vinculo_otro', "required|min:3|max:255|regex:/^([a-zA-ZñÑ.\s*-])+$/", function ($input) {
       return $input->vinculo_victima == 6;
     });
@@ -190,13 +255,13 @@ public function detalle($id) {
     } else {
 
 
-
-    $conviviente = new Conviviente();
+ $conviviente = new Conviviente();
 
     $conviviente->nombre_y_apellido= $form["nombre_y_apellido"];
     $conviviente->edad= $form["edad"];
     $conviviente->vinculo_victima= $form["vinculo_victima"];
     $conviviente->vinculo_otro= $form["vinculo_otro"];
+     $conviviente->vinculo_otro_familiar= $form["vinculo_otro_familiar"];
     $conviviente->niveleducativo_id= $form["niveleducativo_id"];
     $conviviente->condiciones_de_trabajo= $form["condiciones_de_trabajo"];
     $conviviente->userID_create= Auth::id();
@@ -207,7 +272,7 @@ public function detalle($id) {
 
     $conviviente->save();
 
-    $conviviente->victims()->attach($form ["idVictim"], array("vinculo_victima"=> $form ["vinculo_victima"],"vinculo_otro"=> $form ["vinculo_otro"]));
+    $conviviente->victims()->attach($form ["idVictim"],array("vinculo_victima"=> $form ["vinculo_victima"],"vinculo_otro"=> $form ["vinculo_otro"],"vinculo_otro_familiar"=> $form ["vinculo_otro_familiar"],"idCaso"=> session("idCaso")));
 
 
  return redirect("paneldecontrolvictima/{$conviviente->idCaso}#v3");

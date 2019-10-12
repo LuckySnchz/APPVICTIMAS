@@ -49,7 +49,7 @@ $validator->sometimes('nombre_profesional_interviniente_otro', 'required|regex:/
                   ->withErrors($validator)
                   ->withInput();
   }
-
+$hoy = date("d-m-Y");
   $profesional= new Profesional( );
 
   $profesional->nombre_profesional_interviniente= $form [ "nombre_profesional_interviniente"];
@@ -67,7 +67,7 @@ $validator->sometimes('nombre_profesional_interviniente_otro', 'required|regex:/
     $count=Profesional::where("idCaso",session("idCaso"))->where("nombre_profesional_interviniente",Auth::id())->count();
 
 
-if($count==0){$profesional->casos()->attach($form ["idCaso"], array("nombre_profesional_interviniente"=> Auth::id()));}
+if($count==0){$profesional->casos()->attach($form ["idCaso"], array("nombre_profesional_interviniente"=> Auth::id(),"desde_profesional_interviniente"=> $hoy, "actual_profesional_interviniente"=> "1"));}
 
 
   return redirect ("agregarProfesional");

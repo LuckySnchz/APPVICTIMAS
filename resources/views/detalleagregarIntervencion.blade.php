@@ -28,7 +28,7 @@
 
     <section class="container" >
 
-    <form class="" action="/detalleagregarIntervencion" method="post">
+    <form class="" action="/detalleagregarintervencion" method="post">
       {{csrf_field()}}
     <input type="hidden" name="idCaso" value="{{session("idCaso")}}">
 
