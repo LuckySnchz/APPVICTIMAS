@@ -199,7 +199,7 @@ session_start();
     <ul><li>  
   @if($instituciocount==0)
 
-  <a type="button" href="/agregarOrganismo" target="_self" style="width:100%;
+  <a type="button" href="/detalleagregarOrganismo" target="_self" style="width:100%;
   color:black;border: solid black 1px;background-color:grey;" class="btn btn-danger">Agregar</button> </a><br><br>
 
 @endif

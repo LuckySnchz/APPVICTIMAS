@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Persona;
 use App\Persona_nueva;
 use App\Victim;
+use App\Caso;
+use App\Institucion;
 use Validator;
 
 class PersonaPanelController extends Controller
@@ -25,15 +27,29 @@ $telefono_persona_asistida=$persona->telefono_persona_asistida;
 $otro_telefono_persona_asistida=$persona->otro_telefono_persona_asistida;
 $domicilio_persona_asistida=$persona->domicilio_persona_asistida;
 $localidad_persona_asistida=$persona->localidad_persona_asistida;
-
+$victim_pa=Persona_nueva::all();
 if(Persona_nueva::where("idVictim",session("idVictim"))->where("idPersona",$id)->count()==0){
    
-   return view("detallepersonavinculo", compact("persona","personas","nombre_persona_asistida","vinculo_victima","vinculo_otro","telefono_persona_asistida","domicilio_persona_asistida","localidad_persona_asistida","otro_telefono_persona_asistida","vinculo_otro_familiar",));
+   return view("detallepersonavinculo", compact("persona","personas","nombre_persona_asistida","vinculo_victima","vinculo_otro","telefono_persona_asistida","domicilio_persona_asistida","localidad_persona_asistida","otro_telefono_persona_asistida","vinculo_otro_familiar","victim_pa"));
     }
 else{
-          $duplicado=Persona::find($id)->nombre_persona_asistida;
-         return view("duplicarreferente",compact("duplicado"));
-        
+          //$duplicado=Persona::find($id)->nombre_persona_asistida;
+         //return view("duplicarreferente",compact("duplicado"));
+
+
+$personas = Persona::all();
+  $personas_nuevas = Persona_nueva::all();
+    $casoActual = Caso::find(session("idCaso"));
+    $victimActual = Victim::find(session("idVictim"));
+  $casoActualenPersona =Persona::where("idCaso",session("idCaso"))->count();
+  $cantVictimas = Victim::where("idCaso",session("idCaso"))->count();
+  $cantdePersonas = Persona::where("idCaso",session("idCaso"))->count();
+
+  $instituciones = Institucion::all();
+  $institucionnav= Institucion::where("idCaso",session("idCaso"))->count();
+  $clave=0;
+return view("agregarPersona",compact("casoActual","cantVictimas","casoActualenPersona","victimActual","personas","instituciones","institucionnav","cantdePersonas","personas_nuevas","clave"))->with('message','Selecciona Caso, Incicencias, Derivaciones o BUSQUEDA GENERAL!');
+
 
 
 

@@ -188,6 +188,22 @@ return view("agregarOrganismo", compact("oprevios","oarticulas","socioeconomicos
 })->middleware('auth');
 Route::post("/agregarOrganismo","InstitucionController@agregar")->middleware('auth');
 
+
+Route::get("/detalleagregarOrganismo",function(){
+  $oprevios = App\Oprevio::all();
+  $casoActual = App\Caso::find(session("idCaso"));
+  $victimActual = App\Victim::find(session("idVictim"));
+  $oarticulas = App\Oarticula::all();
+  $socioeconomicos = App\Socioeconomico::all();
+  $departamentos = App\Departamento::all();
+
+ $victims= App\Victim::all();
+  $instituciones = App\Institucion::all();
+  $asistencias = App\Asistencia::all();
+return view("detalleagregarOrganismo", compact("oprevios","oarticulas","socioeconomicos","victims","departamentos","instituciones","asistencias","casoActual","victimActual"));
+})->middleware('auth');
+Route::post("/detalleagregarOrganismo","InstitucionPanelController@agregar")->middleware('auth');
+
 //G-DOCUMENTOS//
 
 Route::get("/agregarDocumento",function(){

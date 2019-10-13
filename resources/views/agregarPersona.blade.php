@@ -180,6 +180,10 @@
       <label for="">C 2. Tipo de vínculo con la víctima: </label>
       <select class="form-control" name="vinculo_victima" value="{{old("vinculo_victima")}}" id="vinculo_victima" onChange="selectOnChangeA14II(this)">
            <option value="" selected=disabled>Seleccionar...</option>
+
+              @if(old("vinculo_victima")==5)
+              <option value="5" selected >Ex-Pareja</option>
+              @else<option value="5" >Ex-Pareja</option>@endif
               @if(old("vinculo_victima")==1)
               <option value="1" selected >Familiar</option>
               @else <option value="1">Familiar</option>@endif
@@ -196,9 +200,7 @@
               <option value="4" selected >Otro</option>
               @else<option value="4" >Otro</option>@endif
 
-              @if(old("vinculo_victima")==5)
-              <option value="5" selected >Ex-Pareja</option>
-              @else<option value="5" >Ex-Pareja</option>@endif
+              
 
               </select>
       {!! $errors->first('vinculo_victima', '<p class="help-block" style="color:red";>:message</p>') !!}

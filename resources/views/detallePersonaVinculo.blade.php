@@ -79,57 +79,62 @@
         </script>
 
 <!-A14II Tipo de vínculo>
+{{session("idVictim")}}
+{{session("idPersona")}}
 
-      <div class="form-group" {{ $errors->has('vinculo_victima') ? 'has-error' : ''}}>
-      <label for="vinculo_persona_asistida">A 14II. Tipo de vínculo con la víctima: </label>
-      <select class="form-control"  style="background-color: red; color:black" name="vinculo_victima" id="vinculo_victima" onChange="selectOnChangeA14II(this)">
-            <option value="" selected=disabled>Seleccionar...</option>
-              @if($vinculo_victima==1)
+     
+  <div class="form-group" {{ $errors->has('vinculo_victima') ? 'has-error' : ''}}>
+      <label for="">C 2. Tipo de vínculo con la víctima: </label>
+      <select class="form-control" name="vinculo_victima" style="background-color: red;color:black" value="{{old("vinculo_victima")}}" id="vinculo_victima" onChange="selectOnChangeA14II(this)">
+           <option value="" selected=disabled>Seleccionar...</option>
+
+              @if(old("vinculo_victima")==5)
+              <option value="5" selected >Ex-Pareja</option>
+              @else<option value="5" >Ex-Pareja</option>@endif
+              @if(old("vinculo_victima")==1)
               <option value="1" selected >Familiar</option>
               @else <option value="1">Familiar</option>@endif
 
-              @if($vinculo_victima==2)
+              @if(old("vinculo_victima")==2)
               <option value="2" selected >Lazo afectivo</option>
               @else  <option value="2" >Lazo afectivo</option>@endif
 
-              @if($vinculo_victima==3)
+              @if(old("vinculo_victima")==3)
               <option value="3" selected >Organismo o institución</option>
               @else  <option value="3">Organismo o institución</option>@endif
 
-              @if($vinculo_victima==4)
+              @if(old("vinculo_victima")==4)
               <option value="4" selected >Otro</option>
               @else<option value="4" >Otro</option>@endif
 
-               @if($vinculo_victima==5)
-              <option value="5" selected >Ex-Pareja</option>
-              @else<option value="5" >Ex-Pareja</option>@endif
+              
 
               </select>
-      {!! $errors->first('vinculo_persona_asistida', '<p class="help-block" style="color:red";>:message</p>') !!}
+      {!! $errors->first('vinculo_victima', '<p class="help-block" style="color:red";>:message</p>') !!}
       </div>
 
-      @if($vinculo_victima== 1||$errors->has('vinculo_otro_familiar'))
+      @if(old("vinculo_victima") == 1)
         <div id="vinculo_victima_cual_familiar" {{ $errors->has('vinculo_otro_familiar') ? 'has-error' : ''}}>
         @else
           <div id="vinculo_victima_cual_familiar" style="display: none;">
       @endif
       <br><label for="">Especificar Vínculo Familar?</label>
       <div class="">
-      <input class="form-control" name="vinculo_otro_familiar" id="vinculo_otro_familiar" type="text" value="{{$vinculo_otro_familiar}}"><br>
+      <input class="form-control" name="vinculo_otro_familiar" id="vinculo_otro_familiar" type="text" value="{{old("vinculo_otro_familiar")}}"><br>
       {!! $errors->first('vinculo_otro_familiar', '<p class="help-block" style="color:red";>:message</p>') !!}
       </div>
-      </div>
+</div>
 
-      @if($vinculo_victima== 4||$errors->has('vinculo_otro'))
+
+@if(old("vinculo_victima") == 4)
         <div id="vinculo_victima_cual" {{ $errors->has('vinculo_otro') ? 'has-error' : ''}}>
         @else
           <div id="vinculo_victima_cual" style="display: none;">
       @endif
       <br><label for="">Cuál?</label>
       <div class="">
-      <input class="form-control" name="vinculo_otro" id="vinculo_otro" type="text" value="{{$persona->vinculo_otro}}"><br>
+      <input class="form-control" name="vinculo_otro" id="vinculo_otro" type="text" value="{{old("vinculo_otro")}}"><br>
       {!! $errors->first('vinculo_otro', '<p class="help-block" style="color:red";>:message</p>') !!}
-      </div>
       </div>
       </div>
 

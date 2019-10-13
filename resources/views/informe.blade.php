@@ -263,7 +263,7 @@
 <br>
 @endforeach
 
-@else <div style="display:none">
+@else <div style="display:none">agre
 
 @endif
 </div>
@@ -564,10 +564,7 @@
 <section class="container jumbotron shadow bg-white">
   <h4 style="text-decoration:underline;">Personas Asistidas:</h4><br>
 
-   @if($casoActual->personas)
-<div style="display:block">
-@else <div style="display:none">
-@endif
+<div>
 
 
 @foreach($victimas as $victima)
@@ -630,10 +627,7 @@
     {{$persona->localidad_persona_asistida}}
     </div>
 
-   <!--  <div>
-   <label class="font-weight-bold">Se relaciona con: </label>
-    {{$persona->victims->implode("victima_nombre_y_apellido", " / ")}}
-    </div>-->
+
 
     <br>
     <p>________________________________________________________________________________________________________________________________________________</p>
@@ -648,16 +642,13 @@
     </section>
 
 
+
+
 <!-C CONVIVIENTE>
-
 <section class="container jumbotron shadow bg-white">
-<h4 style="text-decoration:underline;">Referentes afectivos</h4><br>
-
-
-   @if($casoActual->convivientes)
-<div style="display:block">
-@else <div style="display:none">
-@endif
+  <h4 style="text-decoration:underline;">Referentes Afectivos:</h4><br>
+   
+<div>
 
  @foreach($victimas as $victima)
 
@@ -741,6 +732,7 @@
       @endif
     @endforeach
     <br>
+  </div>
 </section>
 <!-D DELITO>
 
@@ -752,11 +744,7 @@
 <section class="container jumbotron shadow bg-white">
 <h4 style="text-decoration:underline;">Datos del imputado</h4><br>
 
-
-   @if($casoActual->imputados)
-<div style="display:block">
-@else <div style="display:none">
-@endif
+<div>
 
  @foreach($victimas as $victima)
 
@@ -911,6 +899,7 @@
 
 @endif
 @endforeach
+</div>
 </section>
 <br>
 
