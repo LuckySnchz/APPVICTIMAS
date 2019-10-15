@@ -159,9 +159,10 @@ Route::get("/agregarimputado",function(){
     $victimActual = App\Victim::find(session("idVictim"));
     $cantVictimas = App\Victim::where("idCaso",session("idCaso"))->count();
     $instituciones = App\Institucion::all();
-     
+     $cantImputados = App\Imputado::where("idCaso",session("idCaso"))->count();
+
     $institucionnav= App\Institucion::where("idCaso",session("idCaso"))->count();
-  return view("agregarimputado",compact("cantVictimas","victimActual","imputados","instituciones","institucionnav","imputados_nuevos","casoActual"));
+  return view("agregarimputado",compact("cantVictimas","victimActual","imputados","instituciones","institucionnav","imputados_nuevos","casoActual","cantImputados"));
 })->middleware('auth');
 Route::post("/agregarimputado","ImputadoController@agregar")->middleware('auth');
 

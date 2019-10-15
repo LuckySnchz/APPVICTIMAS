@@ -12,7 +12,7 @@ session_start();
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
       <link rel="stylesheet" href="css/app.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-      <title>Eje C: Referentes Afectivos</title>
+      <title>Eje D: Referentes Afectivos</title>
       <style>
       </style>
    </head>
@@ -142,7 +142,7 @@ session_start();
           <div id="agregar_conviviente_si" style="display: none;">
       @endif
 
-<!C1 Conviviente Nombre y Apellido>
+<!D1 Conviviente Nombre y Apellido>
 
     <div class="form-group" {{ $errors->has('nombre_y_apellido') ? 'has-error' : ''}}>
     <label for="">D 1. Nombre y apellido:</label>
@@ -168,7 +168,7 @@ session_start();
          }
       </script>
 
-<!C2 Edad>
+<!D2 Edad>
 
   <div class="form-group"{{ $errors->has('edad') ? 'has-error' : ''}}>
       <label for="edad">D 2. Edad:</label>
@@ -208,19 +208,17 @@ session_start();
            }}
     </script>
 
-<!C3 Vinculo>
+<!D3 Vinculo>
 
   <div class="form-group" {{ $errors->has('vinculo_victima') ? 'has-error' : ''}}>
   <label for="vinculo_id">D 3. Vinculación con la víctima:</label>
   <select name="vinculo_victima"value="{{old("vinculo_victima")}}" class="form-control vinculo" onChange="selectOnChangeC5(this)">
         <option value="" selected=disabled>Seleccionar...</option>
-        @if(old("vinculo_victima")==1)
-        <option value="1" selected>Familiar</option>
-        @else <option value="1">Familiar</option> @endif
+     
 
-        @if(old("vinculo_victima")==2)
-        <option value="2"selected>Pareja</option>
-        @else<option value="2" >Pareja</option>@endif
+      
+
+      
 
         @if(old("vinculo_victima")==3)
         <option value="3"selected>Amistad</option>
@@ -230,17 +228,29 @@ session_start();
         <option value="4"selected>Conocido</option>
         @else<option value="4" >Conocido</option> @endif
 
-        @if(old("vinculo_victima")==5)
-        <option value="5"selected>Se desconoce</option>
-        @else<option value="5" >Se desconoce</option>@endif
+          @if(old("vinculo_victima")==1)
+        <option value="1" selected>Familiar</option>
+        @else <option value="1">Familiar</option> @endif
+
+        @if(old("vinculo_victima")==7)
+        <option value="7"selected>Ex-Pareja</option>
+        @else  <option value="7" >Ex-Pareja</option>@endif
 
         @if(old("vinculo_victima")==6)
         <option value="6"selected>Otro</option>
         @else  <option value="6" >Otro</option>@endif
 
-        @if(old("vinculo_victima")==7)
-        <option value="7"selected>Ex-Pareja</option>
-        @else  <option value="7" >Ex-Pareja</option>@endif
+
+          @if(old("vinculo_victima")==2)
+        <option value="2"selected>Pareja</option>
+        @else<option value="2" >Pareja</option>@endif
+
+        @if(old("vinculo_victima")==5)
+        <option value="5"selected>Se desconoce</option>
+        @else<option value="5" >Se desconoce</option>@endif
+
+        
+
   </select>
   {!! $errors->first('vinculo_victima', '<p class="help-block" style="color:red";>:message</p>') !!}
   </div>
@@ -298,7 +308,7 @@ session_start();
                   }
         </script>
 
-<!C4 Nivel educativo>
+<!D4 Nivel educativo>
 
   <div class="form-group" {{ $errors->has('niveleducativo_id') ? 'has-error' : ''}}>
   <label for="">D 4. Máximo nivel educativo alcanzado:</label>
@@ -332,7 +342,7 @@ session_start();
   </div>
 
 
-<!C5 Condiciones de trabajo>
+<!D5 Condiciones de trabajo>
 
   <div class="form-group" {{ $errors->has('condiciones_de_trabajo') ? 'has-error' : ''}}>
   <label for="modalidad_id">D 5.Condiciones de trabajo:</label>

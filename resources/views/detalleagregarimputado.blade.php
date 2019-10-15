@@ -298,31 +298,35 @@
   <label for="">E 5. Vinculación con la víctima:</label>
   <select  class="form-control vinculo" onChange="selectOnChangeE4(this)" name="vinculo_victima">
       <option value="" selected=disabled>Seleccionar...</option>
-      @if(old("vinculo_victima") == 1) <option value="1" selected>Familiar</option>
-      @else <option value="1" >Familiar</option>@endif
 
-      @if(old("vinculo_victima") == 2) <option value="2" selected>Pareja</option>
-      @else<option value="2" >Pareja</option>@endif
 
       @if(old("vinculo_victima") == 3) <option value="3" selected>Amistad</option>
       @else<option value="3" >Amistad</option>@endif
 
-      @if(old("vinculo_victima") == 4) <option value="4" selected>Conocido</option>
+        @if(old("vinculo_victima") == 4) <option value="4" selected>Conocido</option>
       @else<option value="4" >Conocido</option>@endif
 
-      @if(old("vinculo_victima") == 5) <option value="5" selected>Sin vínculo</option>
-      @else<option value="4" >Sin Vínculo</option>@endif
+       @if(old("vinculo_victima") == 8) <option value="8" selected>Ex Pareja</option>
+      @else<option value="8" >Ex Pareja</option>@endif
+
+      @if(old("vinculo_victima") == 1) <option value="1" selected>Familiar</option>
+      @else <option value="1" >Familiar</option>@endif
 
       @if(old("vinculo_victima") == 6) <option value="6" selected>Otro</option>
       @else<option value="6" >Otro</option>@endif
 
-     
+      @if(old("vinculo_victima") == 2) <option value="2" selected>Pareja</option>
+      @else<option value="2" >Pareja</option>@endif  
 
       @if(old("vinculo_victima") == 7) <option value="7" selected>Se desconoce</option>
-      @else<option value="7" >Se desconoce</option>@endif
+      @else<option value="7" >Se desconoce</option>@endif  
 
-       @if(old("vinculo_victima") == 8) <option value="8" selected>Ex Pareja</option>
-      @else<option value="8" >Ex Pareja</option>@endif
+      @if(old("vinculo_victima") == 5) <option value="5" selected>Sin vínculo</option>
+      @else<option value="4" >Sin Vínculo</option>@endif   
+
+      
+     
+      
 
       
   </select>

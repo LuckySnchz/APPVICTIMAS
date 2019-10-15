@@ -172,7 +172,7 @@
       </script>
 
 
-<!-A14II Tipo de vínculo>
+<!-C 2. Tipo de vínculo>
 
       <div class="form-group" {{ $errors->has('vinculo_persona_asistida') ? 'has-error' : ''}}>
       <label for="">C 2.Tipo de vínculo con la víctima: </label>

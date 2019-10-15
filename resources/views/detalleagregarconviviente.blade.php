@@ -130,10 +130,10 @@ session_start();
           <div id="agregar_conviviente_si" style="display: none;">
       @endif
 
-<!C1 Conviviente Nombre y Apellido>
+<!D1 Conviviente Nombre y Apellido>
 
     <div class="form-group" {{ $errors->has('nombre_y_apellido') ? 'has-error' : ''}}>
-    <label for="">C 1. Nombre y apellido:</label>
+    <label for="">D 1. Nombre y apellido:</label>
     <input type="text" class="form-control" name="nombre_y_apellido" id="victima_nombre_y_apellido" value="{{old("nombre_y_apellido")}}">
     <label for="bloqueo1" class="form-check-label">Se desconoce</label>
     <input type="checkbox" id="bloqueo1" name="nombre_y_apellido" value="Se desconoce" onchange="checkC1(this)">
@@ -156,10 +156,10 @@ session_start();
          }
       </script>
 
-<!C2 Edad>
+<!D2 Edad>
 
   <div class="form-group"{{ $errors->has('edad') ? 'has-error' : ''}}>
-      <label for="edad">C 2. Edad:</label>
+      <label for="edad">D 2. Edad:</label>
     <input name="edad" value="{{old('edad')}}"   id="edad_conviviente" class="form-control" type="text"><br>
 
     @if(old('edad')=="0")
@@ -196,39 +196,46 @@ session_start();
            }}
     </script>
 
-<!C3 Vinculo>
+<!D3 Vinculo>
 
   <div class="form-group" {{ $errors->has('vinculo_victima') ? 'has-error' : ''}}>
-  <label for="vinculo_id">C 3. Vinculación con la víctima:</label>
+  <label for="vinculo_id">D 3. Vinculación con la víctima:</label>
   <select name="vinculo_victima"value="{{old("vinculo_victima")}}" class="form-control vinculo" onChange="selectOnChangeC5(this)">
         <option value="" selected=disabled>Seleccionar...</option>
-        @if(old("vinculo_victima")==1)
-        <option value="1" selected>Familiar</option>
-        @else <option value="1">Familiar</option> @endif
-
-        @if(old("vinculo_victima")==2)
-        <option value="2"selected>Pareja</option>
-        @else<option value="2" >Pareja</option>@endif
 
         @if(old("vinculo_victima")==3)
         <option value="3"selected>Amistad</option>
         @else <option value="3" >Amistad</option>@endif
 
+
         @if(old("vinculo_victima")==4)
         <option value="4"selected>Conocido</option>
         @else<option value="4" >Conocido</option> @endif
 
-        @if(old("vinculo_victima")==5)
-        <option value="5"selected>Se desconoce</option>
-        @else<option value="5" >Se desconoce</option>@endif
+         @if(old("vinculo_victima")==7)
+        <option value="7"selected>Ex-Pareja</option>
+        @else  <option value="7" >Ex-Pareja</option>@endif
+
+        @if(old("vinculo_victima")==1)
+        <option value="1" selected>Familiar</option>
+        @else <option value="1">Familiar</option> @endif
+
 
         @if(old("vinculo_victima")==6)
         <option value="6"selected>Otro</option>
         @else  <option value="6" >Otro</option>@endif
 
-        @if(old("vinculo_victima")==7)
-        <option value="7"selected>Ex-Pareja</option>
-        @else  <option value="7" >Ex-Pareja</option>@endif
+        @if(old("vinculo_victima")==2)
+        <option value="2"selected>Pareja</option>
+        @else<option value="2" >Pareja</option>@endif
+
+        
+        @if(old("vinculo_victima")==5)
+        <option value="5"selected>Se desconoce</option>
+        @else<option value="5" >Se desconoce</option>@endif
+
+
+       
 
   </select>
   {!! $errors->first('vinculo_victima', '<p class="help-block" style="color:red";>:message</p>') !!}
@@ -282,10 +289,10 @@ if (sel.value=="1"){
                   }
         </script>
 
-<!C4 Nivel educativo>
+<!D4 Nivel educativo>
 
   <div class="form-group" {{ $errors->has('niveleducativo_id') ? 'has-error' : ''}}>
-  <label for="">C 4. Máximo nivel educativo alcanzado:</label>
+  <label for="">D 4. Máximo nivel educativo alcanzado:</label>
   <select class="form-control" name="niveleducativo_id" value="{{old("niveleducativo_id")}}">
       <option value="" selected=disabled>Seleccionar...</option>
       @if(old("niveleducativo_id") == 1) <option value="1" selected>Sin instrucción formal</option>
@@ -316,10 +323,10 @@ if (sel.value=="1"){
   </div>
 
 
-<!C5 Condiciones de trabajo>
+<!D5 Condiciones de trabajo>
 
   <div class="form-group" {{ $errors->has('condiciones_de_trabajo') ? 'has-error' : ''}}>
-  <label for="modalidad_id">C 5.Condiciones de trabajo:</label>
+  <label for="modalidad_id">D 5.Condiciones de trabajo:</label>
   <select class="form-control" name="condiciones_de_trabajo" value="{{old("condiciones_de_trabajo")}}"  id="condiciones_de_trabajo" >
       <option value="" selected=disabled>Seleccionar...</option>
       @if(old("condiciones_de_trabajo") == 1) <option value="1" selected>Desocupado(a)</option>

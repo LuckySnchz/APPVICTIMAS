@@ -78,7 +78,7 @@
            }
         </script>
 
-<!-A14II Tipo de vínculo>
+<!-C 2. Tipo de vínculo>
 
   @foreach($victim_pa as $vict_pa)
   @if($vict_pa->idVictim==session("idVictim")&&$vict_pa->idPersona==session("idPersona"))
@@ -118,7 +118,7 @@
         @else
           <div id="vinculo_victima_cual_familiar" style="display: none;">
       @endif
-      <br><label for="">Cuál?</label>
+      <br><label for="">Especificar Vínculo Familar?</label>
       <div class="">
       <input class="form-control" name="vinculo_otro_familiar" id="vinculo_otro_familiar" type="text" value="{{$vict_pa->vinculo_otro_familiar}}"><br>
       {!! $errors->first('vinculo_otro_familiar', '<p class="help-block" style="color:red";>:message</p>') !!}

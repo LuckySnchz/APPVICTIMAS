@@ -109,40 +109,48 @@ session_start();
 
   <div class="form-group" {{ $errors->has('vinculo_victima') ? 'has-error' : ''}}>
   <label for="vinculo_id">C 3. Vinculación con la víctima:</label>
-  <select style="background-color: red; color:black" id="vinculo_victima" name="vinculo_victima"value="{{$vinculo_victima}}" class="form-control vinculo" onChange="selectOnChangeC5(this)">
+  <select name="vinculo_victima"value="{{old("vinculo_victima")}}" style="background-color: red;color:black" class="form-control vinculo" onChange="selectOnChangeC5(this)">
         <option value="" selected=disabled>Seleccionar...</option>
-        @if($vinculo_victima==1)
-        <option value="1" selected>Familiar</option>
-        @else <option value="1">Familiar</option> @endif
+     
 
-        @if($vinculo_victima==2)
-        <option value="2"selected>Pareja</option>
-        @else<option value="2" >Pareja</option>@endif
+      
 
-        @if($vinculo_victima==3)
+      
+
+        @if(old("vinculo_victima")==3)
         <option value="3"selected>Amistad</option>
         @else <option value="3" >Amistad</option>@endif
 
-        @if($vinculo_victima==4)
+        @if(old("vinculo_victima")==4)
         <option value="4"selected>Conocido</option>
         @else<option value="4" >Conocido</option> @endif
 
-        @if($vinculo_victima==5)
-        <option value="5"selected>Se desconoce</option>
-        @else<option value="5" >Se desconoce</option>@endif
+          @if(old("vinculo_victima")==1)
+        <option value="1" selected>Familiar</option>
+        @else <option value="1">Familiar</option> @endif
 
-        @if($vinculo_victima==6)
+        @if(old("vinculo_victima")==7)
+        <option value="7"selected>Ex-Pareja</option>
+        @else  <option value="7" >Ex-Pareja</option>@endif
+
+        @if(old("vinculo_victima")==6)
         <option value="6"selected>Otro</option>
         @else  <option value="6" >Otro</option>@endif
 
-          @if($vinculo_victima==7)
-        <option value="7"selected>Ex-Pareja</option>
-        @else  <option value="7" >Ex-Pareja</option>@endif
+
+          @if(old("vinculo_victima")==2)
+        <option value="2"selected>Pareja</option>
+        @else<option value="2" >Pareja</option>@endif
+
+        @if(old("vinculo_victima")==5)
+        <option value="5"selected>Se desconoce</option>
+        @else<option value="5" >Se desconoce</option>@endif
+
+        
+
   </select>
   {!! $errors->first('vinculo_victima', '<p class="help-block" style="color:red";>:message</p>') !!}
   </div>
-
-
 
 
  @if(old("vinculo_victima") == 1)
@@ -152,27 +160,33 @@ session_start();
   @endif
 
   <label for="vinculo_otro_familiar">Especificar Vínculo Familar?</label>
-  <input type="text" class="form-control vinculo_otro_familiar" name="vinculo_otro_familiar" value="{{$vinculo_otro_familiar}}"id="vinculo_otro_familiar">
+  <input type="text" class="form-control vinculo_otro_familiar" name="vinculo_otro_familiar" value="{{old("vinculo_otro_familiar")}}"id="vinculo_otro_familiar">
   {!! $errors->first('vinculo_otro_familiar', '<p class="help-block" style="color:red";>:message</p>') !!}
   </div>
-  @if($vinculo_victima== 6||$errors->has('vinculo_otro'))
+
+  @if(old("vinculo_victima") == 6)
     <div id="cualC5" {{ $errors->has('vinculo_otro') ? 'has-error' : ''}}>
   @else
     <div id="cualC5" style="display: none">
   @endif
 
   <label for="vinculo_otro">Cuál?</label>
-  <input type="text" class="form-control vinculo_otro" name="vinculo_otro" value="{{$vinculo_otro}}"id="vinculo_otro">
+  <input type="text" class="form-control vinculo_otro" name="vinculo_otro" value="{{old("vinculo_otro")}}"id="vinculo_otro">
   {!! $errors->first('vinculo_otro', '<p class="help-block" style="color:red";>:message</p>') !!}
   </div>
+
   <br>
   <script>
           function selectOnChangeC5(sel) {
-            if(sel.value=="1"||sel.value=="2"||sel.value=="3"||sel.value=="4"||sel.value=="5"||sel.value=="6"){
-              divCcc = document.getElementById("vinculo_victima");
-       divCcc.style.backgroundColor = 'white';
-           }
-            if (sel.value=="1"){
+                   if (sel.value=="6"){
+                       divC = document.getElementById("cualC5");
+                       divC.style.display = "";
+                   }else{
+                       divC = document.getElementById("cualC5");
+                       $('#vinculo_otro').val('');
+                       divC.style.display="none";
+                   }
+                   if (sel.value=="1"){
                        divC = document.getElementById("cualC5_familiar");
                        divC.style.display = "";
                    }else{
@@ -180,14 +194,15 @@ session_start();
                        $('#vinculo_otro_familiar').val('');
                        divC.style.display="none";
                    }
-     							 if (sel.value=="6"){
-     									 divC = document.getElementById("cualC5");
-     									 divC.style.display = "";
-     							 }else{
-     									 divC = document.getElementById("cualC5");
-     									 $('#vinculo_otro').val('');
-     									 divC.style.display="none";
-     							 }}
+
+
+
+
+
+
+
+
+                  }
         </script>
 
 <!C4 Nivel educativo>

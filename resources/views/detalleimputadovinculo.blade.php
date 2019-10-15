@@ -202,37 +202,44 @@
 
 <!E5 Vinculación con la victima>
 
+
+  
   <div class="form-group" {{ $errors->has('vinculo_victima') ? 'has-error' : ''}}>
-  <label for="vinculo_id">E 5. Vinculación con la víctima:</label>
-  <select  style="background-color: red; color:black"  class="form-control vinculo" onChange="selectOnChangeE4(this)" name="vinculo_victima"  id="vinculo_victima">
-      <option value="" selected=disabled>Seleccionar...</option>
-      @if($vinculo_victima == 1) <option value="1" selected>Familiar</option>
-      @else <option value="1" >Familiar</option>@endif
+  <label for="">E 5. Vinculación con la víctima:</label>
+  <select  class="form-control vinculo" value="{{old("vinculo_victima")}}" onChange="selectOnChangeE4(this)" name="vinculo_victima">
+    <option value="" selected=disabled>Seleccionar...</option>
 
-      @if($vinculo_victima == 2) <option value="2" selected>Pareja</option>
-      @else<option value="2" >Pareja</option>@endif
-
-      @if($vinculo_victima == 3) <option value="3" selected>Amistad</option>
+     @if(old("vinculo_victima") == 3) <option value="3" selected>Amistad</option>
       @else<option value="3" >Amistad</option>@endif
 
-      @if($vinculo_victima == 4) <option value="4" selected>Conocido</option>
+       @if(old("vinculo_victima") == 4) <option value="4" selected>Conocido</option>
       @else<option value="4" >Conocido</option>@endif
 
-      @if($vinculo_victima == 5) <option value="5" selected>Sin vínculo</option>
-      @else<option value="5" >Sin Vínculo</option>@endif
+        @if(old("vinculo_victima") == 8) <option value="8" selected>Ex Pareja</option>
+      @else<option value="8" >Ex Pareja</option>@endif
 
-      @if($vinculo_victima == 6) <option value="6" selected>Otro</option>
+      @if(old("vinculo_victima") == 1) <option value="1" selected>Familiar</option>
+      @else <option value="1" >Familiar</option>@endif
+
+      @if(old("vinculo_victima") == 6) <option value="6" selected>Otro</option>
       @else<option value="6" >Otro</option>@endif
 
-      @if($vinculo_victima == 7) <option value="7" selected>Se desconoce</option>
+      @if(old("vinculo_victima") == 2) <option value="2" selected>Pareja</option>
+      @else<option value="2" >Pareja</option>@endif
+    
+     @if(old("vinculo_victima") == 7) <option value="7" selected>Se desconoce</option>
       @else<option value="7" >Se desconoce</option>@endif
 
-      @if($vinculo_victima == 8) <option value="8" selected>Ex-Pareja</option>
-      @else<option value="8" >Ex-Pareja</option>@endif
-  </select>
-  {!! $errors->first('vinculo_id', '<p class="help-block" style="color:red";>:message</p>') !!}
-  </div>
+      @if(old("vinculo_victima") == 5) <option value="5" selected>Sin vínculo</option>
+      @else<option value="4" >Sin Vínculo</option>@endif   
 
+     
+
+      
+
+  </select>
+  {!! $errors->first('vinculo_victima', '<p class="help-block" style="color:red";>:message</p>') !!}
+  </div>
 
 @if(old("vinculo_victima") == 1)
     <div id="cualE4_familiar" {{ $errors->has('vinculo_otro_familiar') ? 'has-error' : ''}}>
@@ -241,30 +248,34 @@
   @endif
 
   <label for="vinculo_otro_familiar">Especificar Vínculo Familar?</label>
-  <input type="text" class="form-control vinculo_otro_familiar" name="vinculo_otro_familiar" id="vinculo_otro_familiar" 
-  value="{{$vinculo_otro_familiar}}">
+  <input type="text" class="form-control vinculo_otro_familiar" name="vinculo_otro_familiar" id="vinculo_otro_familiar" value="{{old("vinculo_otro_familiar")}}">
   {!! $errors->first('vinculo_otro_familiar', '<p class="help-block" style="color:red";>:message</p>') !!}
   </div>
 
-  @if($vinculo_victima == 6||$errors->has('vinculo_otro'))
+  @if(old("vinculo_victima") == 6)
     <div id="cualE4" {{ $errors->has('vinculo_otro') ? 'has-error' : ''}}>
   @else
     <div id="cualE4" style="display: none">
   @endif
 
   <label for="vinculo_otro">Cuál?</label>
-  <input type="text" class="form-control vinculo_otro" name="vinculo_otro" id="vinculo_otro" value="{{$vinculo_otro}}">
+  <input type="text" class="form-control vinculo_otro" name="vinculo_otro" id="vinculo_otro" value="{{old("vinculo_otro")}}">
   {!! $errors->first('vinculo_otro', '<p class="help-block" style="color:red";>:message</p>') !!}
   </div>
   <br>
 
     <script>
                      function selectOnChangeE4(sel) {
-                      if (sel.value=="1"||sel.value=="2"||sel.value=="3"||sel.value=="4"||sel.value=="5"||sel.value=="6"||sel.value=="7"){
-              divCcc = document.getElementById("vinculo_victima");
-       divCcc.style.backgroundColor = 'white';
-           }
-                                    if (sel.value=="1"){
+                                   if (sel.value=="6"){
+                                       divC = document.getElementById("cualE4");
+                                       divC.style.display = "";
+                                   }else{
+                                       divC = document.getElementById("cualE4");
+                                       $('#vinculo_otro').val('');
+                                       divC.style.display="none";
+                                   }
+
+                                       if (sel.value=="1"){
                                        divC = document.getElementById("cualE4_familiar");
                                        divC.style.display = "";
                                    }else{
@@ -272,15 +283,16 @@
                                        $('#vinculo_otro_familiar').val('');
                                        divC.style.display="none";
                                    }
-                     							 if (sel.value=="6"){
-                     									 divC = document.getElementById("cualE4");
-                     									 divC.style.display = "";
-                     							 }else{
-                     									 divC = document.getElementById("cualE4");
-                     									 $('#vinculo_otro').val('');
-                     									 divC.style.display="none";
-                     							 }}
+
+
+
+
+
+
+
+                                  }
                   </script>
+
 
 <!E6 Caratulación judicial>
 

@@ -44,10 +44,10 @@
     <input type="hidden" name="userID_modify" value="{{$persona->userID_modify}}">
 
 
-<!-A14I Persona Asistida>
+<!-C 1 Persona Asistida>
 
       <div class="form-group" {{ $errors->has('nombre_persona_asistida') ? 'has-error' : ''}}>
-      <label for="nombre_persona_asistida">A 14I. Nombre y apellido de la persona asistida: </label>
+      <label for="nombre_persona_asistida">C 1. Nombre y apellido persona asistida: </label>
       <input disabled type="text" class="form-control" name="nombre_persona_asistida" id="nombre_persona_asistida" value="{{$nombre_persona_asistida}}">
 
        @if($nombre_persona_asistida=="Se desconoce") 
@@ -78,9 +78,8 @@
            }
         </script>
 
-<!-A14II Tipo de vínculo>
-{{session("idVictim")}}
-{{session("idPersona")}}
+<!-C 2. Tipo de vínculo>
+
 
      
   <div class="form-group" {{ $errors->has('vinculo_victima') ? 'has-error' : ''}}>
@@ -138,14 +137,14 @@
       </div>
       </div>
 
-<!-A 14III. telefono>
+<!-C 3. telefono>
 
        <div class="form-group"{{ $errors->has('telefono_persona_asistida') ? 'has-error' : ''}}>
 
 
     @if(old('telefono_persona_asistida')=="0")
 
-<label >A 14III. teléfono de persona asistida:</label>
+<label >C 3. teléfono de persona asistida:</label>
 <strong>Ingresa el número de teléfono, si es celular sin el 15. Característica sin el 0 y Presiona Ingresar!!</strong><br><br>
 
     <input  name="telefono_persona_asistida" placeholder="Ingresar 10 dígitos, el sisrema le dará el formato 221-463-2683 o 114-563-2889" style="background-color:#e9ecef;color:black" value="{{$persona->telefono_persona_asistida}}"id="telefono_persona_asistida" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" onKeypress="addDashesPhoneUno(this)" type="tel" disabled readonly="readonly"/><br>
@@ -154,7 +153,7 @@
     <input disabled name="telefono_persona_asistida" value="000-000-0000" id="bloqueo1" type="checkbox" checked onchange="checkA14(this)">
     @else
 
-<label for="edad">A 14III.teléfono de persona asistida:</label><br>
+<label for="edad">C 3. teléfono de persona asistida:</label><br>
 <strong>*Ingresa el número de teléfono, si es celular sin el 15. Característica sin el 0 y Presiona Ingresar!!</strong><br><br>
     <input disabled type="tel" name="telefono_persona_asistida" style="background-color: white;color:black" value="{{$persona->telefono_persona_asistida}}"   id="telefono_persona_asistida" class="form-control" placeholder="Ingresar 10 dígitos, el sisrema le dará el formato 221-463-2683 o 114-563-2889" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
 onKeypress="addDashesPhoneUno(this)"required ><br>
@@ -203,14 +202,14 @@ onKeypress="addDashesPhoneUno(this)"required ><br>
 
 
 
-<!-A 14IV. Otro telefono>
+<!-C 3. Otro telefono>
 
        <div class="form-group"{{ $errors->has('otro_telefono_persona_asistida') ? 'has-error' : ''}}>
 
 
     @if(old('otro_telefono_persona_asistida')=="0")
 
-<label >A 14IV. Otro teléfono de persona asistida:</label>
+<label >C 3 I. Otro teléfono de persona asistida:</label>
 <strong>Ingresa el número de teléfono, si es celular sin el 15. Característica sin el 0 y Presiona Ingresar!!</strong><br><br>
 
     <input disabled name="otro_telefono_persona_asistida" placeholder="Ingresar 10 dígitos, el sisrema le dará el formato 221-463-2683 o 114-563-2889" style="background-color: #e9ecef;color:black" value="{{$persona->otro_telefono_persona_asistida}}"   id="otro_telefono_persona_asistida" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" onKeypress="addDashesPhoneDos(this)" type="tel" readonly="readonly"/><br>
@@ -219,7 +218,7 @@ onKeypress="addDashesPhoneUno(this)"required ><br>
     <input disables name="otro_telefono_persona_asistida" value="000-000-0000" id="bloqueo1" type="checkbox" checked onchange="checkA15(this)">
     @else
 
-<label for="edad">A 14IV. Otro teléfono de persona asistida:</label><br>
+<label for="edad">C 3 I. Otro teléfono de persona asistida:</label><br>
 <strong>*Ingresa el número de teléfono, si es celular sin el 15. Característica sin el 0 y Presiona Ingresar!!</strong><br><br>
     <input disabled="" type="tel" name="otro_telefono_persona_asistida" style="background-color: white;color:black" value="{{$persona->otro_telefono_persona_asistida}}"   id="otro_telefono_persona_asistida" class="form-control" placeholder="Ingresar 10 dígitos, el sisrema le dará el formato 221-463-2683 o 114-563-2889" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
 onKeypress="addDashesPhoneDos(this)"required ><br>
@@ -264,10 +263,10 @@ onKeypress="addDashesPhoneDos(this)"required ><br>
            }}
     </script>
 
-<!-A14V Domicilio>
+<!-C 4. Domicilio persona asistida>
 
       <div class="form-group"{{ $errors->has('domicilio_persona_asistida') ? 'has-error' : ''}}>
-      <label for="domicilio_persona_asistida">A 14 V. Domicilio del contacto: </label>
+      <label for="domicilio_persona_asistida">C 4. Domicilio persona asistida: </label>
       <input disabled type="text" class="form-control" name="domicilio_persona_asistida" id="domicilio_persona_asistida"value="{{$domicilio_persona_asistida}}">
  @if($domicilio_persona_asistida=="Se desconoce") 
 
@@ -297,10 +296,10 @@ onKeypress="addDashesPhoneDos(this)"required ><br>
                        }
            }
         </script>
-<!-A14VI Localidad de residencia>
+<!-C 5. Localidad de residencia>
 
       <div class="form-group"{{ $errors->has('localidad_persona_asistida') ? 'has-error' : ''}}>
-      <label for="localidad_persona_asistida">A 14 VI. Localidad de residencia: </label>
+      <label for="localidad_persona_asistida">C 5. Localidad de residencia: </label>
       <input  disabled type="text" class="form-control" name="localidad_persona_asistida" id="localidad_persona_asistida" value="{{$localidad_persona_asistida}}">
 
        @if($localidad_persona_asistida=="Se desconoce") 
