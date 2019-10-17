@@ -204,13 +204,15 @@ session_start();
            }
         </script>
 <!-A6 CAVAJ Interviniente->
+
+
     <div class="form-group" {{ $errors->has('cavaj') ? 'has-error' : ''}}>
     <label for="">A 6. CAVAJ interviniente:</label><br>
     <select class="form-control" name="cavaj">
         <option value="" selected=disabled>Seleccionar...</option>
         @foreach ($cavajs as $cavaj)
             @if(old("cavaj")==$cavaj->id)
-            <option selected value="{{ $cavaj->id }}">{{ $cavaj->nombre}}</option>
+            <option selected value="{{ $cavaj->id }}">{{ $cavaj->nombre}}{{ $cavaj->id}}</option>
             @else <option  value="{{ $cavaj->id }}">{{ $cavaj->nombre}}</option>
             @endif
         @endforeach

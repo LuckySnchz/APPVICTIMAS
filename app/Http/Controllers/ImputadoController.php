@@ -144,6 +144,18 @@ $validator->sometimes('vinculo_otro_familiar', "required|min:3|max:255|regex:/^(
     $imputado->userID_create= Auth::id();
 
     $imputado->save();
+$fiscalia_juzgado=$imputado->fiscalia_juzgado;
+session(["fiscalia_juzgado" => $fiscalia_juzgado]);
+
+$causa_id_judicial=$imputado->causa_id_judicial;
+session(["causa_id_judicial" => $causa_id_judicial]);
+
+$otra_causa_id_judicial=$imputado->otra_causa_id_judicial;
+session(["otra_causa_id_judicial" => $otra_causa_id_judicial]);
+
+$otra_otra_causa_id_judicial=$imputado->otra_otra_causa_id_judicial;
+session(["otra_otra_causa_id_judicial" => $otra_otra_causa_id_judicial]);
+
 
     $imputado->victims()->attach($form ["idVictim"],array("vinculo_victima"=> $form ["vinculo_victima"],"vinculo_otro"=> $form ["vinculo_otro"],"vinculo_otro_familiar"=> $form ["vinculo_otro_familiar"],"idCaso"=> session("idCaso")));
 

@@ -648,11 +648,10 @@
 
 @endif
 @if($cantImputados>0)
-@foreach($imputados as $imputado)
-@if($imputado->idCaso==session("idCaso"))
+
   <div class="form-group"{{ $errors->has('fiscalia_juzgado') ? 'has-error' : ''}}>
      <label for="datos_ente_judicial">E 11. Fiscalía/Juzgado a cargo:</label>
-     <input type="text" class="form-control" name="fiscalia_juzgado" id="datos_ente_judicial" value="{{$imputado->fiscalia_juzgado}}">
+     <input type="text" class="form-control" name="fiscalia_juzgado" id="datos_ente_judicial" value="{{session("fiscalia_juzgado")}}">
  {!! $errors->first('fiscalia_juzgado', '<p class="help-block" style="color:red";>:message</p>') !!}
   </div>
 
@@ -660,7 +659,7 @@
 
   <div class="form-group "{{ $errors->has('causa_id_judicial') ? 'has-error' : ''}}>
          <label for="causa_id_judicial">E 12 I. N° Causa o Id Judicial:</label>
-         <input type="text" class="form-control" name="causa_id_judicial" id="causa_id_judicial"value="{{$imputado->causa_id_judicial}}">
+         <input type="text" class="form-control" name="causa_id_judicial" id="causa_id_judicial"value="{{session("causa_id_judicial")}}">
   
 
 
@@ -687,7 +686,7 @@
 
   <div class="form-group "{{ $errors->has('otra_causa_id_judicial') ? 'has-error' : ''}}>
          <label for="otra_causa_id_judicial">E 12 II. N° Causa o Id Judicial:</label>
-         <input type="text" class="form-control" name="otra_causa_id_judicial" id="otra_causa_id_judicial" value="{{$imputado->otra_causa_id_judicial}}">
+         <input type="text" class="form-control" name="otra_causa_id_judicial" id="otra_causa_id_judicial" value="{{session("otra_causa_id_judicial")}}">
  <label for="bloqueo12II" class="form-check-label">Se desconoce</label>
 
   <input type="checkbox" id="bloqueo12II" name="otra_causa_id_judicial" value="Se desconoce" onchange="checkE12II(this)">
@@ -712,7 +711,7 @@
 
   <div class="form-group "{{ $errors->has('otra_otra_causa_id_judicial') ? 'has-error' : ''}}>
          <label for="otra_otra_causa_id_judicial">E 12 III. N° Causa o Id Judicial:</label>
-         <input type="text" class="form-control" name="otra_otra_causa_id_judicial" id="otra_otra_causa_id_judicial" value="{{$imputado->otra_otra_causa_id_judicial}}">
+         <input type="text" class="form-control" name="otra_otra_causa_id_judicial" id="otra_otra_causa_id_judicial" value="{{session("otra_otra_causa_id_judicial")}}">
          <label for="bloqueo12I" class="form-check-label">Se desconoce</label>
      <input type="checkbox" id="bloqueo12III" name="otra_otra_causa_id_judicial" value="Se desconoce" onchange="checkE12III(this)">
     {!! $errors->first('otra_otra_causa_id_judicial', '<p class="help-block" style="color:red";>:message</p>') !!}
@@ -732,8 +731,7 @@
                      }
                   </script>
                   @endif
-                  @endforeach
-                  @endif
+                
 
 </div>
 </div>

@@ -137,12 +137,12 @@
 
 
 
-
-
  @foreach ($casos as $caso)
 
 <li>
     @if($buscar==5 && $caso->activo==1)
+  
+
 
  <p class="mr-4 mb-0"> <strong style="color:red">{{$countcasos=$countcasos+1}}.- </strong><strong><span style="text-decoration: underline">Caso: </span><strong>{{$caso->nombre_referencia}}</strong></p>
      <ul class="list-unstyled list-inline mb-0">
