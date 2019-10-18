@@ -983,15 +983,14 @@ use App\Exports\IncidenciasExport;
 use App\Exports\DerivacionesExport;
 
 
-Route::get('/excel', function (CasosExport $casosExport,VictimasExport $victimasExport,IncidenciasExport $incidenciasExport,DerivacionesExport $derivacionesExport,ImputadosExport $imputadosExport,OrganismosExport $organismosExport) {
+Route::get('/excel', function (CasosExport $casosExport,VictimasExport $victimasExport,IncidenciasExport $incidenciasExport,DerivacionesExport $derivacionesExport) {
   $user = Auth::user();
 if ($user->hasRole('admin')) {
    $casosExport->store('casos.xlsx','public');
    $victimasExport->store('victimas.xlsx','public');
    $incidenciasExport->store('incidencias.xlsx','public');
    $derivacionesExport->store('derivaciones.xlsx','public');
-   $imputadosExport->store('imputados.xlsx','public');
-   $organismosExport->store('organismos.xlsx','public');
+
 
  return Redirect::to("/home")->with('message','DESCARGA EXITOSA!');
 }else{abort(403, "No tienes autorización para ingresar.");}})->middleware('auth');
