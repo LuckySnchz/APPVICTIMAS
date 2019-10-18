@@ -105,10 +105,12 @@
 
 
 <br><br>
-
+<div style="margin-left: 11%">
+  {!! $errors->first('buscar', '<p class="help-block" style="color:red"  ;>:message</p>') !!}</div>
+   
 <form action="/search" method="GET">
  {{csrf_field()}}
-<div class="buscar" id="buscar" style="margin-left: 11%;margin-top: 5%"{{ $errors->has('buscar') ? 'has-error' : '' }}>
+<div class="buscar" id="buscar" style="margin-left: 11%;margin-top: -1%"{{ $errors->has('buscar') ? 'has-error' : '' }}>
 
 
 
@@ -141,24 +143,23 @@
             @endif  
 
 
-  {!! $errors->first('buscar', '<p class="help-block" style="color:red"  ;>:message</p>') !!}
-   {!! $errors->first('search', '<p class="help-block" style="color:red";>:message</p>') !!}
 </div>
 <br>
 <div class="search" id="search" style="margin-left: 5%;margin-top: 1%"{{ $errors->has('search') ? 'has-error' : ''}}>
- <input type="text" value="{{old("search")}}" name="search" id="search" style="margin-left: 5%;width: 60%">
+ <input type="text" value="{{old("search")}}" name="search" id="search"style="margin-left: 5%;width: 60%;">
  <button type="submit" class="btn"  style="color:white;background-color:rgb(137, 210, 14)">BUSCAR</button><br><br>
  <h5 style="margin-left: 5%" >Buscar por Nombre de Referencia, por Nombre de la víctima o por modalidad de ingreso</h5>
  
 </div>
+<div style="margin-left: 11%">
 
+   {!! $errors->first('search', '<p class="help-block" style="color:red";>:message</p>') !!}</div>
 </form>
 <div class="form-group" id="buscador">
 <section class="my-5" style="margin-left: 6%">
 
 
 <ul style="list-style: none">
-
 
 
 
