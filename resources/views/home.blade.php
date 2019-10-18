@@ -99,8 +99,8 @@
 </div>
 
 
-<section class="container jumbotron shadow p-3 mb-5 bg-white rounded">
-<div class="form-group" >
+<section class="container jumbotron shadow p-3 mb-5 bg-white rounded" >
+<div class="form-group"  >
 
 
 
@@ -108,26 +108,53 @@
 
 <form action="/search" method="GET">
  {{csrf_field()}}
+<div class="buscar" id="buscar" style="margin-left: 11%;margin-top: 5%"{{ $errors->has('buscar') ? 'has-error' : '' }}>
 
-<div class="buscar" style="margin-left: 5%;margin-top: 5%">
+
+
+  @if (old("buscar")==1)
+            
+  <input type="radio" name="buscar"  value="1" checked><strong> Casos</strong>
+            @else 
   <input type="radio" name="buscar"  value="1"><strong> Casos</strong>
-  <input type="radio" name="buscar" value="2"><strong> Incidencias</strong>
-  <input type="radio" name="buscar" value="3"> <strong>Derivaciones</strong>
-    <input type="radio" name="buscar"  value="4"> <strong>BUSQUEDA GENERAL</strong>
-     <input type="radio" name="buscar"  value="5"> <strong>Mis Cargas</strong>
+            @endif
+@if (old("buscar")==2)
 
+  <input type="radio" name="buscar"  value="2" checked ><strong> Incidencias</strong>
+            @else 
+  <input type="radio" name="buscar"  value="2"><strong> Incidencias</strong>
+            @endif
+@if (old("buscar")==3)
+              <input type="radio" name="buscar"  value="3" checked ><strong> Dericaciones</strong>
+            @else 
+  <input type="radio" name="buscar"  value="3"><strong> Derivaciones</strong>
+            @endif
+@if (old("buscar")==4)
+              <input type="radio" name="buscar"  value="4" checked ><strong>BUSQUEDA GENERAL</strong>
+            @else 
+  <input type="radio" name="buscar"  value="4"><strong>BUSQUEDA GENERAL</strong>
+            @endif
+@if (old("buscar")==5)
+            <input type="radio" name="buscar"  value="5" checked ><strong>Mis Cargas</strong>
+            @else 
+  <input type="radio" name="buscar"  value="5"><strong>Mis Cargas</strong>
+            @endif  
+
+
+  {!! $errors->first('buscar', '<p class="help-block" style="color:red"  ;>:message</p>') !!}
+   {!! $errors->first('search', '<p class="help-block" style="color:red";>:message</p>') !!}
 </div>
 <br>
-
- <input type="text" name="search" id="search" style="margin-left: 5%;width: 60%">
+<div class="search" id="search" style="margin-left: 5%;margin-top: 1%"{{ $errors->has('search') ? 'has-error' : ''}}>
+ <input type="text" value="{{old("search")}}" name="search" id="search" style="margin-left: 5%;width: 60%">
  <button type="submit" class="btn"  style="color:white;background-color:rgb(137, 210, 14)">BUSCAR</button><br><br>
  <h5 style="margin-left: 5%" >Buscar por Nombre de Referencia, por Nombre de la víctima o por modalidad de ingreso</h5>
-
+ 
 </div>
 
-
+</form>
 <div class="form-group" id="buscador">
-<section class="my-5">
+<section class="my-5" style="margin-left: 6%">
 
 
 <ul style="list-style: none">

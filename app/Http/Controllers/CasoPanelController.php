@@ -340,6 +340,31 @@ return view("detalleCaso", compact("delitos", "cavajs","usuarios","organismos","
       }
 
       public function search(Request $req) {
+
+
+  $reglas = [
+  
+    "buscar"=>"required",
+   
+  ];
+
+  $validator = Validator::make($req->all(), $reglas);
+
+
+  $validator->sometimes('search', 'required', function ($input) {
+    return $input->buscar == 1||$input->buscar == 2||$input->buscar == 3||$input->buscar == 0;
+  });
+
+
+  if ($validator->fails()) {
+      return back()
+                  ->withErrors($validator)
+                  ->withInput();
+  }
+
+
+
+
             $user = Auth::user();
             $delitos = Delito::all();
             $cavajs = Cavaj::all();
@@ -669,7 +694,8 @@ else{abort(403, "No Hay Ingresos para mostrar!");
 if($buscar==0){
   return redirect("home")->with('message','Selecciona Caso, Incicencias, Derivaciones o BUSQUEDA GENERAL!'); 
 
-}}
+}
+}
      public function eliminar($id) {
         $caso = Caso::find($id);
         $caso->delete();
