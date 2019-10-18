@@ -148,7 +148,7 @@
 <div class="search" id="search" style="margin-left: 5%;margin-top: 1%"{{ $errors->has('search') ? 'has-error' : ''}}>
  <input type="text" value="{{old("search")}}" name="search" id="search"style="margin-left: 5%;width: 60%;">
  <button type="submit" class="btn"  style="color:white;background-color:rgb(137, 210, 14)">BUSCAR</button><br><br>
- <h5 style="margin-left: 5%" >Buscar por Nombre de Referencia, por Nombre de la víctima o por modalidad de ingreso</h5>
+ <h5 style="margin-left: 5%"><strong>Buscar por Nombre de Referencia, por Nombre de la víctima o por modalidad de ingreso</strong></h5>
  
 </div>
 <div style="margin-left: 11%">
