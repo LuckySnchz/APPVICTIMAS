@@ -111,7 +111,11 @@ Route::get("/agregarVictima",function(){
   $casoActual = App\Caso::find(session("idCaso"));
   $instituciones = App\Institucion::all();
   $institucionnav= App\Institucion::where("idCaso",session("idCaso"))->count();
-  return view("agregarVictima", compact("necesidades","programas","discapacidades","limitaciones","victims","instituciones","institucionnav","casoActual","cantVictimas"));
+
+  $ciudades =App\Ciudad::where("idPcia","1")
+  ->orWhere("idPcia","2")->get();
+   
+  return view("agregarVictima", compact("necesidades","programas","discapacidades","limitaciones","victims","instituciones","institucionnav","casoActual","cantVictimas","ciudades"));
 })->middleware('auth');
 Route::post("/agregarVictima","VictimController@agregar")->middleware('auth');
 Route::get("/eliminarvictima/{id}", "VictimController@eliminarvictima")->middleware('auth');
@@ -184,6 +188,27 @@ return view("agregarOrganismo", compact("oprevios","oarticulas","socioeconomicos
 })->middleware('auth');
 Route::post("/agregarOrganismo","InstitucionController@agregar")->middleware('auth');
 
+
+
+Route::get("/detalleagregarOrganismo",function(){
+  $oprevios = App\Oprevio::all();
+  $casoActual = App\Caso::find(session("idCaso"));
+  $victimActual = App\Victim::find(session("idVictim"));
+  $oarticulas = App\Oarticula::all();
+  $socioeconomicos = App\Socioeconomico::all();
+  $departamentos = App\Departamento::all();
+
+ $victims= App\Victim::all();
+  $instituciones = App\Institucion::all();
+  $asistencias = App\Asistencia::all();
+return view("detalleagregarOrganismo", compact("oprevios","oarticulas","socioeconomicos","victims","departamentos","instituciones","asistencias","casoActual","victimActual"));
+})->middleware('auth');
+Route::post("/detalleagregarOrganismo","InstitucionPanelController@agregar")->middleware('auth');
+
+
+
+
+
 //G-DOCUMENTOS//
 
 Route::get("/agregarDocumento",function(){
@@ -206,7 +231,10 @@ Route::get("/agregarIntervencion",function(){
   $socioeconomicos = App\Socioeconomico::all();
   $departamentos = App\Departamento::all();
   $victimas= App\Victim::all();
-  $intervenciones = App\Intervencion::all();
+    $intervenciones = DB::table("intervenciones")
+   ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
+    ->get();
   $organismos = App\Organismo::all(); 
 
   $institucion_oarticulas = App\Institucion_Oarticula::all();
@@ -251,7 +279,7 @@ $casos = [];
 })->middleware('auth');
 Route::get("/search3", "IntervencionController@search")->middleware('auth');*/
 
-Route::get("/agregarIntervencion/{id}",function($id){
+Route::get("/agregarintervencion/{id}",function($id){
   session(["idCaso" => $id]);
   $casos = App\Caso::all();
   $instituciones = App\Institucion::all();
@@ -260,8 +288,10 @@ Route::get("/agregarIntervencion/{id}",function($id){
   $victimas= App\Victim::all();
   $ciudades= App\Ciudad::all();
   $organismos = App\Organismo::all();
-  $intervenciones = App\Intervencion::all();
-  
+   $intervenciones = DB::table("intervenciones")
+   ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
+    ->get();
 
   $institucion_oarticulas = App\Institucion_Oarticula::all();
   $delitos = App\Delito::all();
@@ -270,16 +300,17 @@ Route::get("/agregarIntervencion/{id}",function($id){
   $oarticulas = App\Oarticula::all();
   $institucionnav= App\Institucion::where("idCaso",session("idCaso"))->count();
   $casoActual = App\Caso::find(session("idCaso"));
-  return view("agregarIntervencion", compact("institucionnav","provincias","organismos","ciudades","oarticulas","cavajs","delitos","institucion_oarticulas","casos","instituciones","socioeconomicos","victimas","departamentos", "intervenciones", "casoActual"));
+  return view("agregarintervencion", compact("institucionnav","provincias","organismos","ciudades","oarticulas","cavajs","delitos","institucion_oarticulas","casos","instituciones","socioeconomicos","victimas","departamentos", "intervenciones", "casoActual"));
 })->middleware('auth');
-Route::post("/agregarIntervencion","IntervencionController@agregar")->middleware('auth');
+Route::post("/agregarintervencion","IntervencionController@agregar")->middleware('auth');
 Route::get("/eliminarintervencion/{id}", "IntervencionController@eliminarintervencion")->middleware('auth');
+
 Route::get("/eliminarnuevaintervencion/{id}", "IntervencionController@eliminarnuevaintervencion")->middleware('auth');
 
 
 
 
-Route::get("/agregarnuevaIntervencionvictima/{id}",function($id){
+Route::get("/agregarnuevaintervencionvictima/{id}",function($id){
   session(["idCaso" => $id]);
   $casos = App\Caso::all();
   $instituciones = App\Institucion::all();
@@ -288,10 +319,9 @@ Route::get("/agregarnuevaIntervencionvictima/{id}",function($id){
   $victimas= App\Victim::all();
   $ciudades= App\Ciudad::all();
   $organismos = App\Organismo::all();
-
-  $intervenciones = DB::table("intervenciones")
-    ->select(DB::raw("*"))
-    ->orderBy(DB::raw("fecha_intervencion","ASC"))
+ $intervenciones = DB::table("intervenciones")
+   ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
     ->get();
  
   $institucion_oarticulas = App\Institucion_Oarticula::all();
@@ -302,26 +332,46 @@ Route::get("/agregarnuevaIntervencionvictima/{id}",function($id){
   $institucionnav= App\Institucion::where("idCaso",session("idCaso"))->count();
   $casoActual = App\Caso::find(session("idCaso"));
 
-  return view("agregarnuevaIntervencionvictima", compact("institucionnav","provincias","organismos","ciudades","oarticulas","cavajs","delitos","institucion_oarticulas","casos","instituciones","socioeconomicos","victimas","departamentos", "intervenciones", "casoActual"));
+  return view("agregarnuevaintervencionvictima", compact("institucionnav","provincias","organismos","ciudades","oarticulas","cavajs","delitos","institucion_oarticulas","casos","instituciones","socioeconomicos","victimas","departamentos", "intervenciones", "casoActual"));
 })->middleware('auth');
 
 
 
-Route::post("/agregarnuevaIntervencionvictima","IntervencionController@agregarnueva")->middleware('auth');
-
-Route::get("/detallenuevaIntervencion/{id}", "IntervencionController@detalle")->middleware('auth');
 
 
+
+Route::post("/agregarnuevaintervencionvictimapanel","IntervencionController@agregarnuevapanel")->middleware('auth');
+
+
+Route::post("/agregarnuevaintervencionvictima","IntervencionController@agregarnueva")->middleware('auth');
 
 Route::get("/detallenuevaintervencion/{id}", "IntervencionController@detalle")->middleware('auth');
 
+Route::get("/detallenuevaintervencionpanel/{id}", "IntervencionController@detallepanel")->middleware('auth');
+
+Route::post("/detallenuevaintervencionpanel", "IntervencionController@editarpanel")->middleware('auth');
+
+
+
 Route::post("/detallenuevaintervencion", "IntervencionController@editar")->middleware('auth');
 
+Route::get("/eliminarnuevaintervencionpanel/{id}", "IntervencionController@eliminarnuevaintervencionpanel")->middleware('auth');
+
+
+
+
+
+
+Route::get("/detallenuevaintervencionpanel/{id}", "IntervencionController@detallepanel")->middleware('auth');
+
+Route::post("/detallenuevaintervencionpanel","IntervencionController@editarpanel")->middleware('auth');
+
+Route::post("/detallenuevaintervencionpanel", "IntervencionController@editarpanel")->middleware('auth');
 Route::get("/victima/{id}", "IntervencionController@victima")->middleware('auth');
 
 Route::get("/victimaintervencion/{idCaso}/{idVictima}","IntervencionController@victima")->middleware('auth');
 
-Route::get("/detalleagregarIntervencion/{id}",function($id){
+Route::get("/detalleagregarintervencion/{id}",function($id){
   session(["idCaso" => $id]);
   $casos = App\Caso::all();
   $instituciones = App\Institucion::all();
@@ -329,9 +379,10 @@ Route::get("/detalleagregarIntervencion/{id}",function($id){
   $departamentos = App\Departamento::all();
   $victimas= App\Victim::all();
   $ciudades= App\Ciudad::all();
+
   $intervenciones = DB::table("intervenciones")
-    ->select(DB::raw("*"))
-    ->orderBy(DB::raw("fecha_intervencion","ASC"))
+   ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
     ->get();
   $provincias = App\Provincia::all();
 
@@ -343,7 +394,7 @@ Route::get("/detalleagregarIntervencion/{id}",function($id){
   $casoActual = App\Caso::find(session("idCaso"));
   return view("detalleagregarIntervencion", compact("ciudades","oarticulas","cavajs","delitos","provincias","organismos","institucion_oarticulas","casos","instituciones","socioeconomicos","victimas","departamentos", "intervenciones", "casoActual"));
 });
-Route::post("/detalleagregarIntervencion","IntervencionPanelController@agregar");
+Route::post("/detalleagregarintervencion","IntervencionPanelController@agregar");
 
 
 Route::get("/detalleCaso/{id}", "CasoPanelController@detalle")->middleware('auth');
@@ -464,10 +515,11 @@ Route::get("/detalleagregarVictima",function(){
   $discapacidades = App\Discapacidad::all();
   $limitaciones = App\Limitacion::all();
   $victims= App\Victim::all();
-  
+  $ciudades =App\Ciudad::where("idPcia","1")
+  ->orWhere("idPcia","2")->get();
   $instituciones = App\Institucion::all();
   $institucionnav= App\Institucion::where("idCaso",session("idCaso"))->count();
-  return view("detalleagregarVictima", compact("necesidades","programas","discapacidades","limitaciones","victims","instituciones","institucionnav"));
+  return view("detalleagregarVictima", compact("ciudades","necesidades","programas","discapacidades","limitaciones","victims","instituciones","institucionnav"));
 })->middleware('auth');
 
 Route::post("/detalleagregarVictima","VictimaPanelController@agregar")->middleware('auth');
@@ -545,7 +597,10 @@ $documentos = App\Documento::all();
 $instituciones = App\Institucion::all();
 $institucion = App\Institucion::find($id);
 $organismo = App\Institucion::where("idCaso",$id)->get();
-$intervenciones = App\Intervencion::all();
+  $intervenciones = DB::table("intervenciones")
+   ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
+    ->get();
 $personas_nuevas = App\Persona_nueva::all();
 $convivientes_nuevos=App\Conviviente_nuevo::all();
 $imputados_nuevos=App\Imputado_nuevo::all();
@@ -578,7 +633,10 @@ $personas=App\Persona::all();
 $profesionales=App\Profesional::all();
 $documentos = App\Documento::all();
 $instituciones = App\Institucion::all();
-$intervenciones = App\Intervencion::all();
+  $intervenciones = DB::table("intervenciones")
+   ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
+    ->get();
 $personas_nuevas = App\Persona_nueva::all();
 $convivientes_nuevos=App\Conviviente_nuevo::all();
 $imputados_nuevos=App\Imputado_nuevo::all();
@@ -606,7 +664,10 @@ $personas=App\Persona::all();
 $profesionales=App\Profesional::all();
 $documentos = App\Documento::all();
 $instituciones = App\Institucion::all();
-$intervenciones = App\Intervencion::all();
+  $intervenciones = DB::table("intervenciones")
+   ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
+    ->get();
 $personas_nuevas = App\Persona_nueva::all();
 $convivientes_nuevos=App\Conviviente_nuevo::all();
 $imputados_nuevos=App\Imputado_nuevo::all();
@@ -643,7 +704,10 @@ $documentos = App\Documento::all();
 $instituciones = App\Institucion::all();
 $institucion = App\Institucion::find($id);
 $organismo = App\Institucion::where("idCaso",$id)->get();
-$intervenciones = App\Intervencion::all();
+  $intervenciones = DB::table("intervenciones")
+   ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
+    ->get();
 $personas_nuevas = App\Persona_nueva::all();
 $convivientes_nuevos=App\Conviviente_nuevo::all();
 $imputados_nuevos=App\Imputado_nuevo::all();
@@ -669,7 +733,10 @@ $personas=App\Persona::all();
 $profesionales=App\Profesional::all();
 $documentos = App\Documento::all();
 $instituciones = App\Institucion::all();
-$intervenciones = App\Intervencion::all();
+  $intervenciones = DB::table("intervenciones")
+   ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
+    ->get();
 $personas_nuevas = App\Persona_nueva::all();
 $convivientes_nuevos=App\Conviviente_nuevo::all();
 $imputados_nuevos=App\Imputado_nuevo::all();
@@ -694,7 +761,10 @@ $personas=App\Persona::all();
 $profesionales=App\Profesional::all();
 $documentos = App\Documento::all();
 $instituciones = App\Institucion::all();
-$intervenciones = App\Intervencion::all();
+  $intervenciones = DB::table("intervenciones")
+   ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
+    ->get();
 $personas_nuevas = App\Persona_nueva::all();
 $convivientes_nuevos=App\Conviviente_nuevo::all();
 $imputados_nuevos=App\Imputado_nuevo::all();
@@ -731,13 +801,20 @@ $documentos = App\Documento::all();
 $instituciones = App\Institucion::all();
 $institucion = App\Institucion::find($id);
 $organismo = App\Institucion::where("idCaso",$id)->get();
-$intervenciones = App\Intervencion::all();
+  $intervenciones = DB::table("intervenciones")
+   ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
+    ->get();
 $personas_nuevas = App\Persona_nueva::all();
 $convivientes_nuevos=App\Conviviente_nuevo::all();
 $imputados_nuevos=App\Imputado_nuevo::all();
 $instituciocount= App\Institucion::where("idCaso",session("idCaso"))->count();
 $casoActual = App\Caso::find(session("idCaso"));
-  return view("paneldecontrolvictima",compact("imputados","casoNombre","convivientes","victimas","personas","profesionales", "caso","delitos","cavajs","usuarios","documentos","instituciones","hechos","intervenciones","organismo","idCaso","instituciocount","personas_nuevas","convivientes_nuevos","imputados_nuevos","casos","casoActual","delitoActual","user"));
+  $intervenciones = DB::table("intervenciones")
+   ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
+    ->get();
+  return view("paneldecontrolvictima",compact("intervenciones","imputados","casoNombre","convivientes","victimas","personas","profesionales", "caso","delitos","cavajs","usuarios","documentos","instituciones","hechos","intervenciones","organismo","idCaso","instituciocount","personas_nuevas","convivientes_nuevos","imputados_nuevos","casos","casoActual","delitoActual","user"));
 }
 if($user->hasRole('profesional')) {
 session(["idCaso" => $id]);
@@ -757,7 +834,10 @@ $personas=App\Persona::all();
 $profesionales=App\Profesional::all();
 $documentos = App\Documento::all();
 $instituciones = App\Institucion::all();
-$intervenciones = App\Intervencion::all();
+  $intervenciones = DB::table("intervenciones")
+   ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
+    ->get();
 $personas_nuevas = App\Persona_nueva::all();
 $convivientes_nuevos=App\Conviviente_nuevo::all();
 $imputados_nuevos=App\Imputado_nuevo::all();
@@ -782,7 +862,10 @@ $personas=App\Persona::all();
 $profesionales=App\Profesional::all();
 $documentos = App\Documento::all();
 $instituciones = App\Institucion::all();
-$intervenciones = App\Intervencion::all();
+  $intervenciones = DB::table("intervenciones")
+   ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
+    ->get();
 $personas_nuevas = App\Persona_nueva::all();
 $convivientes_nuevos=App\Conviviente_nuevo::all();
 $imputados_nuevos=App\Imputado_nuevo::all();
@@ -812,12 +895,21 @@ $profesionales=App\Profesional::all();
 $documentos = App\Documento::all();
 $oarticulas = App\Oarticula::all();
 $instituciones = App\Institucion::all();
-$intervenciones = App\Intervencion::all();
+$intervenciones = DB::table("intervenciones")
+    ->select(DB::raw("*"))
+    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
+    ->get();
 $institucion_oarticulas = App\Institucion_Oarticula::all();
 $provincias = App\Provincia::all();
 $organismos = App\Organismo::all();
-$casoActual = App\Caso::find(session("idCaso"));
-  return view("informe",compact("organismos","provincias","ciudades","oarticulas","institucion_oarticulas","departamentos","casoActual","imputados","convivientes","victimas","personas","profesionales", "caso","delitos","cavajs","usuarios","documentos","instituciones","hechos","intervenciones","casoActual","delitoActual"));
+
+$imputados_nuevos=App\Imputado_nuevo::all();
+$personas_nuevas = App\Persona_nueva::all();
+$convivientes_nuevos=App\Conviviente_nuevo::all();
+
+
+
+  return view("informe",compact("organismos","provincias","ciudades","oarticulas","institucion_oarticulas","departamentos","casoActual","imputados","convivientes","victimas","personas","profesionales", "caso","delitos","cavajs","usuarios","documentos","instituciones","hechos","intervenciones","casoActual","delitoActual","imputados_nuevos","personas_nuevas","convivientes_nuevos"));
 })->middleware('auth');
 //------------------------------FIN RUTA INFORME demanda FINAL------------------------------------------//
 Route::get("/informedemanda/{id}",function($id){
@@ -931,10 +1023,10 @@ Route::get("/agregarseguimiento/{id}",function($id){
 })->middleware('auth');
 Route::post("/agregarseguimiento","DerivacionController@cargarSeguimiento")->middleware('auth');
 
-// route chancge pass
+/* route chancge pass
 
-//Route::get('cambiarPassword/{usuario}', 'PassController@index')->middleware('auth');
-/*Route::get('sendemail/{email}',function($email){
+Route::get('cambiarPassword/{usuario}', 'PassController@index')->middleware('auth');
+Route::get('sendemail/{email}',function($email){
  $users=App\User::All();
    foreach ($users as $user) {
     if($email==$user->email){
@@ -948,9 +1040,9 @@ Route::post("/agregarseguimiento","DerivacionController@cargarSeguimiento")->mid
     $message->to('xul27@hotmail.com')->subject('Login Aplicaciòn Vìctimas');
  });
 return "tu email ha sido enviado exitosamente";
-});*/
-//Enviar mail con usuario y contraseña, escribir el mail en la ruta y  enviar
-//configurar el mail en la vista que se encuentra aquì resources\views\emails\welcome.blade.php
+});
+Enviar mail con usuario y contraseña, escribir el mail en la ruta y  enviar
+configurar el mail en la vista que se encuentra aquì resources\views\emails\welcome.blade.php
 Route::get('sendemail/{email}',function($email){
  $users=App\User::All();
    foreach ($users as $user) {
@@ -970,27 +1062,26 @@ return "EMAIL ENVIADO EXITOSAMENTE";
 }
 });
 
-// Password Change Routes...
+Password Change Routes...
+*/
 $this->get('password/change', 'Auth\ChangePasswordController@showChangePasswordForm')->name('password.change');
 $this->post('password/change', 'Auth\ChangePasswordController@change')->name('password.change.post');
 
 
 
-//descarga la tabla Casos
 use App\Exports\CasosExport;
 use App\Exports\VictimasExport;
 use App\Exports\IncidenciasExport;
 use App\Exports\DerivacionesExport;
 
-
+ 
 Route::get('/excel', function (CasosExport $casosExport,VictimasExport $victimasExport,IncidenciasExport $incidenciasExport,DerivacionesExport $derivacionesExport) {
-  $user = Auth::user();
+   $user = Auth::user();
 if ($user->hasRole('admin')) {
    $casosExport->store('casos.xlsx','public');
    $victimasExport->store('victimas.xlsx','public');
    $incidenciasExport->store('incidencias.xlsx','public');
    $derivacionesExport->store('derivaciones.xlsx','public');
-
 
  return Redirect::to("/home")->with('message','DESCARGA EXITOSA!');
 }else{abort(403, "No tienes autorización para ingresar.");}})->middleware('auth');
@@ -998,9 +1089,11 @@ if ($user->hasRole('admin')) {
 
 
 
-//CREAR CLAVES ALEATORIAS PARA CADA USUARIO(TABLA USERS) Y HASHEARLAS//
+/*
 
-//ejecutar el primer foreach, genera claves aleatorias para cada user, luego ejecutar el segundo foreach hashea. Trabaja sobre la tabla Users
-//Route::get("/hasheo", "PassController@index")->middleware('auth');
-///storage/victimas.xlsx
-///storage/casos.xlsx
+CREAR CLAVES ALEATORIAS PARA CADA USUARIO(TABLA USERS) Y HASHEARLAS
+
+ejecutar el primer foreach, genera claves aleatorias para cada user, luego ejecutar el segundo foreach hashea. Trabaja sobre la tabla Users
+Route::get("/hasheo", "PassController@index")->middleware('auth');
+storage/victimas.xlsx
+storage/casos.xlsx*/
