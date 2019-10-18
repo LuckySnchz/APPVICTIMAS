@@ -561,9 +561,9 @@
                }
             </script>
 
-<!-E11 Fiscalia/juzgado a cargo->
+<!-E12 II Causa o Id Judicial->
 @if($cantImputados==0)
-  <div class="form-group">
+  <div class="form-group" 
      {{ $errors->has('fiscalia_juzgado') ? 'has-error' : ''}}>
      <label for="datos_ente_judicial">E 11. Fiscalía/Juzgado a cargo:</label>
      <input type="text" class="form-control" name="fiscalia_juzgado" id="datos_ente_judicial" value="{{old('fiscalia_juzgado')}}">

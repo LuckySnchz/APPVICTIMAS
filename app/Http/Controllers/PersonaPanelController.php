@@ -33,8 +33,8 @@ if(Persona_nueva::where("idVictim",session("idVictim"))->where("idPersona",$id)-
    return view("detallepersonavinculo", compact("persona","personas","nombre_persona_asistida","vinculo_victima","vinculo_otro","telefono_persona_asistida","domicilio_persona_asistida","localidad_persona_asistida","otro_telefono_persona_asistida","vinculo_otro_familiar","victim_pa"));
     }
 else{
-          //$duplicado=Persona::find($id)->nombre_persona_asistida;
-         //return view("duplicarreferente",compact("duplicado"));
+          $duplicado=Persona::find($id)->nombre_persona_asistida;
+         return view("duplicarreferente",compact("duplicado"));
 
 
 $personas = Persona::all();

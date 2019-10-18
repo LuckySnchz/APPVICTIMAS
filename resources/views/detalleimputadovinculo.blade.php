@@ -206,7 +206,7 @@
   
   <div class="form-group" {{ $errors->has('vinculo_victima') ? 'has-error' : ''}}>
   <label for="">E 5. Vinculación con la víctima:</label>
-  <select  class="form-control vinculo" value="{{old("vinculo_victima")}}" onChange="selectOnChangeE4(this)" name="vinculo_victima">
+  <select  class="form-control vinculo" style="background-color: red;color:black" value="{{old("vinculo_victima")}}" onChange="selectOnChangeE4(this)" name="vinculo_victima">
     <option value="" selected=disabled>Seleccionar...</option>
 
      @if(old("vinculo_victima") == 3) <option value="3" selected>Amistad</option>
