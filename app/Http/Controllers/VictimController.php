@@ -212,36 +212,36 @@ public function agregar(Request $form){
 
       public function eliminarvictima($id) {
 
-    $Intervenciones=Intervencion::all();
+    $Intervenciones=Intervencion::where("idVictim",$id);
        foreach ($Intervenciones as $Intervencion) {
-         if($Intervencion->idVictim==$id){
+        
    
                 $Intervencion->delete();
-         }
+         
        }
 
-       $Personas=Persona::all();
+       $Personas=Persona::where("idVictim",$id);
        foreach ($Personas as $Persona) {
-         if($Persona->idVictim==$id){
+        
    
                 $Persona->delete();
-         }
+         
        }
 
-         $Convivientes=Conviviente::all();
+         $Convivientes=Conviviente::where("idVictim",$id);
        foreach ($Convivientes as $Conviviente) {
-         if($Conviviente->idVictim==$id){
+        
    
                 $Conviviente->delete();
-         }
+         
        }
 
-         $Imputados=Imputado::all();
+         $Imputados=Imputado::where("idVictim",$id);
        foreach ($Imputados as $Imputado) {
-         if($Imputado->idVictim==$id){
+      
    
                 $Imputado->delete();
-         }
+         
        }
 
          $victimaelim=Victim::find($id)->getIdCaso();

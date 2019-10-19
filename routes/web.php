@@ -154,14 +154,14 @@ Route::post("/agregarDelito","HechoController@agregar")->middleware('auth');*/
 Route::get("/agregarimputado",function(){
     $imputados = App\Imputado::all();
     $imputados_nuevos = App\Imputado_nuevo::all();
-   
+    $cantImputados = App\Imputado::where("idCaso",session("idCaso"))->count();
     $casoActual = App\Caso::find(session("idCaso"));
     $victimActual = App\Victim::find(session("idVictim"));
     $cantVictimas = App\Victim::where("idCaso",session("idCaso"))->count();
     $instituciones = App\Institucion::all();
      
     $institucionnav= App\Institucion::where("idCaso",session("idCaso"))->count();
-  return view("agregarimputado",compact("cantVictimas","victimActual","imputados","instituciones","institucionnav","imputados_nuevos","casoActual"));
+  return view("agregarimputado",compact("cantVictimas","victimActual","imputados","instituciones","institucionnav","imputados_nuevos","casoActual","cantImputados"));
 })->middleware('auth');
 Route::post("/agregarimputado","ImputadoController@agregar")->middleware('auth');
 
