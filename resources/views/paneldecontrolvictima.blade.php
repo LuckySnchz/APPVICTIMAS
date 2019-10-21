@@ -228,7 +228,7 @@ session_start();
  
 
 
-    <form class="" action="/agregarnuevaintervencionvictimapanel" method="post">
+    <form class="" action="/paneldecontrolvictima" method="post">
       {{csrf_field()}}
     <input type="hidden" name="idCaso" value="{{session("idCaso")}}">
        <input type="hidden" name="idVictim" value="{{session("idVictim")}}">
