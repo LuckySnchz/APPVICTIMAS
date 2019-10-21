@@ -13,8 +13,9 @@ use App\Intervencion;
 use App\Persona;
 use App\Conviviente;
 use App\Imputado;
-
-
+use App\ Persona_nueva;
+use App\ Conviviente_nuevo;
+use App\ Imputado_nuevo;
 use Validator;
 
 class VictimController extends Controller
@@ -220,24 +221,24 @@ public function agregar(Request $form){
          
        }
 
-       $Personas=Persona::where("idVictim",$id);
-       foreach ($Personas as $Persona) {
+       $Personas_nuevas=Persona_nueva::where("idVictim",$id);
+       foreach ($Personas_nuevas as $Persona_nueva) {
         
    
-                $Persona->delete();
+                $Persona_nueva->delete();
          
        }
 
-         $Convivientes=Conviviente::where("idVictim",$id);
-       foreach ($Convivientes as $Conviviente) {
+         $Convivientes_nuevos=Conviviente_nuevo::where("idVictim",$id);
+       foreach ($Convivientes_nuevos as $Conviviente_nuevo) {
         
    
-                $Conviviente->delete();
+                $Conviviente_nuevo->delete();
          
        }
 
-         $Imputados=Imputado::where("idVictim",$id);
-       foreach ($Imputados as $Imputado) {
+         $Imputados_nuevos=Imputado_nuevo::where("idVictim",$id);
+       foreach ($Imputados_nuevos as $Imputado_nuevo) {
       
    
                 $Imputado->delete();

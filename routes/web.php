@@ -104,6 +104,7 @@ Route::get("/eliminarpersona/{id}", "PersonaController@eliminarpersona")->middle
 Route::get("/agregarVictima",function(){
   $necesidades = App\Necesidad::all();
   $programas = App\Programa::all();
+   $ciudades = App\Ciudad::all();
   $discapacidades = App\Discapacidad::all();
   $limitaciones = App\Limitacion::all();
   $victims= App\Victim::all();
@@ -115,7 +116,7 @@ Route::get("/agregarVictima",function(){
   $ciudades =App\Ciudad::where("idPcia","1")
   ->orWhere("idPcia","2")->get();
    
-  return view("agregarVictima", compact("necesidades","programas","discapacidades","limitaciones","victims","instituciones","institucionnav","casoActual","cantVictimas","ciudades"));
+  return view("agregarVictima", compact("ciudades","necesidades","programas","discapacidades","limitaciones","victims","instituciones","institucionnav","casoActual","cantVictimas","ciudades"));
 })->middleware('auth');
 Route::post("/agregarVictima","VictimController@agregar")->middleware('auth');
 Route::get("/eliminarvictima/{id}", "VictimController@eliminarvictima")->middleware('auth');
@@ -222,7 +223,7 @@ Route::post("/agregarDocumento","DocumentoController@agregar")->middleware('auth
 
 //G2-INFORME E INTERVENCION//
 
-Route::get("/agregarIntervencion",function(){
+Route::get("/agregarintervencion",function(){
   $provincias = App\Provincia::all();
   $ciudades = App\Ciudad::all();
   $hechos= App\Hecho::All();
@@ -245,9 +246,9 @@ Route::get("/agregarIntervencion",function(){
   $casoActual = App\Caso::find(session("idCaso"));
   $instituciones = App\Institucion::all();
  $institucionnav= App\Institucion::where("idCaso",session("idCaso"))->count();
-  return view("agregarIntervencion", compact("provincias", "ciudades","hechos","organismos","oarticulas","cavajs","delitos","institucion_oarticulas","casos","instituciones","socioeconomicos","victimas","departamentos", "intervenciones", "casoActual","instituciones","institucionnav"));
+  return view("agregarintervencion", compact("provincias", "ciudades","hechos","organismos","oarticulas","cavajs","delitos","institucion_oarticulas","casos","instituciones","socioeconomicos","victimas","departamentos", "intervenciones", "casoActual","instituciones","institucionnav"));
 })->middleware('auth');
-Route::post("/agregarIntervencion","IntervencionController@agregar")->middleware('auth');
+Route::post("/agregarintervencion","IntervencionController@agregar")->middleware('auth');
 
 
 
@@ -370,6 +371,8 @@ Route::post("/detallenuevaintervencionpanel", "IntervencionController@editarpane
 Route::get("/victima/{id}", "IntervencionController@victima")->middleware('auth');
 
 Route::get("/victimaintervencion/{idCaso}/{idVictima}","IntervencionController@victima")->middleware('auth');
+
+Route::get("/victimaagregarintervencion/{idCaso}/{idVictima}","IntervencionController@victimaagregar")->middleware('auth');
 
 Route::get("/detalleagregarintervencion/{id}",function($id){
   session(["idCaso" => $id]);

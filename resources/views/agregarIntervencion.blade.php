@@ -298,7 +298,7 @@
                    <li>
           
 
-  <a type="button"  onclick="mostrarvictima();" href="/victimaintervencion/{{$victima->id}}/{{$victima->idCaso}}" target="_self" style="width:102%;
+  <a type="button"  onclick="mostrarvictima();" href="/victimaagregarintervencion/{{$victima->id}}/{{$victima->idCaso}}" target="_self" style="width:102%;
   color:black;border: solid black 1px;background-color:grey;margin-left: -3%" class="btn btn-danger">{{$victima->victima_nombre_y_apellido}}</button> </a><br><br>  
     
           

@@ -120,28 +120,6 @@ session(["idCaso"=> $intervencion->idCaso]);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
    public function eliminarintervencion($id) {
      $intervencionelim=Intervencion::find($id)->getidCaso();
  $intervencion= Intervencion::find($id);
@@ -166,8 +144,16 @@ public function eliminarnuevaintervencion($id) {
 
    public function eliminarnuevaintervencionpanel($id) {
      $intervencionelim=Intervencion::find($id)->idCaso;
- $intervencion= Intervencion::find($id);
-   $intervencion->delete();
+
+
+
+$Intervenciones=Intervencion::where("idVictim",$id);
+       foreach ($Intervenciones as $Intervencion) {
+        
+   
+                $Intervencion->delete();
+         
+       }
 
 
    return redirect("/paneldecontrolvictima/$intervencionelim/#victima");}
@@ -212,6 +198,16 @@ public function victima($id,$idCaso) {
 
 return redirect("agregarnuevaintervencionvictima/{$idCaso}/#victima");}
 
+
+public function victimaagregar($id,$idCaso) {
+
+    
+    session(["idVictim"=> $id]);
+    session(["idCaso"=> $idCaso]);
+
+
+
+return redirect("agregarintervencion");}
 
 
 

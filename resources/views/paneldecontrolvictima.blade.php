@@ -298,7 +298,7 @@ session_start();
  <div class="container jumbotron shadow p-3 mb-5 bg-white rounded" style="max-width: 80%;margin-top: 5%;text-align: center">
   <strong><h4 class="text-center" style="height: 1%;color:white;background-color: black;max-width: 100%">Intervenciones Realizadas:</h4></strong>
  @foreach($intervenciones as $intervencion)
-     @if ($intervencion->idCaso == session("idCaso"))
+     @if ($intervencion->idCaso == session("idCaso") && $intervencion->idVictim == session("idVictim"))
        <li style="list-style: none">
 
  <strong ><label for="detalle_intervencion" style="text-decoration: underline;color: red">Víctima Intervenida:</label></strong> 

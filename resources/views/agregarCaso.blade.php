@@ -530,7 +530,7 @@ session_start();
 
            <div class="form-group " id="tipodoc" {{ $errors->has('delito') ? 'has-error' : ''}}>
     <label for="">A 2. Tipo de delito:</label>
-<select style="background-color: grey;color: red"class="form-control" name="delito" onChange="selectOnChangeA22(this)">
+<select style="background-color: grey;color: black"class="form-control" name="delito" onChange="selectOnChangeA22(this)">
               <option value="" selected=disabled>Seleccionar...</option>
               @foreach ($delitos as $delito)
                 @if($delito_dem==$delito->id)
@@ -547,7 +547,7 @@ session_start();
     <div id="cualA22" style="display: none">
     @endif
     <label for="">Cuál?</label>
-    <input style="background-color: grey;color: red" name="otro_delito"  id="otro_delito" class="form-control" type="text" value="{{$otro_delito_dem}}">
+    <input style="background-color: grey;color: black" name="otro_delito"  id="otro_delito" class="form-control" type="text" value="{{$otro_delito_dem}}">
     {!! $errors->first('otro_delito', '<p class="help-block" style="color:red";>:message</p>') !!}
     </div>
     </div>
@@ -586,7 +586,7 @@ session_start();
         <div class="form-group"
         {{ $errors->has('fecha_ingreso') ? 'has-error' : ''}}>
         <label for="datos_fecha_ingreso">A 4. Fecha de Ingreso:</label>
-        <input style="background-color: grey;color: red" type="date" class="form-control" name="fecha_ingreso" id="datos_fecha_ingreso" value="{{$fecha_ingreso_dem}}">
+        <input style="background-color: grey;color: black" type="date" class="form-control" name="fecha_ingreso" id="datos_fecha_ingreso" value="{{$fecha_ingreso_dem}}">
         {!! $errors->first('fecha_ingreso', '<p class="help-block" style="color:red";>:message</p>') !!}
         </div>
 
@@ -596,7 +596,7 @@ session_start();
         <div class="form-group"
         {{ $errors->has('modalidad_ingreso') ? 'has-error' : ''}}>
         <label for="modalidad_ingreso">A 5. Modalidad de Ingreso</label>
-        <select style="background-color: grey;color: red"class="form-control" name="modalidad_ingreso" id="modalidad_id" onChange="selectOnChangeA5A(this)">
+        <select style="background-color: grey;color: black"class="form-control" name="modalidad_ingreso" id="modalidad_id" onChange="selectOnChangeA5A(this)">
                   <option value="" selected=disabled>Seleccionar...</option>
                   @if ($modalidad_ingreso_dem==1)
                     <option value="1" selected>Presentación espontánea</option>
@@ -624,7 +624,7 @@ session_start();
 
 
   <label>A 5.I Qué organismo derivó?</label>
-<select style="background-color: grey;color: red" class="form-control" name="organismo" id="organismo" onChange="selectOnChangeA5(this)">
+<select style="background-color: grey;color: black" class="form-control" name="organismo" id="organismo" onChange="selectOnChangeA5(this)">
               <option value="" selected=disabled>Seleccionar...</option>
               @foreach ($organismos as $organismo)
                 @if($organismo_dem==$organismo->id)
@@ -641,7 +641,7 @@ session_start();
     <div id="cualA5" style="display: none">
     @endif
     <label for="">Cuál?</label>
-    <input style="background-color: grey;color: red" name="cual_otro_organismo"  id="otro_organismo" class="form-control" type="text" value="{{$cual_otro_organismo_dem}}">
+    <input style="background-color: grey;color: black" name="cual_otro_organismo"  id="otro_organismo" class="form-control" type="text" value="{{$cual_otro_organismo_dem}}">
     {!! $errors->first('otro_organismo', '<p class="help-block" style="color:red";>:message</p>') !!}
     </div>
     </div>
@@ -861,7 +861,7 @@ session_start();
 
   <div class="form-group "{{ $errors->has('nombre_y_apellido_de_la_victima') ? 'has-error' : ''}}>
   <label for="">A 11. Nombre y apellido de la víctima:</label>
-  <input style="background-color: grey;color: red" type="text" class="form-control" name="nombre_y_apellido_de_la_victima" id="victima_nombre_y_apellido" value="{{$nombre_y_apellido_de_la_victima_dem}}">
+  <input style="background-color: grey;color: black" type="text" class="form-control" name="nombre_y_apellido_de_la_victima" id="victima_nombre_y_apellido" value="{{$nombre_y_apellido_de_la_victima_dem}}">
   {!! $errors->first('nombre_y_apellido_de_la_victima', '<p class="help-block" style="color:red";>:message</p>') !!}
   </div>
   <br>
@@ -870,7 +870,7 @@ session_start();
 
       <div class="form-group" {{ $errors->has('fecha_delito') ? 'has-error' : ''}}>
       <label>A 12. Tipo de fecha del hecho:</label>
-       <select style="background-color: grey;color: red" class="form-control" id="fecha_delito" name="fecha_delito" onChange="selectOnChangeD1(this)">
+       <select style="background-color: grey;color: black" class="form-control" id="fecha_delito" name="fecha_delito" onChange="selectOnChangeD1(this)">
 
             <option value="" selected=disabled>Seleccionar...</option>
             @if($fecha_delito_dem == 1) <option value="1" selected>Fecha específica</option>
@@ -897,9 +897,9 @@ session_start();
 
   <div class="form-group"{{ $errors->has('fecha_hecho') ? 'has-error' : ''}}>
        <label for="">A 12 I. Fecha del hecho: </label>
-      <input style="background-color: grey;color: red" type="date" class="form-control" id="fecha_hecho" name="fecha_hecho" value="{{$fecha_hecho_dem}}">
+      <input style="background-color: grey;color: black" type="date" class="form-control" id="fecha_hecho" name="fecha_hecho" value="{{$fecha_hecho_dem}}">
       <label for="bloqueo3" class="form-check-label">Se desconoce</label>
-      <input style="background-color: grey;color: red" type="checkbox" id="bloqueo3" name="fecha_hecho_desconoce" value="Se desconoce" onchange="checkB3(this)">
+      <input style="background-color: grey;color: black" type="checkbox" id="bloqueo3" name="fecha_hecho_desconoce" value="Se desconoce" onchange="checkB3(this)">
       {!! $errors->first('fecha_hecho', '<p class="help-block" style="color:red";>:message</p>') !!}
       </div>
     </div>
@@ -953,7 +953,7 @@ session_start();
       <div class="form-group" id="fecha_delito_otro"  style="display:none">
     @endif
       <label for="">A 12 I. Descripción de periodo de fechas del hecho: </label>
-      <input style="background-color: grey;color: red" type="text" style="height: 100px" class="form-control" id="fecha_hecho_otro" name="fecha_hecho_otro" value="{{$fecha_hecho_otro_dem}}"><br>
+      <input style="background-color: grey;color: black" type="text" style="height: 100px" class="form-control" id="fecha_hecho_otro" name="fecha_hecho_otro" value="{{$fecha_hecho_otro_dem}}"><br>
       {!! $errors->first('fecha_hecho_otro', '<p class="help-block" style="color:red";>:message</p>') !!}
       </div>
 
@@ -963,7 +963,7 @@ session_start();
 
     <div class="form-group" {{ $errors->has('pais_hecho') ? 'has-error' : ''}}>
     <label for="countryId2">A 13. País del hecho:</label>
-    <select style="background-color: grey;color: red" name="pais_hecho" class="countries2 order-alpha form-control" id="countryId2">
+    <select style="background-color: grey;color: black" name="pais_hecho" class="countries2 order-alpha form-control" id="countryId2">
       <option value="" selected=disabled>Seleccionar...</option>
       @if($pais_hecho_dem==1)
       <option value="1" selected>Argentina</option>
@@ -993,7 +993,7 @@ session_start();
     <div class="form-group" id="otro_pais" style="display: none">
 @endif
   <label for="">A 13 I. Cuál?:</label>
-  <input style="background-color: grey;color: red" type="text" class="form-control" name="pais_hecho_otro" id="pais_hecho_otro" value="{{$pais_hecho_otro_dem}}">
+  <input style="background-color: grey;color: black" type="text" class="form-control" name="pais_hecho_otro" id="pais_hecho_otro" value="{{$pais_hecho_otro_dem}}">
   {!! $errors->first('pais_hecho_otro', '<p class="help-block" style="color:red";>:message</p>') !!}
   </div>
   <br>
@@ -1007,7 +1007,7 @@ session_start();
   <div class="form-group" id="provincia_hecho" style="display: none">
     @endif
     <label for="stateId2">A 14. Provincia del hecho:</label>
-    <select style="background-color: grey;color: red" name="provincia_hecho" class="states2 order-alpha form-control" id="stateId2" onChange="selectOnChangePcia(this)">
+    <select style="background-color: grey;color: black" name="provincia_hecho" class="states2 order-alpha form-control" id="stateId2" onChange="selectOnChangePcia(this)">
     <option value="" selected=disabled>Seleccionar...</option>
 
    
@@ -1037,7 +1037,7 @@ session_start();
 <div class="form-group" id="localidad_hecho" style="display: none" >
 @endif
     <label for="cityId2">A 15. Localidad del hecho:</label>
-    <select style="background-color: grey;color: red" name="localidad_hecho" class="cities2 order-alpha form-control" id="cityId2">
+    <select style="background-color: grey;color: black" name="localidad_hecho" class="cities2 order-alpha form-control" id="cityId2">
     <option value="" selected=disabled>Seleccionar...</option>
    
     @foreach ($ciudades as $ciudad)
