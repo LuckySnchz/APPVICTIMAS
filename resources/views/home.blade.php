@@ -177,7 +177,7 @@
       <li class="list-inline-item"><a href='/paneldecontrolcaso/{{$caso->id}}' class="mr-3"><i class="fas fa-envelope mr-1"></i>Editar</a></li>
       <li class="list-inline-item"><a href='/informe/{{$caso->id}}' class="mr-3"><i class="fas fa-user mr-1"></i>Informe</a></li>
 
-      <li class="list-inline-item"><a href='/agregarnuevaintervencionvictima/{{$caso->id}}' class="mr-3"><i class="fas fa-rss mr-1"></i>Agregar intervención</a></li>
+      <li class="list-inline-item"><a href='/agregarnuevaIntervencionvictima/{{$caso->id}}' class="mr-3"><i class="fas fa-rss mr-1"></i>Agregar intervención</a></li>
     </ul>
    
     <div class="row media mt-2 px-1">
