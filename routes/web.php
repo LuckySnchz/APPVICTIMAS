@@ -415,8 +415,8 @@ Route::get("/detallePersona/{id}", "PersonaPanelController@detalle")->middleware
 Route::post("/detallePersona", "PersonaPanelController@editar")->middleware('auth');
 Route::get("/detallePersona/deletePersona/{id}", "PersonaPanelController@eliminar")->middleware('auth');
 //VISTA QUE SIRVE PARA LOS CICLOS DE LAS VICTIMAS, USAR LAS MISMAS PERSONAS YA AGREGADAS Y PODER EDITARLE SOLO EL VINCULO DE SE NECESARIO//
-Route::get("/detallepersonavinculo/{id}","PersonaPanelController@detallepersona")->middleware('auth');
-Route::post("/detallepersonavinculo", "PersonaPanelController@vinculopersona")->middleware('auth');
+Route::get("/detallePersonaVinculo/{id}","PersonaPanelController@detallepersona")->middleware('auth');
+Route::post("/detallePersonaVinculo", "PersonaPanelController@vinculopersona")->middleware('auth');
 //EJE B: VICTIMA//
 //CUANDO ELIJO UNA VICTIMA SE ESTA GUARDANDO EN SESSION EL IdCaso e idVictima PARA TRABAJAR CON ESA VICTIMA SELECCIONADA Y EDIATR SI ES NECESARIO//
 Route::get("/victima/{idCaso}/{idVictima}","VictimaPanelController@victima")->middleware('auth');
