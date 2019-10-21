@@ -83,7 +83,7 @@
 
          
 
-         <a type="button" href="/detallepersonavinculo/{{$persona->id}}" target="_self" style="width:250px;
+         <a type="button" href="/detallePersonaVinculo/{{$persona->id}}" target="_self" style="width:250px;
   color:black;border: solid black 1px;background-color:#ffffcc;" class="btn btn-danger">Agregar Referente Afectivo</button> </a><br><br>
 
 
