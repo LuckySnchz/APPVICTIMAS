@@ -253,43 +253,16 @@
 @endforeach
 
 
-
-
-<!-AGREGAR INTERVENCION>
-
-<br><h4>Intervenciones</h4><br>
-
-<div>
-
- @foreach($intervenciones as $intervencion)
-     @if ($intervencion->idCaso == session("idCaso"))
-       <li style="list-style: none">
-
- <strong><label for="detalle_intervencion">Víctima:</label></strong> 
- @foreach($victimas as $victima)
- @if($victima->id==$intervencion->idVictim)
-{{$victima->victima_nombre_y_apellido}}
-@endif
-@endforeach
-
-  <input type="date" class="form-control" id="victima_fecha_nacimiento" disabled name="victima_fecha_nacimiento" value="{{$intervencion->fecha_intervencion}}"><br>
-
- <textarea class="form-control" disabled > {{$intervencion->detalle_intervencion}}</textarea>
-         
-   <strong> <a  style="color:black; margin-left: 45%" href="/detallenuevaintervencion/{{$intervencion->id}}" target="_self">Editar</a></strong>         
- <strong> <a  style="color:red"  onclick="return confirm('Deseas eliminar esta Intercención?')" href="/eliminarnuevaintervencion/{{$intervencion->id}}" target="_self">Eliminar</a></strong>
-  
-
-       </li>
-     @endif
- @endforeach
-
-</div>
 <a href="javascript:if(window.print)window.print()">Imprimir</a>
 
+
+</div>
+
+
 </div>
 
 </div>
+ <div class="container jumbotron shadow p-3 mb-5 bg-white rounded">
   <h4 class="text-center" style="padding: 15px; text-decoration: underline;">Selecciona una Víctima</h4>
           <ul  style="list-style:none">
             @foreach($victimas as $victima)
@@ -314,38 +287,36 @@
 @foreach($victimas as $victima)
 
  @if($victima->idCaso==session("idCaso")&&$victima->id==session("idVictim"))
-<div  class="container jumbotron shadow p-3 mb-5 bg-white rounded">
-   <a name="Ancla" id="victima"></a>
- 
-  <strong> <label style="text-decoration: underline;margin-left: 40%;color: red">Víctima: </label></strong>
 
 
+ <div class="container jumbotron shadow p-3 mb-5 bg-white rounded" style="max-width: 80%;margin-top: 5%;text-align: center">
+  <strong><h4 class="text-center" style="height: 1%;color:white;background-color: black;max-width: 100%">Intervenciones Realizadas:</h4></strong>
+ @foreach($intervenciones as $intervencion)
+     @if ($intervencion->idCaso == session("idCaso") && $intervencion->idVictim == session("idVictim"))
+       <li style="list-style: none">
+
+ <strong ><label for="detalle_intervencion" style="text-decoration: underline;color: red">Víctima Intervenida:</label></strong> 
  @foreach($victimas as $victima)
-
-          @if($victima->id==session("idVictim"))
-  <strong style="color:red"> {{$victima->victima_nombre_y_apellido}}</strong>
-
+ @if($victima->id==$intervencion->idVictim)
+{{$victima->victima_nombre_y_apellido}}
 @endif
 @endforeach
 
-    <div class="form-group" {{ $errors->has('fecha_intervencion') ? 'has-error' : ''}}>
-     <strong> <label>Fecha intervención: </label></strong>
-      <input type="date" name="fecha_intervencion" class="form-control" value="{{old("fecha_intervencion")}}">
-      {!! $errors->first('fecha_intervencion', '<p class="help-block" style="color:red";>:message</p>') !!}
-      </div>    
+  <input type="date" class="form-control" id="victima_fecha_nacimiento" disabled name="victima_fecha_nacimiento" value="{{$intervencion->fecha_intervencion}}"><br>
 
-      <div class="form-group" {{ $errors->has('detalle_intervencion') ? 'has-error' : ''}}">
-       <strong><label for="detalle_intervencion">Detalle intervención:</label></strong> 
+ <textarea class="form-control" disabled > {{$intervencion->detalle_intervencion}}</textarea><br>
+         
+   <strong> <a  style="color:black; margin-left: -3%" href="/detallenuevaintervencionpanel/{{$intervencion->id}}" target="_self">Editar</a></strong>         
+ <strong> <a  style="color:red"  onclick="return confirm('Deseas eliminar esta Intercención?')" href="/eliminarnuevaintervencionpanel/{{$intervencion->id}}" target="_self">Eliminar</a></strong>
+  <p>_____________________________________________________________________________________________________________</p>
 
-<textarea class="form-control" id="detalle_intervencion" name="detalle_intervencion">{{old('detalle_intervencion')}}</textarea>
-
-        
-        {!! $errors->first('detalle_intervencion', '<p class="help-block" style="color:red";>:message</p>') !!}</div>
-  
+       </li>
+     @endif
+ @endforeach
+     @endif
+ @endforeach
 </div>
-
-@endif
-@endforeach
+</div>
    <div class="container jumbotron shadow p-3 mb-5 bg-white rounded">
       <div id="botones" >
   <div class="btn-1" > <button class="btn btn-primary col-xl" name="button"  style="width:108%" >Agregar/Enviar</button><br><br><br><br>
