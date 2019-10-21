@@ -80,7 +80,7 @@ session(["idCaso"=> $intervencion->idCaso]);
   $intervencion->save();
 
 
-  return redirect ("agregarnuevaintervencionvictima/{$intervencion->idCaso}/#victima");
+  return redirect ("agregarnuevaIntervencionvictima/{$intervencion->idCaso}/#victima");
 }
 
 public function agregarnuevapanel(Request $form){
