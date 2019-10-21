@@ -126,7 +126,7 @@
       <div class="btn-1"> <button style="width:100%" type="submit" class="btn btn-primary col-xL" name="button"  >Agregar/Enviar</button><br><br></div>
       </div>
       </form>
-        <a type="button"  href="/agregarintervencion" target="_self" style="width:100%; color:white;background-color:rgb(137, 210, 14)" class="btn col-XL" class="btn btn-danger">SIGUIENTE</button> </a><br><br>
+        <a type="button"  href="/agregarIntervencion" target="_self" style="width:100%; color:white;background-color:rgb(137, 210, 14)" class="btn col-XL" class="btn btn-danger">SIGUIENTE</button> </a><br><br>
       </section>
 
      

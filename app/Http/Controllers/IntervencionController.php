@@ -44,7 +44,7 @@ class IntervencionController extends Controller
 
   $intervencion->save();
 
-  return redirect ("agregarintervencion/#victima");
+  return redirect ("agregarIntervencion/#victima");
 }
 
 
@@ -126,7 +126,7 @@ session(["idCaso"=> $intervencion->idCaso]);
    $intervencion->delete();
 
 
-   return redirect("/agregarintervencion/$intervencionelim");}
+   return redirect("/agregarIntervencion/$intervencionelim");}
 
 
 
@@ -139,7 +139,7 @@ public function eliminarnuevaintervencion($id) {
    $intervencion->delete();
 
 
-   return redirect("/agregarnuevaintervencionvictima/$intervencionelim/#victima");}
+   return redirect("/agregarnuevaIntervencionvictima/$intervencionelim/#victima");}
 
 
    public function eliminarnuevaintervencionpanel($id) {
@@ -196,7 +196,7 @@ public function victima($id,$idCaso) {
 
 
 
-return redirect("agregarnuevaintervencionvictima/{$idCaso}/#victima");}
+return redirect("agregarnuevaIntervencionvictima/{$idCaso}/#victima");}
 
 
 public function victimaagregar($id,$idCaso) {
@@ -207,7 +207,7 @@ public function victimaagregar($id,$idCaso) {
 
 
 
-return redirect("agregarintervencion");}
+return redirect("agregarIntervencion");}
 
 
 
@@ -244,7 +244,7 @@ $intervencion = Intervencion::find(session("idIntervencion"));
 
   $intervencion->save();
  $idCaso=session("idCaso");
-  return redirect ("agregarnuevaintervencionvictima/$idCaso/#victima");
+  return redirect ("agregarnuevaIntervencionvictima/$idCaso/#victima");
 }
 
 public function editarpanel(Request $form){
