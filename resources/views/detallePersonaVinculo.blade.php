@@ -37,7 +37,7 @@
    
 
 
-    <form class="" action="/detallepersonavinculo" method="post">
+    <form class="" action="/detallePersonaVinculo" method="post">
       {{csrf_field()}}
   <input type="hidden" name="idCaso" value="{{session("idCaso")}}">
     <input type="hidden" name="idPersona" value="{{session("idPersona")}}">
