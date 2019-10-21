@@ -37,7 +37,7 @@ else{
          return view("duplicarreferente",compact("duplicado"));
 
 
-$personas = Persona::all();
+/*$personas = Persona::all();
   $personas_nuevas = Persona_nueva::all();
     $casoActual = Caso::find(session("idCaso"));
     $victimActual = Victim::find(session("idVictim"));
@@ -49,7 +49,7 @@ $personas = Persona::all();
   $institucionnav= Institucion::where("idCaso",session("idCaso"))->count();
   $clave=0;
 return view("agregarPersona",compact("casoActual","cantVictimas","casoActualenPersona","victimActual","personas","instituciones","institucionnav","cantdePersonas","personas_nuevas","clave"))->with('message','Selecciona Caso, Incicencias, Derivaciones o BUSQUEDA GENERAL!');
-
+*/
 
 
 

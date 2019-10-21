@@ -223,7 +223,7 @@ Route::post("/agregarDocumento","DocumentoController@agregar")->middleware('auth
 
 //G2-INFORME E INTERVENCION//
 
-Route::get("/agregarintervencion",function(){
+Route::get("/agregarIntervencion",function(){
   $provincias = App\Provincia::all();
   $ciudades = App\Ciudad::all();
   $hechos= App\Hecho::All();
@@ -246,9 +246,9 @@ Route::get("/agregarintervencion",function(){
   $casoActual = App\Caso::find(session("idCaso"));
   $instituciones = App\Institucion::all();
  $institucionnav= App\Institucion::where("idCaso",session("idCaso"))->count();
-  return view("agregarintervencion", compact("provincias", "ciudades","hechos","organismos","oarticulas","cavajs","delitos","institucion_oarticulas","casos","instituciones","socioeconomicos","victimas","departamentos", "intervenciones", "casoActual","instituciones","institucionnav"));
+  return view("agregarIntervencion", compact("provincias", "ciudades","hechos","organismos","oarticulas","cavajs","delitos","institucion_oarticulas","casos","instituciones","socioeconomicos","victimas","departamentos", "intervenciones", "casoActual","instituciones","institucionnav"));
 })->middleware('auth');
-Route::post("/agregarintervencion","IntervencionController@agregar")->middleware('auth');
+Route::post("/agregarIntervencion","IntervencionController@agregar")->middleware('auth');
 
 
 
@@ -280,7 +280,7 @@ $casos = [];
 })->middleware('auth');
 Route::get("/search3", "IntervencionController@search")->middleware('auth');*/
 
-Route::get("/agregarintervencion/{id}",function($id){
+Route::get("/agregarIntervencion/{id}",function($id){
   session(["idCaso" => $id]);
   $casos = App\Caso::all();
   $instituciones = App\Institucion::all();
@@ -301,9 +301,9 @@ Route::get("/agregarintervencion/{id}",function($id){
   $oarticulas = App\Oarticula::all();
   $institucionnav= App\Institucion::where("idCaso",session("idCaso"))->count();
   $casoActual = App\Caso::find(session("idCaso"));
-  return view("agregarintervencion", compact("institucionnav","provincias","organismos","ciudades","oarticulas","cavajs","delitos","institucion_oarticulas","casos","instituciones","socioeconomicos","victimas","departamentos", "intervenciones", "casoActual"));
+  return view("agregarIntervencion", compact("institucionnav","provincias","organismos","ciudades","oarticulas","cavajs","delitos","institucion_oarticulas","casos","instituciones","socioeconomicos","victimas","departamentos", "intervenciones", "casoActual"));
 })->middleware('auth');
-Route::post("/agregarintervencion","IntervencionController@agregar")->middleware('auth');
+Route::post("/agregarIntervencion","IntervencionController@agregar")->middleware('auth');
 Route::get("/eliminarintervencion/{id}", "IntervencionController@eliminarintervencion")->middleware('auth');
 
 Route::get("/eliminarnuevaintervencion/{id}", "IntervencionController@eliminarnuevaintervencion")->middleware('auth');
@@ -311,7 +311,7 @@ Route::get("/eliminarnuevaintervencion/{id}", "IntervencionController@eliminarnu
 
 
 
-Route::get("/agregarnuevaintervencionvictima/{id}",function($id){
+Route::get("/agregarnuevaIntervencionvictima/{id}",function($id){
   session(["idCaso" => $id]);
   $casos = App\Caso::all();
   $instituciones = App\Institucion::all();
@@ -333,7 +333,7 @@ Route::get("/agregarnuevaintervencionvictima/{id}",function($id){
   $institucionnav= App\Institucion::where("idCaso",session("idCaso"))->count();
   $casoActual = App\Caso::find(session("idCaso"));
 
-  return view("agregarnuevaintervencionvictima", compact("institucionnav","provincias","organismos","ciudades","oarticulas","cavajs","delitos","institucion_oarticulas","casos","instituciones","socioeconomicos","victimas","departamentos", "intervenciones", "casoActual"));
+  return view("agregarnuevaIntervencionvictima", compact("institucionnav","provincias","organismos","ciudades","oarticulas","cavajs","delitos","institucion_oarticulas","casos","instituciones","socioeconomicos","victimas","departamentos", "intervenciones", "casoActual"));
 })->middleware('auth');
 
 
@@ -344,7 +344,7 @@ Route::get("/agregarnuevaintervencionvictima/{id}",function($id){
 Route::post("/agregarnuevaintervencionvictimapanel","IntervencionController@agregarnuevapanel")->middleware('auth');
 
 
-Route::post("/agregarnuevaintervencionvictima","IntervencionController@agregarnueva")->middleware('auth');
+Route::post("/agregarnuevaIntervencionvictima","IntervencionController@agregarnueva")->middleware('auth');
 
 Route::get("/detallenuevaintervencion/{id}", "IntervencionController@detalle")->middleware('auth');
 
@@ -374,7 +374,7 @@ Route::get("/victimaintervencion/{idCaso}/{idVictima}","IntervencionController@v
 
 Route::get("/victimaagregarintervencion/{idCaso}/{idVictima}","IntervencionController@victimaagregar")->middleware('auth');
 
-Route::get("/detalleagregarintervencion/{id}",function($id){
+Route::get("/detalleagregarIntervencion/{id}",function($id){
   session(["idCaso" => $id]);
   $casos = App\Caso::all();
   $instituciones = App\Institucion::all();
@@ -397,7 +397,7 @@ Route::get("/detalleagregarintervencion/{id}",function($id){
   $casoActual = App\Caso::find(session("idCaso"));
   return view("detalleagregarIntervencion", compact("ciudades","oarticulas","cavajs","delitos","provincias","organismos","institucion_oarticulas","casos","instituciones","socioeconomicos","victimas","departamentos", "intervenciones", "casoActual"));
 });
-Route::post("/detalleagregarintervencion","IntervencionPanelController@agregar");
+Route::post("/detalleagregarIntervencion","IntervencionPanelController@agregar");
 
 
 Route::get("/detalleCaso/{id}", "CasoPanelController@detalle")->middleware('auth');
