@@ -115,7 +115,7 @@ session(["idCaso"=> $intervencion->idCaso]);
   $intervencion->save();
 
 
-  return redirect ("paneldecontrolvictima/{$intervencion->idCaso}/#victima");
+  return redirect ("paneldecontrolvictima/{$intervencion->idCaso}");
 }
 
 
