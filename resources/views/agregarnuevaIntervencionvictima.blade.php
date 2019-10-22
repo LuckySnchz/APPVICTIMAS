@@ -336,7 +336,7 @@
 
 
 
-   <a name="Ancla" id="vict"></a>
+   <a name="Ancla" id="victima"></a>
  
   <strong> <label style="text-decoration: underline;margin-left: -1%;color: red;text-decoration: underline;">Víctima Seleccionada: </label></strong>
 
