@@ -144,16 +144,11 @@ public function eliminarnuevaintervencion($id) {
 
    public function eliminarnuevaintervencionpanel($id) {
      $intervencionelim=Intervencion::find($id)->idCaso;
-
-
-
-$Intervenciones=Intervencion::where("idVictim",$id);
-       foreach ($Intervenciones as $Intervencion) {
-        
-   
-                $Intervencion->delete();
+      
+    $intervencion= Intervencion::find($id);
+                $intervencion->delete();
          
-       }
+       
 
 
    return redirect("/paneldecontrolvictima/$intervencionelim/#victima");}
@@ -210,6 +205,15 @@ public function victimaagregar($id,$idCaso) {
 return redirect("agregarIntervencion");}
 
 
+public function victimaagregardos($id,$idCaso) {
+
+    
+    session(["idVictim"=> $id]);
+    session(["idCaso"=> $idCaso]);
+
+
+
+return redirect("agregarnuevaIntervencionvictima/$idCaso");}
 
 
 

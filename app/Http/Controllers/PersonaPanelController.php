@@ -30,7 +30,7 @@ $localidad_persona_asistida=$persona->localidad_persona_asistida;
 $victim_pa=Persona_nueva::all();
 if(Persona_nueva::where("idVictim",session("idVictim"))->where("idPersona",$id)->count()==0){
    
-   return view("detallepersonavinculo", compact("persona","personas","nombre_persona_asistida","vinculo_victima","vinculo_otro","telefono_persona_asistida","domicilio_persona_asistida","localidad_persona_asistida","otro_telefono_persona_asistida","vinculo_otro_familiar","victim_pa"));
+   return view("detallePersonaVinculo", compact("persona","personas","nombre_persona_asistida","vinculo_victima","vinculo_otro","telefono_persona_asistida","domicilio_persona_asistida","localidad_persona_asistida","otro_telefono_persona_asistida","vinculo_otro_familiar","victim_pa"));
     }
 else{
           $duplicado=Persona::find($id)->nombre_persona_asistida;

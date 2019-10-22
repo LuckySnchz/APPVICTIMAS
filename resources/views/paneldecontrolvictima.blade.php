@@ -228,7 +228,7 @@ session_start();
  
 
 
-    <form class="" action="/agregarnuevaintervencionvictimapanel" method="post">
+    <form class="" action="/paneldecontrolvictima" method="post">
       {{csrf_field()}}
     <input type="hidden" name="idCaso" value="{{session("idCaso")}}">
        <input type="hidden" name="idVictim" value="{{session("idVictim")}}">
@@ -247,7 +247,7 @@ session_start();
 
 
 
-   <a name="Ancla" id="victima"></a>
+   <a name="Ancla" id="vict"></a>
  
   <strong> <label style="text-decoration: underline;margin-left: -1%;color: red;text-decoration: underline;">Víctima Seleccionada: </label></strong>
 
@@ -285,7 +285,7 @@ session_start();
     </div>
   </div>
 
-
+      </form>
 
 <!BOTONES>
 <!-MOSTRAR INTERVENCIONES CORRESPONDIENTES A ESTA VICTIMA>
@@ -294,7 +294,7 @@ session_start();
 
  @if($victima->idCaso==session("idCaso")&&$victima->id==session("idVictim"))
 
-
+ <a name="Ancla" id="victima"></a>
  <div class="container jumbotron shadow p-3 mb-5 bg-white rounded" style="max-width: 80%;margin-top: 5%;text-align: center">
   <strong><h4 class="text-center" style="height: 1%;color:white;background-color: black;max-width: 100%">Intervenciones Realizadas:</h4></strong>
  @foreach($intervenciones as $intervencion)
@@ -323,7 +323,7 @@ session_start();
  @endforeach
 </div>
   
-      </form>
+
 
 </div>
 <script type="text/javascript">
@@ -333,16 +333,6 @@ document.getElementById('victima').style.display = '';
 </script>
 
 
-
-
-
-
-
-
-
-
-
- <a name="Ancla" id="v2"></a>
  @foreach($victimas as $victima)
  @if($victima->idCaso==session("idCaso")&&$victima->id==session("idVictim"))
 
