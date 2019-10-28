@@ -236,27 +236,6 @@ onKeypress="addDashesPhoneDos(this)" required >
    </div><br><br>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-B 2II. Domicilio>
 
      <div class="form-group" {{ $errors->has('domicilio_victima_asistida') ? 'has-error' : ''}}>
@@ -462,12 +441,12 @@ onKeypress="addDashesPhoneDos(this)" required >
             <option value="" selected=disabled>Seleccionar...</option>
             @if ($tienedoc == 1)<option value="1" selected>Posee</option> @else <option value="1">Posee</option> @endif
 
-            @if ($tienedoc == 3)<option value="3" selected>No posee</option>
-            @else <option value="3" >No posee</option> @endif
+            @if ($tienedoc == 2)<option value="2" selected>No posee</option>
+            @else <option value="2" >No posee</option> @endif
 
-            @if ($tienedoc == 5)<option value="5" selected>En tramite</option> @else <option value="5">En tramite</option>@endif
+            @if ($tienedoc == 3)<option value="3" selected>En tramite</option> @else <option value="3">En tramite</option>@endif
 
-            @if ($tienedoc == 6)<option value="6" selected>Se desconoce</option> @else<option value="6" >Se desconoce</option> @endif
+            @if ($tienedoc == 4)<option value="4" selected>Se desconoce</option> @else<option value="4" >Se desconoce</option> @endif
     </select>
     {!! $errors->first('tienedoc', '<p class="help-block" style="color:red";>:message</p>') !!}
     </div>
@@ -476,7 +455,7 @@ onKeypress="addDashesPhoneDos(this)" required >
 
  <script>
          function selectOnChangeB6(sel) {
-          if (sel.value=="1"||sel.value=="5"){
+          if (sel.value=="1"||sel.value=="3"){
               divV = document.getElementById("que_doc");
               divV.style.display = "";
               divV = document.getElementById("que_doc8");
@@ -484,7 +463,7 @@ onKeypress="addDashesPhoneDos(this)" required >
 
 
 
-              if (sel.value=="3"||sel.value=="6"){
+              if (sel.value=="2"||sel.value=="4"){
                 divV = document.getElementById("que_doc");
                 divV.style.display = "none";
                 divV = document.getElementById("que_doc8");

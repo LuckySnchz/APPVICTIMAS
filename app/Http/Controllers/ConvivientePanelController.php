@@ -62,18 +62,19 @@ $convivientes_nuevos=Conviviente_nuevo::all();
 if($conviviente_nuevo->idVictim==session("idVictim")&&$conviviente_nuevo->idConviviente==session("idConviviente")){
 
 $conviviente_nuevo->delete();
-    }}
+    }
+  }
  
     
-       $imputado_nuevo = new Imputado_nuevo();
+     $conviviente_nuevo = new Conviviente_nuevo();
 
-       $imputado_nuevo->idVictim= session("idVictim");
-       $imputado_nuevo->idImputado= $form["idImputado"];
-       $imputado_nuevo->vinculo_victima=$form["vinculo_victima"];
-       $imputado_nuevo->vinculo_otro=$form["vinculo_otro"];
-       $imputado_nuevo->vinculo_otro_familiar=$form["vinculo_otro_familiar"];
+       $conviviente_nuevo->idVictim= session("idVictim");
+       $conviviente_nuevo->idConviviente= $form["idConviviente"];
+       $conviviente_nuevo->vinculo_victima=$form["vinculo_victima"];
+       $conviviente_nuevo->vinculo_otro=$form["vinculo_otro"];
+       $conviviente_nuevo->vinculo_otro_familiar=$form["vinculo_otro_familiar"];
 
-       $imputado_nuevo->save();
+       $conviviente_nuevo->save();
 
 return redirect("paneldecontrolvictima/{$conviviente->idCaso}#v3");}
 
@@ -275,7 +276,7 @@ public function detalle($id) {
     $conviviente->victims()->attach($form ["idVictim"],array("vinculo_victima"=> $form ["vinculo_victima"],"vinculo_otro"=> $form ["vinculo_otro"],"vinculo_otro_familiar"=> $form ["vinculo_otro_familiar"],"idCaso"=> session("idCaso")));
 
 
- return redirect("paneldecontrolvictima/{$conviviente->idCaso}#v3");
+ return redirect("paneldecontrolvictima/{$conviviente->idCaso}");
   }}
 
 

@@ -211,7 +211,7 @@
 
 <!E5 Vinculación con la victima>
 @foreach($victim_im as $vict_im)
-  @if($vict_im->idVictim==session("idVictim")&&$vict_im->idImputadi==session("idImputado"))
+  @if($vict_im->idVictim==session("idVictim")&&$vict_im->idImputado==session("idImputado"))
 
   <div class="form-group" {{ $errors->has('vinculo_id') ? 'has-error' : ''}}>
   <label for="vinculo_id">E 5. Vinculación con la víctima:</label>
@@ -250,7 +250,7 @@
   </div>
 
 
-@if($vict_im->vinculo_victima) == 1)
+@if($vict_im->vinculo_victima == 1)
     <div id="cualE4_familiar" {{ $errors->has('vinculo_otro_familiar') ? 'has-error' : ''}}>
   @else
     <div id="cualE4_familiar" style="display: none">
@@ -483,7 +483,7 @@
   <div class="form-group"
      {{ $errors->has('fiscalia_juzgado') ? 'has-error' : ''}}>
      <label for="datos_ente_judicial">E 11. Fiscalía/Juzgado a cargo:</label>
-     <input type="text" class="form-control" name="fiscalia_juzgado" id="datos_ente_judicial" value="{{old('fiscalia_juzgado')}}">
+     <input type="text" class="form-control" name="fiscalia_juzgado" id="datos_ente_judicial" value="{{$fiscalia_juzgado}}">
  {!! $errors->first('fiscalia_juzgado', '<p class="help-block" style="color:red";>:message</p>') !!}
   </div>
 

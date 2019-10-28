@@ -133,7 +133,7 @@ $persona->save();
 $persona->victims()->attach($form ["idVictim"],array("vinculo_victima"=> $form ["vinculo_victima"],"vinculo_otro"=> $form ["vinculo_otro"],
 "vinculo_otro_familiar"=> $form ["vinculo_otro_familiar"],"idCaso"=> session("idCaso")));
 
-return redirect("paneldecontrolvictima/{$persona->idCaso}#v2");
+return redirect("paneldecontrolvictima/{$persona->idCaso}");
 
 }}
 
@@ -295,12 +295,12 @@ $persona_nueva->delete();
  
     
 $persona_nueva = new Persona_nueva();
-       $persona_nueva->idVictim= session("idVictim");
-      $persona_nueva->idPersona= $form["idPersona"];
-      $persona_nueva->vinculo_victima=$form["vinculo_victima"];
-    $persona_nueva->vinculo_otro=$form["vinculo_otro"];
-    $persona_nueva->vinculo_otro_familiar=$form["vinculo_otro_familiar"];
- $persona_nueva->save();
+$persona_nueva->idVictim= session("idVictim");
+$persona_nueva->idPersona= $form["idPersona"];
+$persona_nueva->vinculo_victima=$form["vinculo_victima"];
+$persona_nueva->vinculo_otro=$form["vinculo_otro"];
+$persona_nueva->vinculo_otro_familiar=$form["vinculo_otro_familiar"];
+$persona_nueva->save();
    
 
       return redirect("paneldecontrolvictima/{$persona->idCaso}");}

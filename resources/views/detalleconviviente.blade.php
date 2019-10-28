@@ -151,7 +151,7 @@ session_start();
   {!! $errors->first('vinculo_victima', '<p class="help-block" style="color:red";>:message</p>') !!}
   </div>
 
-@if($vict_ra->vinculo_victima== 1)
+@if($vict_ra->vinculo_victima== 1||$errors->first('vinculo_otro_familiar'))
     <div id="cualC5_familiar" {{ $errors->has('vinculo_otro_familiar') ? 'has-error' : ''}}>
   @else
     <div id="cualC5_familiar" style="display: none">
@@ -162,7 +162,7 @@ session_start();
   {!! $errors->first('vinculo_otro_familiar', '<p class="help-block" style="color:red";>:message</p>') !!}
   </div>
 
-  @if($vict_ra->vinculo_victima== 6)
+  @if($vict_ra->vinculo_victima== 6||$errors->first('vinculo_otro'))
     <div id="cualC5" {{$errors->has('vinculo_otro') ? 'has-error' : ''}}>
   @else
     <div id="cualC5" style="display: none">

@@ -297,14 +297,14 @@ $validator->sometimes('vinculo_otro_familiar', "required|min:3|max:255|regex:/^(
       $imputado->vinculo_otro= $form["vinculo_otro"];
       $imputado->vinculo_otro_familiar= $form["vinculo_otro_familiar"];
       $imputado->antecedentes_id= $form["antecedentes_id"]; 
-       $imputado->detenido= $form["detenido"];
-       $imputado->antecedentes= $form["antecedentes"];
+      $imputado->detenido= $form["detenido"];
+      $imputado->antecedentes= $form["antecedentes"];
       $imputado->lugar_de_alojamiento=$form["lugar_de_alojamiento"];  
       $imputado->caratulacion_judicial=$form["caratulacion_judicial"];
       $imputado->fiscalia_juzgado=$form["fiscalia_juzgado"];
       $imputado->causa_id_judicial= $form["causa_id_judicial"];
-       $imputado->otra_causa_id_judicial= $form["otra_causa_id_judicial"];
-        $imputado->otra_otra_causa_id_judicial= $form["otra_otra_causa_id_judicial"];
+      $imputado->otra_causa_id_judicial= $form["otra_causa_id_judicial"];
+      $imputado->otra_otra_causa_id_judicial= $form["otra_otra_causa_id_judicial"];
       $imputado->defensoria_nro= $form["defensoria_numero"];
       $imputado->idCaso= $form ["idCaso"];
       $imputado->save();
