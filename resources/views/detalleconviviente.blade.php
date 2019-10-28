@@ -1,4 +1,4 @@
-ç<?php
+<?php
 
 session_start();
 ?>
@@ -19,7 +19,8 @@ session_start();
       <section class="container jumbotron shadow p-3 mb-5 bg-white rounded"style="height: 150px" >
      @include('navbar')
 
-                <a type="button"  href="/home" target="_self" style="width:100%; color:white;background-color:rgb(52, 144, 220);margin-bottom: -5%;margin-top: -12%" class="btn col-XL" class="btn btn-danger">IR A INICIO</button> </a><br><br>
+                <a type="button"  href="/home" target="_self" style="width:100%; color:white;background-color:rgb(52, 144, 220);margin-bottom: -5%;margin-top: -12%" class="btn col-XL" class="btn btn-danger">IR A INICIO</button> </a>
+                <br><br>
       </section>        
       
    </header>
