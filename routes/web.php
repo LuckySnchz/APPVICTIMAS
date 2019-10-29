@@ -419,7 +419,7 @@ Route::get("/detallePersonaVinculo/{id}","PersonaPanelController@detallepersona"
 Route::post("/detallePersonaVinculo", "PersonaPanelController@vinculopersona")->middleware('auth');
 //EJE B: VICTIMA//
 //CUANDO ELIJO UNA VICTIMA SE ESTA GUARDANDO EN SESSION EL IdCaso e idVictima PARA TRABAJAR CON ESA VICTIMA SELECCIONADA Y EDIATR SI ES NECESARIO//
-Route::get("/victima/{idCaso}/{idVictima}","VictimaPanelController@victima")->middleware('auth');
+Route::get("/victimapanel/{idCaso}/{idVictima}","VictimaPanelController@victima")->middleware('auth');
 
 
 Route::get("/detalleVictima/{id}", "VictimaPanelController@detalle")->middleware('auth');

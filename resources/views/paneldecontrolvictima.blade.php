@@ -152,7 +152,7 @@ session_start();
                    <li>
           
 
-  <a type="button"  href="/victima/{{$victima->id}}/{{$victima->idCaso}}" target="_self" style="width:100%;
+  <a type="button"  href="/victimapanel/{{$victima->id}}/{{$victima->idCaso}}" target="_self" style="width:100%;
   color:black;border: solid black 1px;background-color:grey;" class="btn btn-danger">{{$victima->victima_nombre_y_apellido}}</button> </a><br><br>  
     
           
@@ -228,7 +228,7 @@ session_start();
  
 
 
-    <form class="" action="/paneldecontrolvictima" method="post">
+ <form class="" action="/paneldecontrolvictima" method="post">
       {{csrf_field()}}
     <input type="hidden" name="idCaso" value="{{session("idCaso")}}">
        <input type="hidden" name="idVictim" value="{{session("idVictim")}}">

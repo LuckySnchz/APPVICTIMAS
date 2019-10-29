@@ -256,21 +256,19 @@ public function agregar(Request $form){
     }
 
 
-     public function victima($id,$idCaso) {
-   
-   session(["idVictim" => $id]);
-   session(["idCaso" => $idCaso]);
-
-
-   
   
+
+
+
+public function victima($id,$idCaso) {
+
     
-
-return redirect("paneldecontrolvictima/{$idCaso}");
-
-    }
+    session(["idVictim"=> $id]);
+    session(["idCaso"=> $idCaso]);
 
 
+
+return redirect("paneldecontrolvictima/$idCaso/#v1");}
    
 
 
