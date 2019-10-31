@@ -215,7 +215,15 @@ public function victimaagregardos($id,$idCaso) {
 
 return redirect("agregarnuevaIntervencionvictima/$idCaso");}
 
+public function victimaagregartres($id,$idCaso) {
 
+    
+    session(["idVictim"=> $id]);
+    session(["idCaso"=> $idCaso]);
+
+
+
+return redirect("paneldecontrolvictima/$idCaso");}
 
 
 

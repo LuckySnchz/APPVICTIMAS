@@ -374,6 +374,12 @@ Route::get("/victimaintervencion/{idCaso}/{idVictima}","IntervencionController@v
 
 Route::get("/victimaagregarintervencion/{idCaso}/{idVictima}","IntervencionController@victimaagregar")->middleware('auth');
 Route::get("/victimaagregarintervenciondos/{idCaso}/{idVictima}","IntervencionController@victimaagregardos")->middleware('auth');
+Route::get("/victimaagregarintervenciontres/{idCaso}/{idVictima}","IntervencionController@victimaagregartres")->middleware('auth');
+
+
+
+
+
 Route::get("/detalleagregarIntervencion/{id}",function($id){
   session(["idCaso" => $id]);
   $casos = App\Caso::all();

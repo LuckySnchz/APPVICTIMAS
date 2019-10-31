@@ -251,51 +251,6 @@
 
   @endif
 @endforeach
-
-
-
-
-<!-MOSTRAR INTERVENCIONES CORRESPONDIENTES A ESTA VICTIMA>
-
- @foreach($victimas as $victima)
-
- @if($victima->idCaso==session("idCaso")&&$victima->id==session("idVictim"))
-
-
- <div class="container jumbotron shadow p-3 mb-5 bg-white rounded" style="max-width: 100%;margin-top: 5%;text-align: center">
-  <strong><h4 class="text-center" style="height: 1%;color:white;background-color: black;max-width: 100%">Intervenciones Realizadas:</h4></strong>
- @foreach($intervenciones as $intervencion)
-     @if ($intervencion->idCaso == session("idCaso") && $intervencion->idVictim == session("idVictim"))
-       <li style="list-style: none">
-
- <strong ><label for="detalle_intervencion" style="text-decoration: underline;color: red">Víctima Intervenida:</label></strong> 
- @foreach($victimas as $victima)
- @if($victima->id==$intervencion->idVictim)
-{{$victima->victima_nombre_y_apellido}}
-@endif
-@endforeach
-
-  <input type="date" class="form-control" id="victima_fecha_nacimiento" disabled name="victima_fecha_nacimiento" value="{{$intervencion->fecha_intervencion}}"><br>
-
- <textarea class="form-control" disabled > {{$intervencion->detalle_intervencion}}</textarea><br>
-         
-   <strong> <a  style="color:black; margin-left: -3%" href="/detallenuevaintervencion/{{$intervencion->id}}" target="_self">Editar</a></strong>         
- <strong> <a  style="color:red"  onclick="return confirm('Deseas eliminar esta Intercención?')" href="/eliminarnuevaintervencion/{{$intervencion->id}}" target="_self">Eliminar</a></strong>
-  <p>_______________________________________________________________________________________________________________________________________</p>
-       </li>
-     @endif
- @endforeach
-     @endif
- @endforeach
-
-</div>
-<a href="javascript:if(window.print)window.print()">Imprimir</a>
-</div>
-
-
-</div>
-
-</div>
  <h4 class="text-center" style="padding: 15px; text-decoration: underline;">Selecciona una Víctima</h4>
           <ul  style="list-style:none">
             @foreach($victimas as $victima)
@@ -375,6 +330,51 @@
   </div>
 
       </form>
+
+
+
+<!-MOSTRAR INTERVENCIONES CORRESPONDIENTES A ESTA VICTIMA>
+
+ @foreach($victimas as $victima)
+
+ @if($victima->idCaso==session("idCaso")&&$victima->id==session("idVictim"))
+
+
+ <div class="container jumbotron shadow p-3 mb-5 bg-white rounded" style="max-width: 100%;margin-top: 5%;text-align: center">
+  <strong><h4 class="text-center" style="height: 1%;color:white;background-color: black;max-width: 100%">Intervenciones Realizadas:</h4></strong>
+ @foreach($intervenciones as $intervencion)
+     @if ($intervencion->idCaso == session("idCaso") && $intervencion->idVictim == session("idVictim"))
+       <li style="list-style: none">
+
+ <strong ><label for="detalle_intervencion" style="text-decoration: underline;color: red">Víctima Intervenida:</label></strong> 
+ @foreach($victimas as $victima)
+ @if($victima->id==$intervencion->idVictim)
+{{$victima->victima_nombre_y_apellido}}
+@endif
+@endforeach
+
+  <input type="date" class="form-control" id="victima_fecha_nacimiento" disabled name="victima_fecha_nacimiento" value="{{$intervencion->fecha_intervencion}}"><br>
+
+ <textarea class="form-control" disabled > {{$intervencion->detalle_intervencion}}</textarea><br>
+         
+   <strong> <a  style="color:black; margin-left: -3%" href="/detallenuevaintervencion/{{$intervencion->id}}" target="_self">Editar</a></strong>         
+ <strong> <a  style="color:red"  onclick="return confirm('Deseas eliminar esta Intercención?')" href="/eliminarnuevaintervencion/{{$intervencion->id}}" target="_self">Eliminar</a></strong>
+  <p>_______________________________________________________________________________________________________________________________________</p>
+       </li>
+     @endif
+ @endforeach
+     @endif
+ @endforeach
+
+</div>
+<a href="javascript:if(window.print)window.print()">Imprimir</a>
+</div>
+
+
+</div>
+
+</div>
+
 
 <!BOTONES>
 
