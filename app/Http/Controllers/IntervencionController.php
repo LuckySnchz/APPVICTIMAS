@@ -142,6 +142,17 @@ public function eliminarnuevaintervencion($id) {
    return redirect("/agregarnuevaIntervencionvictima/$intervencionelim/#victima");}
 
 
+
+
+public function eliminarnuevaintervencionvictima($id) {
+     $intervencionelim=Intervencion::find($id)->idCaso;
+ $intervencion= Intervencion::find($id);
+   $intervencion->delete();
+
+
+   return redirect("/paneldecontrolvictima/$intervencionelim/#victima");}
+
+
    public function eliminarnuevaintervencionpanel($id) {
      $intervencionelim=Intervencion::find($id)->idCaso;
       
@@ -166,6 +177,19 @@ $fecha_intervencion=$intervencion->fecha_intervencion;
 $detalle_intervencion=$intervencion->detalle_intervencion;
 
 return view("detallenuevaintervencion", compact("fecha_intervencion","detalle_intervencion"));}
+
+
+public function detallevictima($id) {
+
+      $intervencion=Intervencion::find($id);
+    session(["idIntervencion"=> $id]);
+
+
+
+$fecha_intervencion=$intervencion->fecha_intervencion;
+$detalle_intervencion=$intervencion->detalle_intervencion;
+
+return view("detallenuevaintervencionvictima", compact("fecha_intervencion","detalle_intervencion"));}
 
 
 
@@ -258,6 +282,59 @@ $intervencion = Intervencion::find(session("idIntervencion"));
  $idCaso=session("idCaso");
   return redirect ("agregarnuevaIntervencionvictima/$idCaso/#victima");
 }
+
+
+public function editarvictima(Request $form){
+  
+    $hoy = date("d-m-Y");
+
+    $hoy = date("d-m-Y",strtotime($hoy."+ 1 days"));
+
+   $reglas = [
+   "fecha_intervencion" => 'required|date_format:Y-m-d|before: o igual a la fecha actual|after:1899-12-31',
+    "detalle_intervencion" => "required|min:3|max:10000|regex:/^([0-9a-zA-ZñÑ.,@\s*-])+$/" ,];
+
+    $validator = Validator::make($form->all(), $reglas);
+
+
+    if ($validator->fails()) {
+        return back()
+                    ->withErrors($validator)
+                    ->withInput();
+    }
+
+$intervencion = Intervencion::find(session("idIntervencion"));
+
+  $intervencion->fecha_intervencion= $form["fecha_intervencion"];
+  $intervencion->detalle_intervencion= $form["detalle_intervencion"];
+  $intervencion->idCaso= session("idCaso");
+  $intervencion->userID_create= Auth::id();
+
+
+  $intervencion->save();
+ $idCaso=session("idCaso");
+  return redirect ("paneldecontrolvictima/$idCaso/#victima");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 public function editarpanel(Request $form){
   

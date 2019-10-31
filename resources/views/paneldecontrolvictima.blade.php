@@ -438,8 +438,8 @@ session_start();
 
  <textarea class="form-control" disabled > {{$intervencion->detalle_intervencion}}</textarea><br>
          
-   <strong> <a  style="color:black; margin-left: -3%" href="/detallenuevaintervencion/{{$intervencion->id}}" target="_self">Editar</a></strong>         
- <strong> <a  style="color:red"  onclick="return confirm('Deseas eliminar esta Intercención?')" href="/eliminarnuevaintervencion/{{$intervencion->id}}" target="_self">Eliminar</a></strong>
+   <strong> <a  style="color:black; margin-left: -3%" href="/detallenuevaintervencionvictima/{{$intervencion->id}}" target="_self">Editar</a></strong>         
+ <strong> <a  style="color:red"  onclick="return confirm('Deseas eliminar esta Intercención?')" href="/eliminarnuevaintervencionvictima/{{$intervencion->id}}" target="_self">Eliminar</a></strong>
   <p style="max-width: 100%">______________________________________________________________________________________________________________________</p>
        </li>
      @endif

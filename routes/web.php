@@ -308,7 +308,7 @@ Route::get("/eliminarintervencion/{id}", "IntervencionController@eliminarinterve
 
 Route::get("/eliminarnuevaintervencion/{id}", "IntervencionController@eliminarnuevaintervencion")->middleware('auth');
 
-
+Route::get("/eliminarnuevaintervencionvictima/{id}", "IntervencionController@eliminarnuevaintervencionvictima")->middleware('auth');
 
 
 Route::get("/agregarnuevaIntervencionvictima/{id}",function($id){
@@ -347,6 +347,7 @@ Route::post("/paneldecontrolvictima","IntervencionController@agregarnuevapanel")
 Route::post("/agregarnuevaIntervencionvictima","IntervencionController@agregarnueva")->middleware('auth');
 
 Route::get("/detallenuevaintervencion/{id}", "IntervencionController@detalle")->middleware('auth');
+Route::get("/detallenuevaintervencionvictima/{id}", "IntervencionController@detallevictima")->middleware('auth');
 
 Route::get("/detallenuevaintervencionpanel/{id}", "IntervencionController@detallepanel")->middleware('auth');
 
@@ -355,6 +356,7 @@ Route::post("/detallenuevaintervencionpanel", "IntervencionController@editarpane
 
 
 Route::post("/detallenuevaintervencion", "IntervencionController@editar")->middleware('auth');
+Route::post("/detallenuevaintervencionvictima", "IntervencionController@editarvictima")->middleware('auth');
 
 Route::get("/eliminarnuevaintervencionpanel/{id}", "IntervencionController@eliminarnuevaintervencionpanel")->middleware('auth');
 
