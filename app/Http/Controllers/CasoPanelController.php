@@ -295,6 +295,10 @@ session(["idCaso" => $idCaso]);
 }
 
 
+
+
+
+
 public function detalle($id) {
 
       $provincias = Provincia::all();

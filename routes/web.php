@@ -100,6 +100,11 @@ Route::get("/eliminarpersona/{id}", "PersonaController@eliminarpersona")->middle
 
 
 //B-VICTIMAS//
+Route::get("/casovictima/{id}",function($id){
+   session(["idCaso"=> $id]);
+   $caso = App\Caso::find($id);
+ return view("/casovictima",compact("caso"));
+})->middleware('auth');
 
 Route::get("/agregarVictima",function(){
   $necesidades = App\Necesidad::all();
