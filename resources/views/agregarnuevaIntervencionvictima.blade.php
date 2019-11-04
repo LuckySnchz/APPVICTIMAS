@@ -367,7 +367,8 @@
  @endforeach
 
 </div>
-<a href="javascript:if(window.print)window.print()">Imprimir</a>
+
+
 </div>
 
 
@@ -380,8 +381,10 @@
 
    <div class="container jumbotron shadow p-3 mb-5 bg-white rounded">
       <div id="botones" >
+        <br>
+        <a href="javascript:if(window.print)window.print()"><button class="btn btn-primary col-xl" name="button" style="color:white;background-color:rgb(137, 210, 14);width:108%">IMPRIMIR</button></a><br><br>
   <div class="btn-1" > <button class="btn btn-primary col-xl" name="button"  style="width:108%" >Agregar/Enviar</button><br><br><br><br>
-   <a type="button"  href="/home" target="_self" style="width:100%; color:white;background-color:rgb(52, 144, 220);margin-bottom: -5%;margin-top: -12%" class="btn col-XL" class="btn btn-danger">IR A INICIO</button> </a><br><br></div>
+   <a type="button"  href="/home" target="_self" style="width:100%; color:white;background-color:rgb(52, 144, 220);margin-bottom: -5%;margin-top: -12%" class="btn col-XL" class="btn btn-danger">IR A INICIO</button> </a><br></div>
   </div>
  
     </div>

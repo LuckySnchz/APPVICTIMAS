@@ -22,6 +22,7 @@ use App\Oderivados;
 use App\Tipo_demandas;
 use App\MiModelo;
 use App\Profesional;
+use App\Victim;
 
 
 class CasoPanelController extends Controller
@@ -377,6 +378,8 @@ return view("detalleCaso", compact("delitos", "cavajs","usuarios","organismos","
             $tipo_demandas = Tipo_demandas::all();
              $profesionales = Profesional::all();
 
+              $victimas=Victim::all();
+
              $profesionales=[];
              $casos=[];
              $demandas=[];
@@ -640,7 +643,7 @@ if($countcasos>0){
 $countcasos=0;
 $countdemandas=0;
 $countderivaciones=0;
-  return view("home", compact("profesionales","casos","demandas","derivaciones","tipo_demandas","oderivados","delitos","cavajs","user","buscar","countcasos","countdemandas","countderivaciones"));
+  return view("home", compact("profesionales","casos","demandas","derivaciones","tipo_demandas","oderivados","delitos","cavajs","user","buscar","countcasos","countdemandas","countderivaciones","victimas"));
 
 }
 
@@ -659,7 +662,7 @@ if($countdemandas>0){
   $countcasos=0;
 $countdemandas=0;
 $countderivaciones=0;
-   return view("home", compact("profesionales","casos","demandas","derivaciones","tipo_demandas","oderivados","delitos","cavajs","user","buscar","countdemandas","countcasos","countdemandas","countderivaciones"));
+   return view("home", compact("profesionales","casos","demandas","derivaciones","tipo_demandas","oderivados","delitos","cavajs","user","buscar","countdemandas","countcasos","countdemandas","countderivaciones","victimas"));
 
 }
 
@@ -681,7 +684,7 @@ if($countderivaciones>0){
 $countdemandas=0;
 $countderivaciones=0;
 
-  return view("home", compact("profesionales","casos","demandas","derivaciones","tipo_demandas","oderivados","delitos","cavajs","user","buscar","countderivaciones","countcasos","countdemandas","countderivaciones"));
+  return view("home", compact("profesionales","casos","demandas","derivaciones","tipo_demandas","oderivados","delitos","cavajs","user","buscar","countderivaciones","countcasos","countdemandas","countderivaciones","victimas"));
 
 }
 

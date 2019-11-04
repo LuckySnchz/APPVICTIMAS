@@ -7,6 +7,7 @@ use App\Caso;
 use App\Profesional;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Victim;
 class HomeController extends Controller
 {
     /**
@@ -33,9 +34,10 @@ class HomeController extends Controller
     $buscar=0;
     $profesionales=Profesional::all();
     $users=User::all();
+    $victimas=Victim::all();
 
 
-    return view('home',compact("casos","demandas","derivaciones","profesionales","buscar","users"));
+    return view('home',compact("casos","demandas","derivaciones","profesionales","buscar","users","victimas"));
  }
  
 

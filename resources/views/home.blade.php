@@ -182,7 +182,20 @@
    
     <div class="row media mt-2 px-1">
       <div class="col-6">
-          <p>Victima: {{$caso->nombre_y_apellido_de_la_victima}}</p>
+
+
+
+
+
+         <label class="font-weight-bold" style="text-decoration: underline;color:red">Victima/s:</label>
+          @foreach ($victimas as $victima)
+          @if ($victima->idCaso == session("idCaso"))
+          <div>
+         <label class="font-weight-bold">Nombre y apellido: </label>
+        {{$victima->victima_nombre_y_apellido}}
+         </div>
+         @endif
+        @endforeach
           <p>Cavaj: @foreach ($cavajs as $cavaj)
           @if ($cavaj->id == $caso->cavaj){{$cavaj->nombre}}
           @endif
@@ -318,7 +331,15 @@
    
     <div class="row media mt-2 px-1">
       <div class="col-6">
-          <p>Victima: {{$caso->nombre_y_apellido_de_la_victima}}</p>
+           <label class="font-weight-bold" style="text-decoration: underline;color:red">Victima/s:</label>
+          @foreach ($victimas as $victima)
+          @if ($victima->idCaso == session("idCaso"))
+          <div>
+         <label class="font-weight-bold">Nombre y apellido: </label>
+        {{$victima->victima_nombre_y_apellido}}
+         </div>
+         @endif
+        @endforeach
           <p>Cavaj: @foreach ($cavajs as $cavaj)
           @if ($cavaj->id == $caso->cavaj){{$cavaj->nombre}}
           @endif
@@ -412,7 +433,15 @@
    
     <div class="row media mt-2 px-1">
       <div class="col-6">
-          <p>Victima: {{$caso->nombre_y_apellido_de_la_victima}}</p>
+          <label class="font-weight-bold" style="text-decoration: underline;color:red">Victima/s:</label>
+          @foreach ($victimas as $victima)
+          @if ($victima->idCaso == session("idCaso"))
+          <div>
+         <label class="font-weight-bold">Nombre y apellido: </label>
+        {{$victima->victima_nombre_y_apellido}}
+         </div>
+         @endif
+        @endforeach
           <p>Cavaj: @foreach ($cavajs as $cavaj)
           @if ($cavaj->id == $caso->cavaj){{$cavaj->nombre}}
           @endif                   
@@ -483,7 +512,15 @@
    
     <div class="row media mt-2 px-1">
       <div class="col-6">
-          <p>Victima: {{$caso->nombre_y_apellido_de_la_victima}}</p>
+           <label class="font-weight-bold" style="text-decoration: underline;color:red">Victima/s:</label>
+          @foreach ($victimas as $victima)
+          @if ($victima->idCaso == session("idCaso"))
+          <div>
+         <label class="font-weight-bold">Nombre y apellido: </label>
+        {{$victima->victima_nombre_y_apellido}}
+         </div>
+         @endif
+        @endforeach
           <p>Cavaj: @foreach ($cavajs as $cavaj)
           @if ($cavaj->id == $caso->cavaj){{$cavaj->nombre}}
           @endif
@@ -533,7 +570,15 @@
    
     <div class="row media mt-2 px-1">
       <div class="col-6">
-          <p>Victima: {{$caso->nombre_y_apellido_de_la_victima}}</p>
+          <label class="font-weight-bold" style="text-decoration: underline;color:red">Victima/s:</label>
+          @foreach ($victimas as $victima)
+          @if ($victima->idCaso == session("idCaso"))
+          <div>
+         <label class="font-weight-bold">Nombre y apellido: </label>
+        {{$victima->victima_nombre_y_apellido}}
+         </div>
+         @endif
+        @endforeach
           <p>Cavaj: @foreach ($cavajs as $cavaj)
           @if ($cavaj->id == $caso->cavaj){{$cavaj->nombre}}
           @endif
@@ -571,7 +616,15 @@
    
     <div class="row media mt-2 px-1">
       <div class="col-6">
-          <p>Victima: {{$caso->nombre_y_apellido_de_la_victima}}</p>
+            <label class="font-weight-bold" style="text-decoration: underline;color:red">Victima/s:</label>
+          @foreach ($victimas as $victima)
+          @if ($victima->idCaso == session("idCaso"))
+          <div>
+         <label class="font-weight-bold">Nombre y apellido: </label>
+        {{$victima->victima_nombre_y_apellido}}
+         </div>
+         @endif
+        @endforeach
           <p>Cavaj: @foreach ($cavajs as $cavaj)
           @if ($cavaj->id == $caso->cavaj){{$cavaj->nombre}}
           @endif
