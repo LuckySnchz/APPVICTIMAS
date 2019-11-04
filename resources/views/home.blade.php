@@ -187,7 +187,7 @@
 
 
 
-         <label class="font-weight-bold" style="text-decoration: underline;color:red">Victima/s:</label>
+         <label class="font-weight-bold" style="text-decoration: underline;">Victima/s:</label>
           @foreach ($victimas as $victima)
           @if ($victima->idCaso == session("idCaso"))
           <div>
@@ -331,7 +331,7 @@
    
     <div class="row media mt-2 px-1">
       <div class="col-6">
-           <label class="font-weight-bold" style="text-decoration: underline;color:red">Victima/s:</label>
+           <label class="font-weight-bold" style="text-decoration: underline;">Victima/s:</label>
           @foreach ($victimas as $victima)
           @if ($victima->idCaso == session("idCaso"))
           <div>
@@ -433,7 +433,7 @@
    
     <div class="row media mt-2 px-1">
       <div class="col-6">
-          <label class="font-weight-bold" style="text-decoration: underline;color:red">Victima/s:</label>
+          <label class="font-weight-bold" style="text-decoration: underline;">Victima/s:</label>
           @foreach ($victimas as $victima)
           @if ($victima->idCaso == session("idCaso"))
           <div>
@@ -512,7 +512,7 @@
    
     <div class="row media mt-2 px-1">
       <div class="col-6">
-           <label class="font-weight-bold" style="text-decoration: underline;color:red">Victima/s:</label>
+           <label class="font-weight-bold" style="text-decoration: underline;">Victima/s:</label>
           @foreach ($victimas as $victima)
           @if ($victima->idCaso == session("idCaso"))
           <div>
@@ -570,7 +570,7 @@
    
     <div class="row media mt-2 px-1">
       <div class="col-6">
-          <label class="font-weight-bold" style="text-decoration: underline;color:red">Victima/s:</label>
+          <label class="font-weight-bold" style="text-decoration: underline;">Victima/s:</label>
           @foreach ($victimas as $victima)
           @if ($victima->idCaso == session("idCaso"))
           <div>
@@ -616,7 +616,7 @@
    
     <div class="row media mt-2 px-1">
       <div class="col-6">
-            <label class="font-weight-bold" style="text-decoration: underline;color:red">Victima/s:</label>
+            <label class="font-weight-bold" style="text-decoration: underline;">Victima/s:</label>
           @foreach ($victimas as $victima)
           @if ($victima->idCaso == session("idCaso"))
           <div>
