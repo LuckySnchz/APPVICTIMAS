@@ -363,7 +363,7 @@ session_start();
 
 
 
- <!-VICTIMA SELECCIONADA>
+ <!--<!-VICTIMA SELECCIONADA>
  @foreach($victimas as $victima)
 
  @if($victima->idCaso==session("idCaso")&&$victima->id==session("idVictim"))
@@ -454,7 +454,7 @@ session_start();
 
 </div>
 
-
+-->
 
 
 <script type="text/javascript">
