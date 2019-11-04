@@ -62,41 +62,7 @@ session_start();
          
 
 
- <!-- <div class="dropdown">
-    <button type="button"  style="background-color:white;position: fixed;display: inline-block;margin-top: -3.43%;margin-left: 0.1%;width: 23%"data-toggle="dropdown">
-     Menu
-    </button>
-
-    <div class="dropdown-menu">
-     
-    
-     <ul>
-         <li class="nav-item"> <strong><a class="nav-link " style="color:black;font-size:1.1em" href="#INICIO">Seleccionar Víctima</a> </li></strong>
-        
-
-
-
-            <li class="nav-item"><strong> <a class="nav-link "  style="color:black;font-size:1.1em" href="#A">Institución/Personas Asistidas</a> </li></strong>
-
-         <li class="nav-item"><strong> <a class="nav-link "  style="color:black;font-size:1.1em" href="#AA">Profesionales Intervinientes</a> </li></strong>
-
-        <li class="nav-item"><strong> <a class="nav-link " style="color:black;font-size:1.1em" href="#B">Víctima y su contexto</a> </li></strong>      
-       
-         <li class="nav-item"><strong> <a class="nav-link " style="color:black;font-size:1.1em"  href="#C">Referentes Afectivos</a> </li></strong>
-
-         <li class="nav-item"><strong> <a class="nav-link " style="color:black;font-size:1.1em" href="#D">Imputado</a> </li></strong>
-
-         <li class="nav-item"><strong> <a class="nav-link " style="color:black;font-size:1.1em" href="#E">Atención del Caso</a> </li></strong>
-
-         <li class="nav-item"><strong> <a class="nav-link "style="color:black;font-size:1.1em"  href="#FIN">Documentación</a> </li></strong>
-
-          <li class="nav-item"><strong> <a class="nav-link "style="color:black;font-size:1.1em"  href="/home">Ir a HOME</a> </li></strong>
-      </ul>
-    
-    </div>
-
-  </div>-->
-
+ 
 
 <div class="container jumbotron shadow p-3 mb-5 bg-white rounded" style="max-width: 80%;margin-top: 5%;text-align: center">
   <strong><h4 class="text-center" style="height: 1%;color:white;background-color: black;
@@ -143,27 +109,6 @@ session_start();
 
           <a type="button"  href="/detalleagregarVictima" target="_self" style="width:93%;
   color:black;border: solid black 1px;background-color:grey;margin-left: 3%" class="btn btn-danger"></button> Agregar una Víctima</a><br><br>
-
-      <!--<h4 class="text-center" style="padding: 15px;">Selecciona una Víctima</h4>
-          <ul>
-            @foreach($victimas as $victima)
-
-          @if($victima->idCaso==session("idCaso"))
-                   <li>
-          
-
-  <a type="button"  href="/victimapanel/{{$victima->id}}/{{$victima->idCaso}}" target="_self" style="width:100%;
-  color:black;border: solid black 1px;background-color:grey;" class="btn btn-danger">{{$victima->victima_nombre_y_apellido}}</button> </a><br><br>  
-    
-          
-       
-                     </li>
-
-
-               @endif
-                 @endforeach
-
-               </ul>-->
 
 
 
@@ -254,208 +199,8 @@ session_start();
 
  
 
-<!--
- <form class="" action="/paneldecontrolvictima" method="post">
-      {{csrf_field()}}
-    <input type="hidden" name="idCaso" value="{{session("idCaso")}}">
-       <input type="hidden" name="idVictim" value="{{session("idVictim")}}">
-
-
-
-
-
-
- <!-VICTIMA SELECCIONADA>
- @foreach($victimas as $victima)
-
- @if($victima->idCaso==session("idCaso")&&$victima->id==session("idVictim"))
-<div class="container jumbotron shadow p-3 mb-5 bg-white rounded" style="max-width: 80%;margin-top: 5%;text-align: center">
-  <strong><h4 class="text-center" style="height: 1%;color:white;background-color: black;max-width: 100%">Realizar Intervenciones:</h4></strong>
-
-
-
-   <a name="Ancla" id="vict"></a>
- 
-  <strong> <label style="text-decoration: underline;margin-left: -1%;color: red;text-decoration: underline;">Víctima Seleccionada: </label></strong>
-
-
- @foreach($victimas as $victima)
-
-          @if($victima->id==session("idVictim"))
-  <strong style="color:red"> {{$victima->victima_nombre_y_apellido}}</strong>
-
-@endif
-@endforeach
-
-    <div class="form-group" {{ $errors->has('fecha_intervencion') ? 'has-error' : ''}}>
-     <strong> <label>Fecha intervención: </label></strong>
-      <input type="date" name="fecha_intervencion" class="form-control" value="{{old("fecha_intervencion")}}">
-      {!! $errors->first('fecha_intervencion', '<p class="help-block" style="color:red";>:message</p>') !!}
-      </div>    
-
-      <div class="form-group" {{ $errors->has('detalle_intervencion') ? 'has-error' : ''}}">
-       <strong><label for="detalle_intervencion">Detalle intervención:</label></strong> 
-
-<textarea class="form-control" id="detalle_intervencion" name="detalle_intervencion">{{old('detalle_intervencion')}}</textarea>
-
-        
-        {!! $errors->first('detalle_intervencion', '<p class="help-block" style="color:red";>:message</p>') !!}</div>
-   
-  <div class="btn-1" > <button class="btn btn-primary col-xl" name="button"  style="width:100%;margin-left: -0.1%" >Agregar/Enviar</button><br><br><br><br>
-
-</div>
-
-@endif
-@endforeach
 
  
-    </div>
-  </div>
-
-      </form>
-
-<!BOTONES>
-<!-MOSTRAR INTERVENCIONES CORRESPONDIENTES A ESTA VICTIMA>
-
- @foreach($victimas as $victima)
-
- @if($victima->idCaso==session("idCaso")&&$victima->id==session("idVictim"))
-
- <a name="Ancla" id="victima"></a>
- <div class="container jumbotron shadow p-3 mb-5 bg-white rounded" style="max-width: 80%;margin-top: 5%;text-align: center">
-  <strong><h4 class="text-center" style="height: 1%;color:white;background-color: black;max-width: 100%">Intervenciones Realizadas:</h4></strong>
- @foreach($intervenciones as $intervencion)
-     @if ($intervencion->idCaso == session("idCaso") && $intervencion->idVictim == session("idVictim"))
-       <li style="list-style: none">
-
- <strong ><label for="detalle_intervencion" style="text-decoration: underline;color: red">Víctima Intervenida:</label></strong> 
- @foreach($victimas as $victima)
- @if($victima->id==$intervencion->idVictim)
-{{$victima->victima_nombre_y_apellido}}
-@endif
-@endforeach
-
-  <input type="date" class="form-control" id="victima_fecha_nacimiento" disabled name="victima_fecha_nacimiento" value="{{$intervencion->fecha_intervencion}}"><br>
-
- <textarea class="form-control" disabled > {{$intervencion->detalle_intervencion}}</textarea><br>
-         
-   <strong> <a  style="color:black; margin-left: -3%" href="/detallenuevaintervencionpanel/{{$intervencion->id}}" target="_self">Editar</a></strong>         
- <strong> <a  style="color:red"  onclick="return confirm('Deseas eliminar esta Intercención?')" href="/eliminarnuevaintervencionpanel/{{$intervencion->id}}" target="_self">Eliminar</a></strong>
-  <p>_____________________________________________________________________________________________________________</p>
-
-       </li>
-     @endif
- @endforeach
-     @endif
- @endforeach
-</div>
-  
-</div>
--->
-
- <form class="" action="/paneldecontrolvictima" method="post">
-      {{csrf_field()}}
-    <input type="hidden" name="idCaso" value="{{session("idCaso")}}">
-       <input type="hidden" name="idVictim" value="{{session("idVictim")}}">
-
-
-
-
-
-
- <!--<!-VICTIMA SELECCIONADA>
- @foreach($victimas as $victima)
-
- @if($victima->idCaso==session("idCaso")&&$victima->id==session("idVictim"))
-<div class="container jumbotron shadow p-3 mb-5 bg-white rounded" style="max-width: 80%;margin-top: 5%;text-align: center">
-  <strong><h4 class="text-center" style="height: 1%;color:white;background-color: black;max-width: 100%">Realizar Intervenciones:</h4></strong>
-
-
-
-   <a name="Ancla" id="victima"></a>
- 
-  <strong> <label style="text-decoration: underline;margin-left: -1%;color: red;text-decoration: underline;">Víctima Seleccionada: </label></strong>
-
-
- @foreach($victimas as $victima)
-
-          @if($victima->id==session("idVictim"))
-  <strong style="color:red"> {{$victima->victima_nombre_y_apellido}}</strong>
-
-@endif
-@endforeach
-
-    <div class="form-group" {{ $errors->has('fecha_intervencion') ? 'has-error' : ''}}>
-     <strong> <label>Fecha intervención: </label></strong>
-      <input type="date" name="fecha_intervencion" class="form-control" value="{{old("fecha_intervencion")}}">
-      {!! $errors->first('fecha_intervencion', '<p class="help-block" style="color:red";>:message</p>') !!}
-      </div>    
-
-      <div class="form-group" {{ $errors->has('detalle_intervencion') ? 'has-error' : ''}}">
-       <strong><label for="detalle_intervencion">Detalle intervención:</label></strong> 
-
-<textarea class="form-control" id="detalle_intervencion" name="detalle_intervencion">{{old('detalle_intervencion')}}</textarea>
-
-        
-        {!! $errors->first('detalle_intervencion', '<p class="help-block" style="color:red";>:message</p>') !!}</div>
-   
-  <div class="btn-1" > <button class="btn btn-primary col-xl" name="button"  style="width:100%;margin-left: -0.1%" >Agregar/Enviar</button><br><br><br><br>
-
-</div>
-
-@endif
-@endforeach
-
- 
-    </div>
-  </div>
-
-      </form>
-
-
-
-<!-MOSTRAR INTERVENCIONES CORRESPONDIENTES A ESTA VICTIMA>
-
- @foreach($victimas as $victima)
-
- @if($victima->idCaso==session("idCaso")&&$victima->id==session("idVictim"))
-
-
- <div class="container jumbotron shadow p-3 mb-5 bg-white rounded" style="max-width: 80%;margin-top: 5%;text-align: center">
-  <strong><h4 class="text-center" style="height: 1%;color:white;background-color: black;max-width: 100%">Intervenciones Realizadas:</h4></strong>
- @foreach($intervenciones as $intervencion)
-     @if ($intervencion->idCaso == session("idCaso") && $intervencion->idVictim == session("idVictim"))
-       <li style="list-style: none">
-
- <strong ><label for="detalle_intervencion" style="text-decoration: underline;color: red">Víctima Intervenida:</label></strong> 
- @foreach($victimas as $victima)
- @if($victima->id==$intervencion->idVictim)
-{{$victima->victima_nombre_y_apellido}}
-@endif
-@endforeach
-
-  <input type="date" class="form-control" id="victima_fecha_nacimiento" disabled name="victima_fecha_nacimiento" value="{{$intervencion->fecha_intervencion}}"><br>
-
- <textarea class="form-control" disabled > {{$intervencion->detalle_intervencion}}</textarea><br>
-         
-   <strong> <a  style="color:black; margin-left: -3%" href="/detallenuevaintervencionvictima/{{$intervencion->id}}" target="_self">Editar</a></strong>         
- <strong> <a  style="color:red"  onclick="return confirm('Deseas eliminar esta Intercención?')" href="/eliminarnuevaintervencionvictima/{{$intervencion->id}}" target="_self">Eliminar</a></strong>
-  <p style="max-width: 100%">______________________________________________________________________________________________________________________</p>
-       </li>
-     @endif
- @endforeach
-     @endif
- @endforeach
-
-</div>
-
-</div>
-
-
-</div>
-
--->
-
 
 <script type="text/javascript">
  function mostrar(){
@@ -600,33 +345,7 @@ document.getElementById('victima').style.display = '';
 
 
  
-         <!-- <ul>
-            @foreach($convivientes as $conviviente)
-
-          @if($conviviente->idCaso==session("idCaso")&&$conviviente->idVictim==session("idVictim"))
-                   <li>
-
-                  <strong style="margin-left:-20%">{{$conviviente->nombre_y_apellido}}</strong>
-
-                  <div class="botones" style="overflow:hidden;margin-left:12%">
-                            <div class="btn1" style="float:left">  <input type ='button' style="width:150px;background-color:#97c93f;color:black;border: solid black 1px" class="btn btn-danger col-xs" name="button" value = 'Editar' onclick="window.open('/detalleconviviente/{{$conviviente->id}}', 'width=800,height=600');"/></button></div>
-                            <div class="btn2" style="float:left"> 
-
-<a type="button" style="width:150px; margin-left:13%;color:black;border: solid black 1px" class="btn btn-danger col-xs" href="/detalleconviviente/deleteconviviente/{{$conviviente->id}}" target="_self">Eliminar</button></a><br><br>
-</div>
-                            </div>
-                                     </li>
-
-
-                               @endif
-                                 @endforeach
-
-                               </ul>-->
-                         
-                           
-
-
-
+         
 
 
   <a name="Ancla" id="v4"></a>
@@ -654,29 +373,7 @@ document.getElementById('victima').style.display = '';
 
 
 
-   <!-- <ul >
-          @foreach($imputados as $imputado)
-
-        @if($imputado->idCaso==session("idCaso")&&$imputado->idVictim==session("idVictim"))
-                 <li >
-
-                <strong style="margin-left:-15%">{{$imputado->nombre_y_apellido}}</strong>
-
-<div class="botones" style="overflow:hidden;margin-left:14%">
-          <div class="btn1" style="float:left">  <input type ='button' style="width:150px;background-color:#97c93f;color:black;border: solid black 1px" class="btn btn-danger col-xs" name="button" value = 'Editar' onclick="window.open('/detalleimputado/{{$imputado->id}}', 'width=800,height=600');"/></button></div>
-<div class="btn2" style="float:left">
-
-<a type="button" style="width:150px; margin-left:13%;color:black;border: solid black 1px" class="btn btn-danger col-xs" href="/detalleimputado/deleteimputado/{{$imputado->id}}" target="_self">Eliminar</button></a><br><br>
-</div>
-</div>
-              </li>
-
-
-        @endif
-          @endforeach
-
-        </ul>-->
-
+   
 
 
   @foreach($imputados_nuevos as $imputado_nuevo)
@@ -721,8 +418,7 @@ document.getElementById('victima').style.display = '';
            </div>
 
 </section>
- <!--<a type="button" href="/detalleagregarVictima" target="_self" style="width:100%;
-  color:black;border: solid black 1px;background-color:grey;" class="btn btn-danger">Agregar</button> </a>-->  
+  
   
 
    </body>
