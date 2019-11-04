@@ -1103,7 +1103,7 @@ if ($user->hasRole('admin')) {
 }else{abort(403, "No tienes autorización para ingresar.");}})->middleware('auth');
 
 
-
+Route::get("/datos", "ApiController@getdatos")->middleware('auth');
 
 /*
 

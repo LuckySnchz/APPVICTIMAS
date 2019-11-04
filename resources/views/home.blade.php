@@ -174,7 +174,7 @@
 
  <p class="mr-4 mb-0"> <strong style="color:red">{{$countcasos=$countcasos+1}}.- </strong><strong><span style="text-decoration: underline">Caso: </span><strong>{{$caso->nombre_referencia}}</strong></p>
      <ul class="list-unstyled list-inline mb-0">
-      <li class="list-inline-item"><a href='/casovictima/{{$caso->id}}' class="mr-3"><i class="fas fa-envelope mr-1"></i>Editar</a></li>
+      <li class="list-inline-item"><a href='/paneldecontrolcaso/{{$caso->id}}' class="mr-3"><i class="fas fa-envelope mr-1"></i>Editar</a></li>
       <li class="list-inline-item"><a href='/informe/{{$caso->id}}' class="mr-3"><i class="fas fa-user mr-1"></i>Informe</a></li>
 
       <li class="list-inline-item"><a href='/agregarnuevaIntervencionvictima/{{$caso->id}}' class="mr-3"><i class="fas fa-rss mr-1"></i>Agregar intervención</a></li>
@@ -404,7 +404,7 @@
     @if((Auth::user()->hasRole('user'))&&(Auth::user()->id==$caso->userID_create))
      <p class="mr-4 mb-0"> <strong><span style="text-decoration: underline"> Caso: </span><strong>{{$caso->nombre_referencia}}</strong></p>
      <ul class="list-unstyled list-inline mb-0">
-      <li class="list-inline-item"><a href='/casovictima/{{$caso->id}}' class="mr-3"><i class="fas fa-envelope mr-1"></i>Editar</a></li>
+      <li class="list-inline-item"><a href='/paneldecontrolcaso/{{$caso->id}}' class="mr-3"><i class="fas fa-envelope mr-1"></i>Editar</a></li>
       <li class="list-inline-item"><a href='/informe/{{$caso->id}}' class="mr-3"><i class="fas fa-user mr-1"></i>Informe</a></li>
    
       <li class="list-inline-item"><a href='/agregarnuevaintervencionvictima/{{$caso->id}}' class="mr-3"><i class="fas fa-rss mr-1"></i>Agregar intervención</a></li>
@@ -432,7 +432,7 @@
       <div class="card-header border-0 font-weight-bold d-flex justify-content-between">
       <p class="mr-4 mb-0"> <strong><span style="text-decoration: underline"> Caso: </span><strong>{{$caso->nombre_referencia}}</strong></p>
     <!--<ul class="list-unstyled list-inline mb-0">
-      <li class="list-inline-item"><a href='/casovictima/{{$caso->id}}' class="mr-3"><i class="fas fa-envelope mr-1"></i>Editar</a></li>
+      <li class="list-inline-item"><a href='/paneldecontrolcaso/{{$caso->id}}' class="mr-3"><i class="fas fa-envelope mr-1"></i>Editar</a></li>
       <li class="list-i}line-item"><a href='/informe/{{$caso->id}}' class="mr-3"><i class="fas fa-user mr-1"></i>Informe</a></li>
       <li class="list-inline-item"><a href='/agregarnuevaintervencion/{{$caso->id}}' class="mr-3"><i class="fas fa-rss mr-1"></i>Agregar intervención</a></li>
     </ul>
@@ -475,7 +475,7 @@
     
      <p class="mr-4 mb-0"> <strong><span style="text-decoration: underline"> Caso: </span><strong>{{$caso->nombre_referencia}}</strong></p>
      <ul class="list-unstyled list-inline mb-0">
-      <li class="list-inline-item"><a href='/casovictima/{{$caso->id}}' class="mr-3"><i class="fas fa-envelope mr-1"></i>Editar</a></li>
+      <li class="list-inline-item"><a href='/paneldecontrolcaso/{{$caso->id}}' class="mr-3"><i class="fas fa-envelope mr-1"></i>Editar</a></li>
       <li class="list-inline-item"><a href='/informe/{{$caso->id}}' class="mr-3"><i class="fas fa-user mr-1"></i>Informe</a></li>
   
       <li class="list-inline-item"><a href='/agregarnuevaintervencionvictima/{{$caso->id}}' class="mr-3"><i class="fas fa-rss mr-1"></i>Agregar intervención</a></li>
@@ -525,7 +525,7 @@
     
      <p class="mr-4 mb-0"> <strong><span style="text-decoration: underline"> Caso: </span><strong>{{$caso->nombre_referencia}}</strong></p>
      <ul class="list-unstyled list-inline mb-0">
-      <li class="list-inline-item"><a href='/casovictima/{{$caso->id}}' class="mr-3"><i class="fas fa-envelope mr-1"></i>Editar</a></li>
+      <li class="list-inline-item"><a href='/paneldecontrolcaso/{{$caso->id}}' class="mr-3"><i class="fas fa-envelope mr-1"></i>Editar</a></li>
       <li class="list-inline-item"><a href='/informe/{{$caso->id}}' class="mr-3"><i class="fas fa-user mr-1"></i>Informe</a></li>
    
       <li class="list-inline-item"><a href='/agregarnuevaintervencionvictima/{{$caso->id}}' class="mr-3"><i class="fas fa-rss mr-1"></i>Agregar intervención</a></li>
@@ -563,7 +563,7 @@
     @if(Auth::user()->hasRole('admin'))
      <p class="mr-4 mb-0"> <strong><span style="text-decoration: underline"> Caso: </span><strong>{{$caso->nombre_referencia}}</strong></p>
      <ul class="list-unstyled list-inline mb-0">
-      <li class="list-inline-item"><a href='/casovictima/{{$caso->id}}' class="mr-3"><i class="fas fa-envelope mr-1"></i>Editar</a></li>
+      <li class="list-inline-item"><a href='/paneldecontrolcaso/{{$caso->id}}' class="mr-3"><i class="fas fa-envelope mr-1"></i>Editar</a></li>
       <li class="list-inline-item"><a href='/informe/{{$caso->id}}' class="mr-3"><i class="fas fa-user mr-1"></i>Informe</a></li>
 
       <li class="list-inline-item"><a href='/agregarnuevaintervencionvictima/{{$caso->id}}' class="mr-3"><i class="fas fa-rss mr-1"></i>Agregar intervención</a></li>
