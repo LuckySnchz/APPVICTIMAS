@@ -1034,18 +1034,18 @@ Route::get("/paneldecontrolcaso/{id}",function($id){
 if ($user->hasRole('admin')) {
  // checkPermisos($caso);
 session(["idCaso" => $id]);
-$caso = App\Caso::find(session("idCaso"));
-  return view("paneldecontrolcaso",compact("caso"));
+
+  return view("paneldecontrolcaso");
 }
 if($user->hasRole('profesional')) {
 session(["idCaso" => $id]);
-$caso = App\Caso::find(session("idCaso"));
-  return view("paneldecontrolcaso",compact("caso"));
+
+  return view("paneldecontrolcaso");
 }
 if($user->hasRole('user')&&$caso->sede==$user->getSede()&&$caso->userID_create==$user->getId()) {
 session(["idCaso" => $id]);
-$caso = App\Caso::find(session("idCaso"));
-  return view("paneldecontrolcaso",compact("caso"));
+
+  return view("paneldecontrolcaso");
 }
 else{abort(403, "No tienes autorización para ingresar.");}})->middleware('auth');
 

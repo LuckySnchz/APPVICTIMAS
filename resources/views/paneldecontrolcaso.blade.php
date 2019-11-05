@@ -30,26 +30,26 @@ session_start();
      @include('navbar')
 <br>
                 <a type="button"  href="/home" target="_self" style="width:100%; color:white;background-color:rgb(52, 144, 220);margin-bottom: -5%;margin-top: -12%;margin-left: 0.1%" class="btn col-XL" class="btn btn-danger">IR A INICIO</button> </a><br>
-                 <a type="button"  href="/paneldecontrolvictima/{{$caso->id}}" target="_self" style="width:100%; color:white;background-color:rgb(137, 210, 14);margin-bottom: -5%;margin-top: -8%;margin-left: 0.1%;color: black" class="btn col-XL" class="btn btn-danger">IR A VICTIMA</button> </a><br><br><br>
+                 <a type="button"  href="/paneldecontrolvictima/{{session("idCaso")}}" target="_self" style="width:100%; color:white;background-color:rgb(137, 210, 14);margin-bottom: -5%;margin-top: -8%;margin-left: 0.1%;color: black" class="btn col-XL" class="btn btn-danger">IR A VICTIMA</button> </a><br><br><br>
       </section>        
       
-       <section class="container jumbotron shadow p-3 mb-5 bg-white rounded"style="height: 1200px" >
+       <section class="container jumbotron shadow p-3 mb-5 bg-white rounded"style="height: 600px" >
     
 
-           <h4 class="text-center" style="height: 4%;margin-bottom:-5%;padding-top: 1%;padding-bottom: 1%;color:white;background-color: black">EDITAR CASO:</h4><br>
+           <h4 class="text-center" style="height: 8%;margin-bottom:2%;padding-top: 1%;padding-bottom: 1%;color:white;background-color: black">EDITAR CASO:</h4><br>
 
-                   <a type="button"  href="/paneldecontrolcasocaso/{{$caso->id}}" target="_self" style="width:100%; color:black;background-color:rgb(52, 144, 220);margin-bottom: -2%;margin-top: 5%;margin-left: 0.1%" class="btn col-XL" class="btn btn-danger">
+                   <a type="button"  href="/paneldecontrolcasocaso/{{session("idCaso")}}" target="_self" style="width:100%; color:black;background-color:rgb(52, 144, 220);margin-bottom: -2%;margin-top: -5%;margin-left: 0.1%;height: 8%;padding-top: 1%" class="btn col-XL" class="btn btn-danger">
 DATOS INSTITUCIONALES</button> </a><br>
 
-<a type="button"  href="/paneldecontrolcasoprofesional/{{$caso->id}}" target="_self" style="width:100%; color:black;background-color:rgb(52, 144, 220);margin-bottom: -2%;margin-top: 3%;margin-left: 0.1%;color: black" class="btn col-XL" class="btn btn-danger">PROFESIONAL INTERVINIENTE</button> </a><br>
+<a type="button"  href="/paneldecontrolcasoprofesional/{{session("idCaso")}}" target="_self" style="width:100%; color:black;background-color:rgb(52, 144, 220);margin-bottom: -2%;margin-top:1%;margin-left: 0.1%;color: black;height: 8%;padding-top: 1%" class="btn col-XL" class="btn btn-danger">PROFESIONAL INTERVINIENTE</button> </a><br>
 
 
 
-   <a type="button"  href="/paneldecontrolcasoatencion/{{$caso->id}}" target="_self" style="width:100%; color:black;background-color:rgb(52, 144, 220);margin-bottom: -2%;margin-top: 3%;margin-left: 0.1%" class="btn col-XL" class="btn btn-danger">
+   <a type="button"  href="/paneldecontrolcasoatencion/{{session("idCaso")}}" target="_self" style="width:100%; color:black;background-color:rgb(52, 144, 220);margin-bottom: -2%;margin-top: 3%;margin-left: 0.1%;height: 8%;padding-top: 1%" class="btn col-XL" class="btn btn-danger">
 ATENCION DEL CASO</button> </a><br>
 
 
-<a type="button"  href="/paneldecontrolcasodocumento/{{$caso->id}}" target="_self" style="width:100%; color:black;background-color:rgb(52, 144, 220);margin-bottom: -2%;margin-top: 3%;margin-left: 0.1%;color: black" class="btn col-XL" class="btn btn-danger">DOCUMENTACION</button> </a><br>
+<a type="button"  href="/paneldecontrolcasodocumento/{{session("idCaso")}}" target="_self" style="width:100%; color:black;background-color:rgb(52, 144, 220);margin-bottom: -2%;margin-top: 3%;margin-left: 0.1%;color: black;height: 8%;padding-top: 1%" class="btn col-XL" class="btn btn-danger">DOCUMENTACION</button> </a><br>
 
       </section> 
 
