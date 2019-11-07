@@ -38,6 +38,35 @@ session_start();
 
            <h4 class="text-center" style="height: 8%;margin-bottom:2%;padding-top: 1%;padding-bottom: 1%;color:white;background-color: black">EDITAR VICTIMA:</h4><br>
 
+
+<p style="text-align: center"><strong><span style="text-decoration: underline"> Agregar una Víctima: </span><strong><br><br>
+
+          <a type="button"  href="/detalleagregarVictima" target="_self" style="width:95%;
+  color:black;border: solid black 1px;background-color:grey;margin-left: 3%" class="btn btn-danger"></button> Agregar una Víctima</a><br><br>
+
+
+
+           <h4 class="text-center" style="height:12%;margin-bottom:2%;padding-top: 1%;padding-bottom: 1%;color:white;background-color: black">SELECCIONA UNA VICTIMA:
+            <br>{{session("victimNombre")}}</h4><br>
+          <ul style="padding: 15px;text-align: center;color: red">
+            @foreach($victimas as $victima)
+
+          @if($victima->idCaso==session("idCaso"))
+                   <li >
+          
+
+  <a style="padding: 15px;text-align: center;color: red"href="/victimaagregarintervenciontres/{{$victima->id}}/{{$victima->idCaso}}">{{$victima->victima_nombre_y_apellido}} </a><br><br>  
+    
+              
+                     </li>
+
+
+               @endif
+                 @endforeach
+
+               </ul>
+           </div>
+
                    <a type="button"  href="/paneldecontrolvictimavictima/{{session("idCaso")}}" target="_self" style="width:100%; color:black;background-color:rgb(52, 144, 220);margin-bottom: -2%;margin-top: -5%;margin-left: 0.1%;height: 8%;padding-top: 1%" class="btn col-XL" class="btn btn-danger">
 LA VICTIMA Y SU CONTEXTO:</button> </a><br>
 

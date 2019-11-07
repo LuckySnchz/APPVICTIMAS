@@ -9,6 +9,7 @@ use App\Delito;
 use App\Cavaj;
 use App\Usuario;
 use App\Caso;
+use App\Victim;
 use Validator;
 
 class IntervencionController extends Controller
@@ -240,10 +241,12 @@ public function victimaagregardos($id,$idCaso) {
 return redirect("agregarnuevaIntervencionvictima/$idCaso");}
 
 public function victimaagregartres($id,$idCaso) {
-
+$victimNombre = Victim::find($id)->victima_nombre_y_apellido;
     
     session(["idVictim"=> $id]);
     session(["idCaso"=> $idCaso]);
+    session(["victimNombre"=> $victimNombre]);
+
 
 
 

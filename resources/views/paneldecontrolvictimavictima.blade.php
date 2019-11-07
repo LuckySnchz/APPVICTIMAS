@@ -64,84 +64,8 @@ session_start();
 
  
 
-<div class="container jumbotron shadow p-3 mb-5 bg-white rounded" style="max-width: 80%;margin-top: 5%;text-align: center">
-  <strong><h4 class="text-center" style="height: 1%;color:white;background-color: black;
-        max-width: 100%">VICTIMA/S</h4></strong><br>
 
 
-        <strong><h4 class="text-center" style="height: 1%;color:white;background-color: black;
-        max-width: 100%">Editar o Agregar Víctima/s</h4></strong><br>
-
-
-
-<div class="container jumbotron shadow p-3 mb-5 bg-green rounded " style="max-width: 60%;margin-top: 1%;">
-
- 
-<p style="text-align: center"><strong><span style="text-decoration: underline"> Caso: 
-
-      </spam></strong><br><strong><span style="text-align: center;color:red"<br>{{$casoNombre}}</spam></strong> 
-         
-         </p>
-          
-
-<p style="text-align: center"><strong><span style="text-decoration: underline"> Víctima Seleccionada: </span><strong>
- @foreach($victimas as $victima)
-
-          @if($victima->idCaso==session("idCaso")&&$victima->id==session("idVictim"))
-            <br>
-          
-                  <strong style="text-align: center;color:red">{{$victima->victima_nombre_y_apellido}}</strong><br>
-                   <strong style="text-align: center;color:red">Edad:{{$victima->victima_edad}}</strong><br>
- <strong style="text-align: center;color:red">Delito:{{$delitoActual->nombre}}</strong><br>
-  <strong style="text-align: center;color:red">Genero:</strong><br>
- @if($victima->genero == 1) Mujer Cis
-    @elseif ($victima->genero == 2) Mujer Trans
-    @elseif ($victima->genero == 3) Varon Cis
-    @elseif ($victima->genero == 4) Varon Trans
-    @elseif ($victima->genero == 5) Otro
-    @endif
-            
-             @endif
-           @endforeach</p>
-
-</div>
-<p style="text-align: center"><strong><span style="text-decoration: underline"> Agregar una Víctima: </span><strong><br><br>
-
-          <a type="button"  href="/detalleagregarVictima" target="_self" style="width:93%;
-  color:black;border: solid black 1px;background-color:grey;margin-left: 3%" class="btn btn-danger"></button> Agregar una Víctima</a><br><br>
-
-
-
-<h4 class="text-center" style="padding: 15px; text-decoration: underline;">Selecciona una Víctima</h4>
-          <ul  style="list-style:none">
-            @foreach($victimas as $victima)
-
-          @if($victima->idCaso==session("idCaso"))
-                   <li>
-          
-
-  <a type="button"  onclick="mostrarvictima();" href="/victimaagregarintervenciontres/{{$victima->id}}/{{$victima->idCaso}}" target="_self" style="width:102%;
-  color:black;border: solid black 1px;background-color:grey;margin-left: -3%" class="btn btn-danger">{{$victima->victima_nombre_y_apellido}}</button> </a><br><br>  
-    
-          
-       
-                     </li>
-
-
-               @endif
-                 @endforeach
-
-               </ul>
-
-
-
-
-
-           </div>
-
-@foreach($victimas as $victima)
-
- @if($victima->idCaso==session("idCaso")&&$victima->id==session("idVictim"))
 
   <div class="container jumbotron shadow p-3 mb-5 bg-white rounded" style="max-width: 80%;margin-top: 5%;text-align: center">
 
@@ -191,8 +115,7 @@ session_start();
                  @endforeach
 
                </ul>
-          @endif
-          @endforeach
+     
            </div>
            
 
@@ -202,11 +125,6 @@ session_start();
 
  
 
-<script type="text/javascript">
- function mostrar(){
-document.getElementById('victima').style.display = '';
-}
-</script>
 
 
  
