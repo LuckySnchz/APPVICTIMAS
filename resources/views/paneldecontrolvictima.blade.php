@@ -71,8 +71,9 @@ session_start();
 
                </ul>
            </div>
-
-
+     @foreach($victimas as $victima)
+            @if($victima->idCaso==session("idCaso") && $victima->id==session("idVictim"))
+<div id="panel">
                    <a type="button"  href="/paneldecontrolvictimavictima/{{session("idCaso")}}" target="_self" style="width:100%; color:black;background-color:rgb(52, 144, 220);margin-bottom: -2%;margin-top: -5%;margin-left: 0.1%;height: 8%;padding-top: 1%" class="btn col-XL" class="btn btn-danger">
 LA VICTIMA Y SU CONTEXTO:</button> </a><br>
 
@@ -85,7 +86,25 @@ REFERENTES AFECTIVOS</button> </a><br>
 
 
 <a type="button"  href="/paneldecontrolvictimaimputado/{{session("idCaso")}}" target="_self" style="width:100%; color:black;background-color:rgb(52, 144, 220);margin-bottom: -2%;margin-top: 3%;margin-left: 0.1%;color: black;height: 8%;padding-top: 1%" class="btn col-XL" class="btn btn-danger">DATOS DEL IMPUTADO</button> </a><br>
+</div>
+@else
 
+<div id="panel" style="display: none">
+                   <a type="button"  href="/paneldecontrolvictimavictima/{{session("idCaso")}}" target="_self" style="width:100%; color:black;background-color:rgb(52, 144, 220);margin-bottom: -2%;margin-top: -5%;margin-left: 0.1%;height: 8%;padding-top: 1%" class="btn col-XL" class="btn btn-danger">
+LA VICTIMA Y SU CONTEXTO:</button> </a><br>
+
+<a type="button"  href="/paneldecontrolvictimapersona/{{session("idCaso")}}" target="_self" style="width:100%; color:black;background-color:rgb(52, 144, 220);margin-bottom: -2%;margin-top:1%;margin-left: 0.1%;color: black;height: 8%;padding-top: 1%" class="btn col-XL" class="btn btn-danger">PERSONAS ASISTIDAS</button> </a><br>
+
+
+
+   <a type="button"  href="/paneldecontrolvictimareferente/{{session("idCaso")}}" target="_self" style="width:100%; color:black;background-color:rgb(52, 144, 220);margin-bottom: -2%;margin-top: 3%;margin-left: 0.1%;height: 8%;padding-top: 1%" class="btn col-XL" class="btn btn-danger">
+REFERENTES AFECTIVOS</button> </a><br>
+
+
+<a type="button"  href="/paneldecontrolvictimaimputado/{{session("idCaso")}}" target="_self" style="width:100%; color:black;background-color:rgb(52, 144, 220);margin-bottom: -2%;margin-top: 3%;margin-left: 0.1%;color: black;height: 8%;padding-top: 1%" class="btn col-XL" class="btn btn-danger">DATOS DEL IMPUTADO</button> </a><br>
+</div>
+@endif
+@endforeach
       </section> 
 
    </header>
