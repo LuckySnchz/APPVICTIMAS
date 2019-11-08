@@ -814,96 +814,25 @@ Route::get("/paneldecontrolvictimavictima/{id}",function($id){
 if ($user->hasRole('admin')) {
  // checkPermisos($caso);
 session(["idCaso" => $id]);
-$casoNombre=App\Caso::find($id)->getnombre_referencia();
-$delitos = App\Delito::all();
-$casoActual = App\Caso::find(session("idCaso"));
-$delitoActual=App\Delito::find($casoActual->delito);
-$cavajs = App\Cavaj::all();
-$usuarios = App\Usuario::all();
 $caso = App\Caso::find($id);
-$hechos= App\Hecho::All();
-$casos= App\Caso::All();
-$imputados = App\Imputado::all();
-$convivientes = App\Conviviente::all();
 $victimas=App\Victim::all();
-$personas=App\Persona::all();
-$profesionales=App\Profesional::all();
-$idCaso=$id;
-$documentos = App\Documento::all();
-$instituciones = App\Institucion::all();
-$institucion = App\Institucion::find($id);
-$organismo = App\Institucion::where("idCaso",$id)->get();
-  $intervenciones = DB::table("intervenciones")
-   ->select(DB::raw("*"))
-    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
-    ->get();
-$personas_nuevas = App\Persona_nueva::all();
-$convivientes_nuevos=App\Conviviente_nuevo::all();
-$imputados_nuevos=App\Imputado_nuevo::all();
-$instituciocount= App\Institucion::where("idCaso",session("idCaso"))->count();
-$casoActual = App\Caso::find(session("idCaso"));
-  $intervenciones = DB::table("intervenciones")
-   ->select(DB::raw("*"))
-    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
-    ->get();
-  return view("paneldecontrolvictimavictima",compact("intervenciones","imputados","casoNombre","convivientes","victimas","personas","profesionales", "caso","delitos","cavajs","usuarios","documentos","instituciones","hechos","intervenciones","organismo","idCaso","instituciocount","personas_nuevas","convivientes_nuevos","imputados_nuevos","casos","casoActual","delitoActual","user"));
+
+  return view("paneldecontrolvictimavictima",compact("victimas","caso"));
 }
 if($user->hasRole('profesional')) {
 session(["idCaso" => $id]);
-$casoNombre=App\Caso::find($id)->getnombre_referencia();
-$delitos = App\Delito::all();
-$casoActual = App\Caso::find(session("idCaso"));
-$delitoActual=App\Delito::find($casoActual->delito);
-$cavajs = App\Cavaj::all();
-$usuarios = App\Usuario::all();
-$casos= App\Caso::All();
-$caso = App\Caso::find($id);
-$hechos= App\Hecho::All();
-$imputados = App\Imputado::all();
-$convivientes = App\Conviviente::all();
+
 $victimas=App\Victim::all();
-$personas=App\Persona::all();
-$profesionales=App\Profesional::all();
-$documentos = App\Documento::all();
-$instituciones = App\Institucion::all();
-  $intervenciones = DB::table("intervenciones")
-   ->select(DB::raw("*"))
-    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
-    ->get();
-$personas_nuevas = App\Persona_nueva::all();
-$convivientes_nuevos=App\Conviviente_nuevo::all();
-$imputados_nuevos=App\Imputado_nuevo::all();
-$instituciocount= App\Institucion::where("idCaso",session("idCaso"))->count();
-  return view("paneldecontrolvictimavictima",compact("imputados","casoNombre","convivientes","victimas","personas","profesionales", "caso","delitos","cavajs","usuarios","documentos","instituciones","hechos","intervenciones","personas_nuevas","convivientes_nuevos","imputados_nuevos","instituciocount","casos","casoActual","delitoActual","user"));
+$caso = App\Caso::find($id);
+
+  return view("paneldecontrolvictimavictima",compact("victimas","caso"));
 }
 if($user->hasRole('user')&&$caso->sede==$user->getSede()&&$caso->userID_create==$user->getId()) {
 session(["idCaso" => $id]);
-$casoNombre=App\Caso::find($id)->getnombre_referencia();
-$delitos = App\Delito::all();
-$casoActual = App\Caso::find(session("idCaso"));
-$delitoActual=App\Delito::find($casoActual->delito);
-$cavajs = App\Cavaj::all();
-$usuarios = App\Usuario::all();
-$caso = App\Caso::find($id);
-$hechos= App\Hecho::All();
-$casos= App\Caso::All();
-$imputados = App\Imputado::all();
-$convivientes = App\Conviviente::all();
+
 $victimas=App\Victim::all();
-$personas=App\Persona::all();
-$profesionales=App\Profesional::all();
-$documentos = App\Documento::all();
-$instituciones = App\Institucion::all();
-  $intervenciones = DB::table("intervenciones")
-   ->select(DB::raw("*"))
-    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
-    ->get();
-$personas_nuevas = App\Persona_nueva::all();
-$convivientes_nuevos=App\Conviviente_nuevo::all();
-$imputados_nuevos=App\Imputado_nuevo::all();
-$instituciocount= App\Institucion::where("idCaso",session("idCaso"))->count();
-$casoActual = App\Caso::find(session("idCaso"));
-  return view("paneldecontrolvictimavictima",compact("imputados","casoNombre","convivientes","victimas","personas","profesionales", "caso","delitos","cavajs","usuarios","documentos","instituciones","hechos","intervenciones","personas_nuevas","convivientes_nuevos","imputados_nuevos","instituciocount","casos","casoActual","delitoActual","user"));
+$caso = App\Caso::find($id);
+  return view("paneldecontrolvictimavictima",compact("victimas","caso"));
 }
 else{abort(403, "No tienes autorización para ingresar.");}})->middleware('auth');
 
@@ -911,101 +840,35 @@ else{abort(403, "No tienes autorización para ingresar.");}})->middleware('auth'
 
 
 Route::get("/paneldecontrolvictimapersona/{id}",function($id){
-  $caso = App\Caso::find($id);
+  
     $user = Auth::user();
 if ($user->hasRole('admin')) {
  // checkPermisos($caso);
 session(["idCaso" => $id]);
-$casoNombre=App\Caso::find($id)->getnombre_referencia();
-$delitos = App\Delito::all();
-$casoActual = App\Caso::find(session("idCaso"));
-$delitoActual=App\Delito::find($casoActual->delito);
-$cavajs = App\Cavaj::all();
-$usuarios = App\Usuario::all();
 $caso = App\Caso::find($id);
-$hechos= App\Hecho::All();
-$casos= App\Caso::All();
-$imputados = App\Imputado::all();
-$convivientes = App\Conviviente::all();
-$victimas=App\Victim::all();
 $personas=App\Persona::all();
-$profesionales=App\Profesional::all();
-$idCaso=$id;
-$documentos = App\Documento::all();
-$instituciones = App\Institucion::all();
-$institucion = App\Institucion::find($id);
-$organismo = App\Institucion::where("idCaso",$id)->get();
-  $intervenciones = DB::table("intervenciones")
-   ->select(DB::raw("*"))
-    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
-    ->get();
+$victimas=App\Victim::all();
 $personas_nuevas = App\Persona_nueva::all();
-$convivientes_nuevos=App\Conviviente_nuevo::all();
-$imputados_nuevos=App\Imputado_nuevo::all();
-$instituciocount= App\Institucion::where("idCaso",session("idCaso"))->count();
-$casoActual = App\Caso::find(session("idCaso"));
-  $intervenciones = DB::table("intervenciones")
-   ->select(DB::raw("*"))
-    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
-    ->get();
-  return view("paneldecontrolvictimapersona",compact("intervenciones","imputados","casoNombre","convivientes","victimas","personas","profesionales", "caso","delitos","cavajs","usuarios","documentos","instituciones","hechos","intervenciones","organismo","idCaso","instituciocount","personas_nuevas","convivientes_nuevos","imputados_nuevos","casos","casoActual","delitoActual","user"));
+
+  return view("paneldecontrolvictimapersona",compact("victimas","personas_nuevas","caso","personas"));
 }
 if($user->hasRole('profesional')) {
 session(["idCaso" => $id]);
-$casoNombre=App\Caso::find($id)->getnombre_referencia();
-$delitos = App\Delito::all();
-$casoActual = App\Caso::find(session("idCaso"));
-$delitoActual=App\Delito::find($casoActual->delito);
-$cavajs = App\Cavaj::all();
-$usuarios = App\Usuario::all();
-$casos= App\Caso::All();
 $caso = App\Caso::find($id);
-$hechos= App\Hecho::All();
-$imputados = App\Imputado::all();
-$convivientes = App\Conviviente::all();
-$victimas=App\Victim::all();
 $personas=App\Persona::all();
-$profesionales=App\Profesional::all();
-$documentos = App\Documento::all();
-$instituciones = App\Institucion::all();
-  $intervenciones = DB::table("intervenciones")
-   ->select(DB::raw("*"))
-    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
-    ->get();
+$victimas=App\Victim::all();
 $personas_nuevas = App\Persona_nueva::all();
-$convivientes_nuevos=App\Conviviente_nuevo::all();
-$imputados_nuevos=App\Imputado_nuevo::all();
-$instituciocount= App\Institucion::where("idCaso",session("idCaso"))->count();
-  return view("paneldecontrolvictimapersona",compact("imputados","casoNombre","convivientes","victimas","personas","profesionales", "caso","delitos","cavajs","usuarios","documentos","instituciones","hechos","intervenciones","personas_nuevas","convivientes_nuevos","imputados_nuevos","instituciocount","casos","casoActual","delitoActual","user"));
+
+  return view("paneldecontrolvictimapersona",compact("victimas","personas_nuevas","caso","personas"));
 }
 if($user->hasRole('user')&&$caso->sede==$user->getSede()&&$caso->userID_create==$user->getId()) {
 session(["idCaso" => $id]);
-$casoNombre=App\Caso::find($id)->getnombre_referencia();
-$delitos = App\Delito::all();
-$casoActual = App\Caso::find(session("idCaso"));
-$delitoActual=App\Delito::find($casoActual->delito);
-$cavajs = App\Cavaj::all();
-$usuarios = App\Usuario::all();
 $caso = App\Caso::find($id);
-$hechos= App\Hecho::All();
-$casos= App\Caso::All();
-$imputados = App\Imputado::all();
-$convivientes = App\Conviviente::all();
-$victimas=App\Victim::all();
 $personas=App\Persona::all();
-$profesionales=App\Profesional::all();
-$documentos = App\Documento::all();
-$instituciones = App\Institucion::all();
-  $intervenciones = DB::table("intervenciones")
-   ->select(DB::raw("*"))
-    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
-    ->get();
+$victimas=App\Victim::all();
 $personas_nuevas = App\Persona_nueva::all();
-$convivientes_nuevos=App\Conviviente_nuevo::all();
-$imputados_nuevos=App\Imputado_nuevo::all();
-$instituciocount= App\Institucion::where("idCaso",session("idCaso"))->count();
-$casoActual = App\Caso::find(session("idCaso"));
-  return view("paneldecontrolvictimapersona",compact("imputados","casoNombre","convivientes","victimas","personas","profesionales", "caso","delitos","cavajs","usuarios","documentos","instituciones","hechos","intervenciones","personas_nuevas","convivientes_nuevos","imputados_nuevos","instituciocount","casos","casoActual","delitoActual","user"));
+
+  return view("paneldecontrolvictimapersona",compact("victimas","personas_nuevas","caso","personas"));
 }
 else{abort(403, "No tienes autorización para ingresar.");}})->middleware('auth');
 
@@ -1013,201 +876,67 @@ else{abort(403, "No tienes autorización para ingresar.");}})->middleware('auth'
 
 
 Route::get("/paneldecontrolvictimareferente/{id}",function($id){
-  $caso = App\Caso::find($id);
+
     $user = Auth::user();
 if ($user->hasRole('admin')) {
  // checkPermisos($caso);
 session(["idCaso" => $id]);
-$casoNombre=App\Caso::find($id)->getnombre_referencia();
-$delitos = App\Delito::all();
-$casoActual = App\Caso::find(session("idCaso"));
-$delitoActual=App\Delito::find($casoActual->delito);
-$cavajs = App\Cavaj::all();
-$usuarios = App\Usuario::all();
-$caso = App\Caso::find($id);
-$hechos= App\Hecho::All();
-$casos= App\Caso::All();
-$imputados = App\Imputado::all();
-$convivientes = App\Conviviente::all();
 $victimas=App\Victim::all();
-$personas=App\Persona::all();
-$profesionales=App\Profesional::all();
-$idCaso=$id;
-$documentos = App\Documento::all();
-$instituciones = App\Institucion::all();
-$institucion = App\Institucion::find($id);
-$organismo = App\Institucion::where("idCaso",$id)->get();
-  $intervenciones = DB::table("intervenciones")
-   ->select(DB::raw("*"))
-    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
-    ->get();
-$personas_nuevas = App\Persona_nueva::all();
+$caso = App\Caso::find($id);
+$convivientes = App\Conviviente::all();
 $convivientes_nuevos=App\Conviviente_nuevo::all();
-$imputados_nuevos=App\Imputado_nuevo::all();
-$instituciocount= App\Institucion::where("idCaso",session("idCaso"))->count();
-$casoActual = App\Caso::find(session("idCaso"));
-  $intervenciones = DB::table("intervenciones")
-   ->select(DB::raw("*"))
-    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
-    ->get();
-  return view("paneldecontrolvictimareferente",compact("intervenciones","imputados","casoNombre","convivientes","victimas","personas","profesionales", "caso","delitos","cavajs","usuarios","documentos","instituciones","hechos","intervenciones","organismo","idCaso","instituciocount","personas_nuevas","convivientes_nuevos","imputados_nuevos","casos","casoActual","delitoActual","user"));
+  return view("paneldecontrolvictimareferente",compact("convivientes","convivientes_nuevos","caso","victimas"));
 }
 if($user->hasRole('profesional')) {
 session(["idCaso" => $id]);
-$casoNombre=App\Caso::find($id)->getnombre_referencia();
-$delitos = App\Delito::all();
-$casoActual = App\Caso::find(session("idCaso"));
-$delitoActual=App\Delito::find($casoActual->delito);
-$cavajs = App\Cavaj::all();
-$usuarios = App\Usuario::all();
-$casos= App\Caso::All();
-$caso = App\Caso::find($id);
-$hechos= App\Hecho::All();
-$imputados = App\Imputado::all();
-$convivientes = App\Conviviente::all();
 $victimas=App\Victim::all();
-$personas=App\Persona::all();
-$profesionales=App\Profesional::all();
-$documentos = App\Documento::all();
-$instituciones = App\Institucion::all();
-  $intervenciones = DB::table("intervenciones")
-   ->select(DB::raw("*"))
-    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
-    ->get();
-$personas_nuevas = App\Persona_nueva::all();
+$caso = App\Caso::find($id);
+$convivientes = App\Conviviente::all();
 $convivientes_nuevos=App\Conviviente_nuevo::all();
-$imputados_nuevos=App\Imputado_nuevo::all();
-$instituciocount= App\Institucion::where("idCaso",session("idCaso"))->count();
-  return view("paneldecontrolvictimareferente",compact("imputados","casoNombre","convivientes","victimas","personas","profesionales", "caso","delitos","cavajs","usuarios","documentos","instituciones","hechos","intervenciones","personas_nuevas","convivientes_nuevos","imputados_nuevos","instituciocount","casos","casoActual","delitoActual","user"));
+  return view("paneldecontrolvictimareferente",compact("convivientes","convivientes_nuevos","caso","victimas"));
 }
 if($user->hasRole('user')&&$caso->sede==$user->getSede()&&$caso->userID_create==$user->getId()) {
 session(["idCaso" => $id]);
-$casoNombre=App\Caso::find($id)->getnombre_referencia();
-$delitos = App\Delito::all();
-$casoActual = App\Caso::find(session("idCaso"));
-$delitoActual=App\Delito::find($casoActual->delito);
-$cavajs = App\Cavaj::all();
-$usuarios = App\Usuario::all();
-$caso = App\Caso::find($id);
-$hechos= App\Hecho::All();
-$casos= App\Caso::All();
-$imputados = App\Imputado::all();
-$convivientes = App\Conviviente::all();
 $victimas=App\Victim::all();
-$personas=App\Persona::all();
-$profesionales=App\Profesional::all();
-$documentos = App\Documento::all();
-$instituciones = App\Institucion::all();
-  $intervenciones = DB::table("intervenciones")
-   ->select(DB::raw("*"))
-    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
-    ->get();
-$personas_nuevas = App\Persona_nueva::all();
+$caso = App\Caso::find($id);
+$convivientes = App\Conviviente::all();
 $convivientes_nuevos=App\Conviviente_nuevo::all();
-$imputados_nuevos=App\Imputado_nuevo::all();
-$instituciocount= App\Institucion::where("idCaso",session("idCaso"))->count();
-$casoActual = App\Caso::find(session("idCaso"));
-  return view("paneldecontrolvictimareferente",compact("imputados","casoNombre","convivientes","victimas","personas","profesionales", "caso","delitos","cavajs","usuarios","documentos","instituciones","hechos","intervenciones","personas_nuevas","convivientes_nuevos","imputados_nuevos","instituciocount","casos","casoActual","delitoActual","user"));
+  return view("paneldecontrolvictimareferente",compact("convivientes","convivientes_nuevos","caso","victimas"));
 }
 else{abort(403, "No tienes autorización para ingresar.");}})->middleware('auth');
 
 
 Route::get("/paneldecontrolvictimaimputado/{id}",function($id){
-  $caso = App\Caso::find($id);
+  
     $user = Auth::user();
 if ($user->hasRole('admin')) {
  // checkPermisos($caso);
 session(["idCaso" => $id]);
-$casoNombre=App\Caso::find($id)->getnombre_referencia();
-$delitos = App\Delito::all();
-$casoActual = App\Caso::find(session("idCaso"));
-$delitoActual=App\Delito::find($casoActual->delito);
-$cavajs = App\Cavaj::all();
-$usuarios = App\Usuario::all();
-$caso = App\Caso::find($id);
-$hechos= App\Hecho::All();
-$casos= App\Caso::All();
-$imputados = App\Imputado::all();
-$convivientes = App\Conviviente::all();
 $victimas=App\Victim::all();
-$personas=App\Persona::all();
-$profesionales=App\Profesional::all();
-$idCaso=$id;
-$documentos = App\Documento::all();
-$instituciones = App\Institucion::all();
-$institucion = App\Institucion::find($id);
-$organismo = App\Institucion::where("idCaso",$id)->get();
-  $intervenciones = DB::table("intervenciones")
-   ->select(DB::raw("*"))
-    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
-    ->get();
-$personas_nuevas = App\Persona_nueva::all();
-$convivientes_nuevos=App\Conviviente_nuevo::all();
+$caso = App\Caso::find($id);
+$imputados = App\Imputado::all();
 $imputados_nuevos=App\Imputado_nuevo::all();
-$instituciocount= App\Institucion::where("idCaso",session("idCaso"))->count();
-$casoActual = App\Caso::find(session("idCaso"));
-  $intervenciones = DB::table("intervenciones")
-   ->select(DB::raw("*"))
-    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
-    ->get();
-  return view("paneldecontrolvictimaimputado",compact("intervenciones","imputados","casoNombre","convivientes","victimas","personas","profesionales", "caso","delitos","cavajs","usuarios","documentos","instituciones","hechos","intervenciones","organismo","idCaso","instituciocount","personas_nuevas","convivientes_nuevos","imputados_nuevos","casos","casoActual","delitoActual","user"));
+
+  return view("paneldecontrolvictimaimputado",compact("caso","imputados","imputados_nuevos","victimas"));
 }
 if($user->hasRole('profesional')) {
 session(["idCaso" => $id]);
-$casoNombre=App\Caso::find($id)->getnombre_referencia();
-$delitos = App\Delito::all();
-$casoActual = App\Caso::find(session("idCaso"));
-$delitoActual=App\Delito::find($casoActual->delito);
-$cavajs = App\Cavaj::all();
-$usuarios = App\Usuario::all();
-$casos= App\Caso::All();
-$caso = App\Caso::find($id);
-$hechos= App\Hecho::All();
-$imputados = App\Imputado::all();
-$convivientes = App\Conviviente::all();
 $victimas=App\Victim::all();
-$personas=App\Persona::all();
-$profesionales=App\Profesional::all();
-$documentos = App\Documento::all();
-$instituciones = App\Institucion::all();
-  $intervenciones = DB::table("intervenciones")
-   ->select(DB::raw("*"))
-    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
-    ->get();
-$personas_nuevas = App\Persona_nueva::all();
-$convivientes_nuevos=App\Conviviente_nuevo::all();
+$caso = App\Caso::find($id);
+$imputados = App\Imputado::all();
 $imputados_nuevos=App\Imputado_nuevo::all();
-$instituciocount= App\Institucion::where("idCaso",session("idCaso"))->count();
-  return view("paneldecontrolvictimaimputado",compact("imputados","casoNombre","convivientes","victimas","personas","profesionales", "caso","delitos","cavajs","usuarios","documentos","instituciones","hechos","intervenciones","personas_nuevas","convivientes_nuevos","imputados_nuevos","instituciocount","casos","casoActual","delitoActual","user"));
+
+  return view("paneldecontrolvictimaimputado",compact("caso","imputados","imputados_nuevos","victimas"));
+ 
 }
 if($user->hasRole('user')&&$caso->sede==$user->getSede()&&$caso->userID_create==$user->getId()) {
 session(["idCaso" => $id]);
-$casoNombre=App\Caso::find($id)->getnombre_referencia();
-$delitos = App\Delito::all();
-$casoActual = App\Caso::find(session("idCaso"));
-$delitoActual=App\Delito::find($casoActual->delito);
-$cavajs = App\Cavaj::all();
-$usuarios = App\Usuario::all();
-$caso = App\Caso::find($id);
-$hechos= App\Hecho::All();
-$casos= App\Caso::All();
-$imputados = App\Imputado::all();
-$convivientes = App\Conviviente::all();
 $victimas=App\Victim::all();
-$personas=App\Persona::all();
-$profesionales=App\Profesional::all();
-$documentos = App\Documento::all();
-$instituciones = App\Institucion::all();
-  $intervenciones = DB::table("intervenciones")
-   ->select(DB::raw("*"))
-    ->orderBy(DB::raw("idVictim","ASC"))->orderBy(DB::raw("fecha_intervencion","ASC"))
-    ->get();
-$personas_nuevas = App\Persona_nueva::all();
-$convivientes_nuevos=App\Conviviente_nuevo::all();
+$caso = App\Caso::find($id);
+$imputados = App\Imputado::all();
 $imputados_nuevos=App\Imputado_nuevo::all();
-$instituciocount= App\Institucion::where("idCaso",session("idCaso"))->count();
-$casoActual = App\Caso::find(session("idCaso"));
-  return view("paneldecontrolvictimaimputado",compact("imputados","casoNombre","convivientes","victimas","personas","profesionales", "caso","delitos","cavajs","usuarios","documentos","instituciones","hechos","intervenciones","personas_nuevas","convivientes_nuevos","imputados_nuevos","instituciocount","casos","casoActual","delitoActual","user"));
+
+  return view("paneldecontrolvictimaimputado",compact("caso","imputados","imputados_nuevos","victimas"));
 }
 else{abort(403, "No tienes autorización para ingresar.");}})->middleware('auth');
 

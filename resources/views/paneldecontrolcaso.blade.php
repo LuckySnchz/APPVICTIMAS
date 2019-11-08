@@ -36,7 +36,7 @@ session_start();
        <section class="container jumbotron shadow p-3 mb-5 bg-white rounded"style="height: 600px" >
     
 
-           <h4 class="text-center" style="height: 12%;margin-bottom:2%;padding-top: 1%;padding-bottom: 1%;color:white;background-color: black">EDITAR CASO: <br>{{$casoNombre}}</h4><br>
+           <h4 class="text-center" style="height: 12%;margin-bottom:2%;padding-top: 1%;padding-bottom: 1%;color:white;background-color:rgb(137, 210, 14);">EDITAR CASO: <br>{{$casoNombre}}</h4><br>
 
                    <a type="button"  href="/detalleCaso/{{session("idCaso")}}" target="_self" style="width:100%; color:black;background-color:rgb(52, 144, 220);margin-bottom: -2%;margin-top: -5%;margin-left: 0.1%;height: 8%;padding-top: 1%" class="btn col-XL" class="btn btn-danger">
 DATOS INSTITUCIONALES</button> </a><br>

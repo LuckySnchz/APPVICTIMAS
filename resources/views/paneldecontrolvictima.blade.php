@@ -36,17 +36,17 @@ session_start();
        <section class="container jumbotron shadow p-3 mb-5 bg-white rounded"style="height: 600px" >
     
 
-           <h4 class="text-center" style="height: 8%;margin-bottom:2%;padding-top: 1%;padding-bottom: 1%;color:white;background-color: black">EDITAR VICTIMA:</h4><br>
+           <h4 class="text-center" style="height: 8%;margin-bottom:2%;padding-top: 1%;padding-bottom: 1%;color:white;background-color:rgb(137, 210, 14);">EDITAR VICTIMA</h4><br>
 
 
 <p style="text-align: center"><strong><span style="text-decoration: underline"> Agregar una Víctima: </span><strong><br><br>
 
-          <a type="button"  href="/detalleagregarVictima" target="_self" style="width:95%;
-  color:black;border: solid black 1px;background-color:grey;margin-left: 3%" class="btn btn-danger"></button> Agregar una Víctima</a><br><br>
+          <a type="button"  href="/detalleagregarVictima" target="_self" style="width:100%;
+  color:black;border: solid black 1px;background-color:grey;margin-left: 0.1%" class="btn btn-danger"></button> Agregar una Víctima</a><br><br>
 
 
 
-           <h4 class="text-center" style="height:12%;margin-bottom:2%;padding-top: 1%;padding-bottom: 1%;color:white;background-color: black">SELECCIONA UNA VICTIMA:
+           <h4 class="text-center" style="height:12%;margin-bottom:2%;padding-top: 1%;padding-bottom: 1%;color:white;background-color:rgb(137, 210, 14);border-radius: 2%">SELECCIONA UNA VICTIMA:
             <br>{{session("victimNombre")}}</h4><br>
           <ul style="padding: 15px;text-align: center;color: red">
             @foreach($victimas as $victima)
