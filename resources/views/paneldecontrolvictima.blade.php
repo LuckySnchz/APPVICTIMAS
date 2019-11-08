@@ -47,7 +47,12 @@ session_start();
 
 
            <h4 class="text-center" style="height:12%;margin-bottom:2%;padding-top: 1%;padding-bottom: 1%;color:white;background-color:rgb(137, 210, 14);border-radius: 2%">SELECCIONA UNA VICTIMA:
+            @foreach($victimas as $victima)
+            @if($victima->id==session("idVictim"))
             <br>{{session("victimNombre")}}</h4><br>
+      
+              @endif
+              @endforeach
           <ul style="padding: 15px;text-align: center;color: red">
             @foreach($victimas as $victima)
 
@@ -55,7 +60,7 @@ session_start();
                    <li >
           
 
-  <a style="padding: 15px;text-align: center;color: red"href="/victimaagregarintervenciontres/{{$victima->id}}/{{$victima->idCaso}}">{{$victima->victima_nombre_y_apellido}} </a><br><br>  
+  <a style="padding: 15px;text-align: center;color: red" onclick="mostrar()" href="/victimaagregarintervenciontres/{{$victima->id}}/{{$victima->idCaso}}">{{$victima->victima_nombre_y_apellido}}</a> 
     
               
                      </li>
@@ -66,6 +71,7 @@ session_start();
 
                </ul>
            </div>
+
 
                    <a type="button"  href="/paneldecontrolvictimavictima/{{session("idCaso")}}" target="_self" style="width:100%; color:black;background-color:rgb(52, 144, 220);margin-bottom: -2%;margin-top: -5%;margin-left: 0.1%;height: 8%;padding-top: 1%" class="btn col-XL" class="btn btn-danger">
 LA VICTIMA Y SU CONTEXTO:</button> </a><br>
@@ -85,6 +91,9 @@ REFERENTES AFECTIVOS</button> </a><br>
    </header>
 
 
+
+
+ 
 
 
 
