@@ -535,6 +535,7 @@ Route::get("/detalleagregarVictima",function(){
   ->orWhere("idPcia","2")->get();
   $instituciones = App\Institucion::all();
   $institucionnav= App\Institucion::where("idCaso",session("idCaso"))->count();
+  session(["victimNombre"=>" "]);
   return view("detalleagregarVictima", compact("ciudades","necesidades","programas","discapacidades","limitaciones","victims","instituciones","institucionnav"));
 })->middleware('auth');
 
@@ -787,6 +788,7 @@ else{abort(403, "No tienes autorización para ingresar.");}})->middleware('auth'
 Route::get("/paneldecontrolvictima/{id}",function($id){
 
     $user = Auth::user();
+
 if ($user->hasRole('admin')) {
  // checkPermisos($caso);
 session(["idCaso" => $id]);

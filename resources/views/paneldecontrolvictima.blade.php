@@ -32,28 +32,27 @@ session_start();
                 <a type="button"  href="/home" target="_self" style="width:100%; color:white;background-color:rgb(52, 144, 220);margin-bottom: -5%;margin-top: -12%;margin-left: 0.1%" class="btn col-XL" class="btn btn-danger">IR A INICIO</button> </a><br>
                  <a type="button"  href="/paneldecontrolcaso/{{session("idCaso")}}" target="_self" style="width:100%; color:white;background-color:rgb(137, 210, 14);margin-bottom: -5%;margin-top: -8%;margin-left: 0.1%;color: black" class="btn col-XL" class="btn btn-danger">IR A CASO</button> </a><br><br><br>
       </section>        
-      
+        
        <section class="container jumbotron shadow p-3 mb-5 bg-white rounded"style="height: 600px" >
     
 
            <h4 class="text-center" style="height: 8%;margin-bottom:2%;padding-top: 1%;padding-bottom: 1%;color:white;background-color:rgb(137, 210, 14);">EDITAR VICTIMA</h4><br>
 
 
-<p style="text-align: center"><strong><span style="text-decoration: underline"> Agregar una Víctima: </span><strong><br><br>
+<p style="text-align: center"><strong><span style="text-decoration: underline;font-size: 1.3em">  Deseas  Agregar una Víctima: </span><strong><br><br>
 
           <a type="button"  href="/detalleagregarVictima" target="_self" style="width:100%;
-  color:black;border: solid black 1px;background-color:grey;margin-left: 0.1%" class="btn btn-danger"></button> Agregar una Víctima</a><br><br>
-
+  color:black;border: solid black 1px;background-color:grey;margin-left: 0.1%" class="btn btn-danger"></button>Agregar una Víctima</a><br><br>
 
 
            <h4 class="text-center" style="height:12%;margin-bottom:2%;padding-top: 1%;padding-bottom: 1%;color:white;background-color:rgb(137, 210, 14);border-radius: 2%">SELECCIONA UNA VICTIMA:
             @foreach($victimas as $victima)
-            @if($victima->id==session("idVictim"))
+            @if($victima->id==session("idVictim")&& $victima->idCaso==session("idCaso"))
             <br>{{session("victimNombre")}}</h4><br>
       
               @endif
               @endforeach
-          <ul style="padding: 15px;text-align: center;color: red">
+          <ul style="padding: 15px;text-align: center;color: red;margin-top: 3%;margin-bottom: 5%">
             @foreach($victimas as $victima)
 
           @if($victima->idCaso==session("idCaso"))
@@ -71,8 +70,19 @@ session_start();
 
                </ul>
            </div>
+          
+
+           <!-- <div class="alert alert-danger">
+         
+            <p>SELECCIONA UNA VICTIMA</p>
+
+             </div>-->
+        
      @foreach($victimas as $victima)
             @if($victima->idCaso==session("idCaso") && $victima->id==session("idVictim"))
+
+ <a name="Ancla" id="panelvictima"></a>
+           
 <div id="panel">
                    <a type="button"  href="/paneldecontrolvictimavictima/{{session("idCaso")}}" target="_self" style="width:100%; color:black;background-color:rgb(52, 144, 220);margin-bottom: -2%;margin-top: -5%;margin-left: 0.1%;height: 8%;padding-top: 1%" class="btn col-XL" class="btn btn-danger">
 LA VICTIMA Y SU CONTEXTO:</button> </a><br>

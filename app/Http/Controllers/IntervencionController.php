@@ -242,15 +242,17 @@ return redirect("agregarnuevaIntervencionvictima/$idCaso");}
 
 public function victimaagregartres($id,$idCaso) {
 $victimNombre = Victim::find($id)->victima_nombre_y_apellido;
-    
+    $victimas=Victim::all();
     session(["idVictim"=> $id]);
     session(["idCaso"=> $idCaso]);
     session(["victimNombre"=> $victimNombre]);
+  
+
+  
 
 
-
-
-return redirect("paneldecontrolvictima/$idCaso");}
+return redirect("paneldecontrolvictima/$idCaso/#panelvictima");
+}
 
 
 
