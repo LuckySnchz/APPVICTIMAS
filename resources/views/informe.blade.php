@@ -298,9 +298,13 @@
     {{$victima->domicilio_victima_asistida}}
     </div>
 
-      <div>
+    <div>
     <label class="font-weight-bold">Localidad Victima: </label>
-    {{$victima->localidad_hecho}}
+    @foreach($ciudades as $ciudad)
+    @if($ciudad->idPcia==1 && $ciudad->id==$victima->localidad_hecho)
+    {{$ciudad->localidad_nombre}}
+    @endif
+    @endforeach
     </div>
 
     <div>

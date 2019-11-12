@@ -172,7 +172,7 @@
   
 
 
- <p class="mr-4 mb-0"> <strong style="color:red">{{$countcasos=$countcasos+1}}.- </strong><strong><span style="text-decoration: underline">Caso: </span><strong>{{$caso->nombre_referencia}}</strong></p>
+ <div class="card-header border-0 font-weight-bold d-flex justify-content-between"><p class="mr-4 mb-0"> <strong style="color:red">{{$countcasos=$countcasos+1}}.- </strong><strong><span style="text-decoration: underline">Caso: </span><strong>{{$caso->nombre_referencia}}</strong></p></div>
      <ul class="list-unstyled list-inline mb-0">
       <li class="list-inline-item"><a href='/paneldecontrolcaso/{{$caso->id}}' class="mr-3"><i class="fas fa-envelope mr-1"></i>Editar</a></li>
       <li class="list-inline-item"><a href='/informe/{{$caso->id}}' class="mr-3"><i class="fas fa-user mr-1"></i>Informe</a></li>
@@ -183,8 +183,28 @@
     <div class="row media mt-2 px-1">
       <div class="col-6">
 
+<label class="font-weight-bold" style="text-decoration: underline;">Cavaj: </label>
+     @foreach ($cavajs as $cavaj)
+          @if ($cavaj->id == $caso->cavaj){{$cavaj->nombre}}
+          @endif
+                    @endforeach
+                    <br>
+    <label class="font-weight-bold" style="text-decoration: underline;">Delito: </label>                
+                     @foreach ($delitos as $delito)
+          @if ($delito->id == $caso->delito){{$delito->nombre}}
+             <p>_______________________________________________________</p> 
+          @endif                    
+        @endforeach
+      </div>
 
-
+      <div class="col-6">
+            <label class="font-weight-bold" style="text-decoration: underline;">Fecha de Ingreso: </label>  
+             {{date("d/m/y",strtotime($caso->fecha_ingreso))}}
+             <br>
+   <label class="font-weight-bold" style="text-decoration: underline;">Estado:</label>  
+          @if($caso->estado == 1) Activo @else Pasivo @endif
+      </div>
+  </li>
 
 
          <label class="font-weight-bold" style="text-decoration: underline;">Victima/s:</label>
@@ -194,22 +214,56 @@
          <label class="font-weight-bold">Nombre y apellido: </label>
         {{$victima->victima_nombre_y_apellido}}
          </div>
-         @endif
+  <div style="display:none">
+    <label class="font-weight-bold" style="display:none">Tiene documentación que acredite su identidad: </label>
+    @if($victima->tienedoc == 1) Posee
+    @elseif($victima->tienedoc == 3) No posee
+    @elseif($victima->tienedoc == 5) En tramite
+    @elseif($victima->tienedoc == 6) Se desconoce
+    @endif
+    </div>
+
+    @if($victima->tienedoc == 3 || $victima->tienedoc == 6)
+    <div style="display:none">
+    @else <div style="display:block">
+    @endif
+    <label class="font-weight-bold" style="text-decoration: underline;">Tipo de documento: </label>
+    @if($victima->tipodocumento ==1) D.N.I.
+    @elseif($victima->tipodocumento ==2)Documento Extranjero
+    @elseif($victima->tipodocumento ==3)Libreta Cívica
+    @elseif($victima->tipodocumento ==4)Libreta de Enrolamiento
+    @elseif($victima->tipodocumento ==5)Pasaporte
+    @elseif($victima->tipodocumento ==6)Residencia Precaria
+    @elseif($victima->tipodocumento ==7)Se Desconoce
+    @elseif($victima->tipodocumento ==8)No posee
+    @elseif($victima->tipodocumento ==9)Otro
+    @endif
+    </div>
+
+   
+
+    @if($victima->tienedoc == 3 || $victima->tienedoc == 6)
+    <div style="display:none">
+    @else<div style="display:block">
+    @endif
+    <label class="font-weight-bold" style="text-decoration: underline;">Nro de documento: </label>
+    {{$victima->victima_numero_documento}}
+    </div>
+
+
+           <div>
+    <label class="font-weight-bold" style="text-decoration: underline;">Localidad Victima: </label>
+    @foreach($ciudades as $ciudad)
+    @if($ciudad->idPcia==1 && $ciudad->id==$victima->localidad_hecho)
+    {{$ciudad->localidad_nombre}}
+    @endif
+    @endforeach
+    </div>
+
+   <p>_______________________________________________________</p>        
+      @endif
         @endforeach
-          <p>Cavaj: @foreach ($cavajs as $cavaj)
-          @if ($cavaj->id == $caso->cavaj){{$cavaj->nombre}}
-          @endif
-                    @endforeach</p>
-                      <p>Delito: @foreach ($delitos as $delito)
-          @if ($delito->id == $caso->delito){{$delito->nombre}}
-          @endif                    
-        @endforeach</p>
-      </div>
-      <div class="col-6">
-          <p>Fecha de ingreso: {{date("d/m/y",strtotime($caso->fecha_ingreso))}}</p>
-          <p>Estado: @if($caso->estado == 1) Activo @else Pasivo @endif</p>
-      </div>
-  </li>
+      
 
 @endif
    

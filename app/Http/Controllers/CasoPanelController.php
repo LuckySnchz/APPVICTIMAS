@@ -369,7 +369,7 @@ return view("detalleCaso", compact("delitos", "cavajs","usuarios","organismos","
 
 
 
-
+            $ciudades=Ciudad::all();
             $user = Auth::user();
             $delitos = Delito::all();
             $cavajs = Cavaj::all();
@@ -643,7 +643,7 @@ if($countcasos>0){
 $countcasos=0;
 $countdemandas=0;
 $countderivaciones=0;
-  return view("home", compact("profesionales","casos","demandas","derivaciones","tipo_demandas","oderivados","delitos","cavajs","user","buscar","countcasos","countdemandas","countderivaciones","victimas"));
+  return view("home", compact("profesionales","casos","demandas","derivaciones","tipo_demandas","oderivados","delitos","cavajs","user","buscar","countcasos","countdemandas","countderivaciones","victimas","ciudades"));
 
 }
 
@@ -662,7 +662,7 @@ if($countdemandas>0){
   $countcasos=0;
 $countdemandas=0;
 $countderivaciones=0;
-   return view("home", compact("profesionales","casos","demandas","derivaciones","tipo_demandas","oderivados","delitos","cavajs","user","buscar","countdemandas","countcasos","countdemandas","countderivaciones","victimas"));
+   return view("home", compact("profesionales","casos","demandas","derivaciones","tipo_demandas","oderivados","delitos","cavajs","user","buscar","countdemandas","countcasos","countdemandas","countderivaciones","victimas","ciudades"));
 
 }
 
@@ -684,7 +684,7 @@ if($countderivaciones>0){
 $countdemandas=0;
 $countderivaciones=0;
 
-  return view("home", compact("profesionales","casos","demandas","derivaciones","tipo_demandas","oderivados","delitos","cavajs","user","buscar","countderivaciones","countcasos","countdemandas","countderivaciones","victimas"));
+  return view("home", compact("profesionales","casos","demandas","derivaciones","tipo_demandas","oderivados","delitos","cavajs","user","buscar","countderivaciones","countcasos","countdemandas","countderivaciones","victimas","ciudades"));
 
 }
 
