@@ -192,7 +192,7 @@
     <label class="font-weight-bold" style="text-decoration: underline;">Delito: </label>                
                      @foreach ($delitos as $delito)
           @if ($delito->id == $caso->delito){{$delito->nombre}}
-             <p>_______________________________________________________</p> 
+           
           @endif                    
         @endforeach
       </div>
@@ -202,14 +202,15 @@
              {{date("d/m/y",strtotime($caso->fecha_ingreso))}}
              <br>
    <label class="font-weight-bold" style="text-decoration: underline;">Estado:</label>  
-          @if($caso->estado == 1) Activo @else Pasivo @endif
+         @if($caso->estado == 1) Activo
+          @else Pasivo @endif
       </div>
   </li>
 
 
          <label class="font-weight-bold" style="text-decoration: underline;">Victima/s:</label>
           @foreach ($victimas as $victima)
-          @if ($victima->idCaso == session("idCaso"))
+          @if ($victima->idCaso == $caso->id)
           <div>
          <label class="font-weight-bold">Nombre y apellido: </label>
         {{$victima->victima_nombre_y_apellido}}
