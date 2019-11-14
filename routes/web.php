@@ -126,7 +126,9 @@ Route::get("/agregarVictima",function(){
 Route::post("/agregarVictima","VictimController@agregar")->middleware('auth');
 Route::get("/eliminarvictima/{id}", "VictimController@eliminarvictima")->middleware('auth');
 
-//C-CONVIVIENTES//
+
+
+
 
 Route::get("/agregarconviviente",function(){
     $convivientes = App\Conviviente::all();
@@ -1167,3 +1169,5 @@ ejecutar el primer foreach, genera claves aleatorias para cada user, luego ejecu
 Route::get("/hasheo", "PassController@index")->middleware('auth');
 storage/victimas.xlsx
 storage/casos.xlsx*/
+//-----------------------------------------API-------------------------------------------//
+Route::get('ApiVictim','VictimController@getVictim')->middleware('auth');

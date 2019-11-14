@@ -16,6 +16,7 @@ use App\Imputado;
 use App\ Persona_nueva;
 use App\ Conviviente_nuevo;
 use App\ Imputado_nuevo;
+use App\Caso;
 use Validator;
 
 class VictimController extends Controller
@@ -313,6 +314,24 @@ public function agregar(Request $form){
 
 
               return redirect("home");}
+
+
+
+  public function getVictim(){
+        $victimas=Victim::all();
+     
+        return view("ApiVictim");
+    }
+
+
+  public function ApiVictim(){
+    $victimas=Caso::all();
+     
+        return response()->json($victimas);
+       
+    }
+
+
 
 
 
