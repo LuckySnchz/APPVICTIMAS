@@ -25,6 +25,7 @@ use App\Profesional;
 use App\Victim;
 
 
+
 class CasoPanelController extends Controller
 {
 

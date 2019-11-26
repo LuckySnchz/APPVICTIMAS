@@ -9,7 +9,12 @@ class ApiController extends Controller
 {
     
     public function getdatos(){
-        $datos=Victim::all();
+        //$datos=Victim::all();
+        $casos = Caso::
+    join('casos', 'casos.id', '=', 'victims.idCaso')
+    ->select('victims.victima_nombre_y_apellido','victims.tipodocumento','victims.victima_numero_documento','victims.victima_fecha_nacimiento','casos.cavaj','casos.fecha_ingreso')
+       ->get();
         return response()->json($datos);
 }
 }
+
