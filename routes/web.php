@@ -1158,7 +1158,7 @@ if ($user->hasRole('admin')) {
  return Redirect::to("/home")->with('message','DESCARGA EXITOSA!');
 }else{abort(403, "No tienes autorización para ingresar.");}})->middleware('auth');
 
-
+//Ruta Json Api//
 Route::get("/datos", "ApiController@getdatos")->middleware('auth');
 
 /*
