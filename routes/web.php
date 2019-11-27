@@ -1157,9 +1157,8 @@ if ($user->hasRole('admin')) {
 
  return Redirect::to("/home")->with('message','DESCARGA EXITOSA!');
 }else{abort(403, "No tienes autorización para ingresar.");}})->middleware('auth');
-
-
-Route::get("/datos", "ApiController@getdatos")->middleware('auth');
+//Route::post('loginApi', 'ApiController@loginApi');
+//Route::get("/datos", "ApiController@getdatos")->middleware('auth');
 
 /*
 
@@ -1170,4 +1169,4 @@ Route::get("/hasheo", "PassController@index")->middleware('auth');
 storage/victimas.xlsx
 storage/casos.xlsx*/
 //-----------------------------------------API-------------------------------------------//
-Route::get('ApiVictim','VictimController@getVictim')->middleware('auth');
+//Route::get('ApiVictim','VictimController@getVictim')->middleware('auth');
