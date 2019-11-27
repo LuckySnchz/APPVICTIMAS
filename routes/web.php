@@ -1157,17 +1157,3 @@ if ($user->hasRole('admin')) {
 
  return Redirect::to("/home")->with('message','DESCARGA EXITOSA!');
 }else{abort(403, "No tienes autorización para ingresar.");}})->middleware('auth');
-
-//Ruta Json Api//
-Route::get("/datos", "ApiController@getdatos")->middleware('auth');
-
-/*
-
-CREAR CLAVES ALEATORIAS PARA CADA USUARIO(TABLA USERS) Y HASHEARLAS
-
-ejecutar el primer foreach, genera claves aleatorias para cada user, luego ejecutar el segundo foreach hashea. Trabaja sobre la tabla Users
-Route::get("/hasheo", "PassController@index")->middleware('auth');
-storage/victimas.xlsx
-storage/casos.xlsx*/
-//-----------------------------------------API-------------------------------------------//
-Route::get('ApiVictim','VictimController@getVictim')->middleware('auth');
