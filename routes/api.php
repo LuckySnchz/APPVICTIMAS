@@ -22,4 +22,4 @@ Route::middleware('jwt.auth')->get('/user', function () {
 });
 
 Route::post('loginApi', 'ApiController@loginApi');
-Route::post('datos', 'ApiController@getdatos')->middleware('jwt.auth');
+Route::post('datos', 'ApiController@getDatos')->middleware('jwt.auth');
