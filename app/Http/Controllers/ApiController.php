@@ -104,8 +104,33 @@ class ApiController extends Controller
        ]);
     }
 
-    public function getApi(){
+    public function consumirApi(){
+        $url = "http://simpapi-pub-test.mpba.gov.ar/penal/swagger/index.html?urls.primaryName=Pub%20Docs";
+        $cert_file = "../../../storage/certificado.pem";
+        $cert_key_file = "../../../storage/certificado_key.pem";
         
+        $ch = curl_init();
+        $options = array(
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_URL => $url ,
+        CURLOPT_SSLCERT => $cert_file ,
+        CURLOPT_SSLKEY => $cert_key_file
+        );
+
+        $data = curl_setopt_array($ch , $options);
+        $output = curl_exec($ch);
+
+        if (!$output) {
+        echo "Curl Error : " . curl_error($ch);
+        }
+        else {
+        echo htmlentities($output);
+        }
+        return response()->json([
+            'data' => $data,
+            'output' => $output
+        ]);
     }
 
 }
