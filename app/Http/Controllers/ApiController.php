@@ -106,8 +106,8 @@ class ApiController extends Controller
 
     public function consumirApi(){
         $url = "http://simpapi-pub-test.mpba.gov.ar/penal/swagger/index.html?urls.primaryName=Pub%20Docs";
-        $cert_file = "../../../storage/certificado.pem";
-        $cert_key_file = "../../../storage/certificado_key.pem";
+        $cert_file = "/var/www/html/cert.pem";
+        $cert_key_file = "/var/www/html/key.pem";
         
         $ch = curl_init();
         $options = array(
@@ -116,7 +116,7 @@ class ApiController extends Controller
         CURLOPT_URL => $url ,
         CURLOPT_SSLCERT => $cert_file ,
         CURLOPT_SSLKEY => $cert_key_file,
-        CURLOPT_KEYPASSWD => 'TxCP4m' ,
+        CURLOPT_KEYPASSWD => 'TxCP4m' ,        
         CURLOPT_SSL_VERIFYPEER => false
         );
 
