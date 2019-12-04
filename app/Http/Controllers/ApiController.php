@@ -115,7 +115,8 @@ class ApiController extends Controller
         CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_URL => $url ,
         CURLOPT_SSLCERT => $cert_file ,
-        CURLOPT_SSLKEY => $cert_key_file
+        CURLOPT_SSLKEY => $cert_key_file,
+        CURLOPT_KEYPASSWD => 'TxCP4m'
         );
 
         $data = curl_setopt_array($ch , $options);
@@ -127,6 +128,7 @@ class ApiController extends Controller
         else {
         echo htmlentities($output);
         }
+        
         return response()->json([
             'data' => $data,
             'output' => $output
