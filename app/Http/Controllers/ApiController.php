@@ -117,7 +117,8 @@ class ApiController extends Controller
         CURLOPT_SSLCERT => $cert_file ,
         CURLOPT_SSLKEY => $cert_key_file,
         CURLOPT_KEYPASSWD => 'TxCP4m' ,
-        CURLOPT_POST => false
+        CURLOPT_POST => false ,
+        CURLOPT_SSL_VERIFYPEER => false
         );
 
         $data = curl_setopt_array($ch , $options);
