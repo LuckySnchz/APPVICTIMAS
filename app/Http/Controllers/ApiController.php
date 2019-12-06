@@ -118,15 +118,13 @@ class ApiController extends Controller
                         'codigo' => 5
                     ]);
                 }
-                else{
-                    //DB::enableQueryLog();
+                else{                    
                     $datos=DB::table('casos')                     
                     ->select('victims.victima_nombre_y_apellido','victims.tipodocumento','victims.victima_numero_documento','victims.victima_fecha_nacimiento','casos.cavaj','casos.fecha_ingreso')
                     ->join('victims', 'casos.id', '=', 'victims.idCaso') 
                     ->where('victims.victima_nombre_y_apellido', 'like', $nomyap)
                     ->orWhere('victims.victima_numero_documento','=', $documento)
-                    ->get();
-                    //dd(DB::getQueryLog());
+                    ->get();                    
                     return response()->json([
                         'datos' => $datos,
                         'codigo' => 0
