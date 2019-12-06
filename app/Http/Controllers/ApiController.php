@@ -101,7 +101,7 @@ class ApiController extends Controller
                 }
                 // Chequeo que se envian los parametros sino le asigna blanco
                 if ($request->input('nombreApellido')){
-                    $nomyap = $request->input('nombreApellido');
+                    $nomyap = '%'.$request->input('nombreApellido').'%';
                 }else{
                     $nomyap = '';
                 }
@@ -119,13 +119,14 @@ class ApiController extends Controller
                     ]);
                 }
                 else{
-                    $datos=DB::table('casos') 
-                    ->join('victims', 'casos.id', '=', 'victims.idCaso') 
+                    //DB::enableQueryLog();
+                    $datos=DB::table('casos')                     
                     ->select('victims.victima_nombre_y_apellido','victims.tipodocumento','victims.victima_numero_documento','victims.victima_fecha_nacimiento','casos.cavaj','casos.fecha_ingreso')
-                    ->orWhere('victims.victima_nombre_y_apellido', 'like', '%'.$nomyap.'%')
-                    ->orWhere('victims.victima_numero_documento', $documento)
+                    ->join('victims', 'casos.id', '=', 'victims.idCaso') 
+                    ->where('victims.victima_nombre_y_apellido', 'like', $nomyap)
+                    ->orWhere('victims.victima_numero_documento','=', $documento)
                     ->get();
-
+                    //dd(DB::getQueryLog());
                     return response()->json([
                         'datos' => $datos,
                         'codigo' => 0
