@@ -12,43 +12,49 @@ use Validator;
 use Illuminate\Support\Facades\Auth;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\PayloadFactory;
+use JWTFactory;
 
 class ApiController extends Controller
 {
     public function loginApi(Request $request){
         //se crea objeto para devolver valores
-        /*$data = new \StdClass();
+        $data = new \StdClass();
         $validator = Validator::make($request->all(), [
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string', 'min:6'],
+            'nombre' => ['required', 'string', 'min:2'],
+            'dni' => ['required', 'integer', 'min:6'],
         ]);
  
         if ($validator->fails()) {
-            $data->ok = false;
+            $data->codigo = 5;
             $data->mensaje = $validator->messages();
-            return response()->json(['error' => $data], 400);
+            return response()->json([
+                'error' => $data                
+        ], 400);
         }
-        $credentials = $request->only('email', 'password');
-        */                             
-        
+
         try {
-		// setear el tiempo de expiración en minutos, por ejemplo, 10                          minutos
+            // setear el tiempo de expiración en minutos, por ejemplo, 10  minutos
             JWTAuth::factory()->setTTL(10);
-            $user = User::first();
+            
+            $factory = JWTFactory::customClaims([            
+                'nombre'=> $request->input('nombre'), 
+                'dni'=> $request->input('dni'), 
+            ]);
+            
+            $payload = JWTFactory::make($factory);
+            $token = JWTAuth::encode($payload);
 
-            $token = JWTAuth::fromUser($user); 
+            return $this->respondWithToken($token);
 
-            /*if (! $token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'invalid_credentials'], 401);
-            }*/
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
-            return response()->json(['error' => 'could_not_create_token'], 500);
+            return response()->json([
+                'excepcion' => 'No se pudo obtener el token',
+                'codigo' => -1
+            ], 500);
         }
-        
-        // all good so return the token
-        //return response()->json(compact('token'));
-        return $this->respondWithToken($token);
+            
     }
       /**
      * Get the token array structure.
@@ -60,13 +66,16 @@ class ApiController extends Controller
     protected function respondWithToken($token)
     {
         return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => JWTAuth::factory()->getTTL() * 60
+            'token' => "$token",            
+            'expira_en' => JWTAuth::factory()->getTTL() * 60,
+            'codigo' => 0
         ]);
     }
 
     public function getDatos(Request $request){
+        $token = JWTAuth::getToken()->get();
+        $datos = JWTAuth::getPayload($token)->toArray();
+        /*
         $data = new \StdClass();
 
         $validator = Validator::make($request->all(), [
@@ -97,7 +106,7 @@ class ApiController extends Controller
         ->select('victims.victima_nombre_y_apellido','victims.tipodocumento','victims.victima_numero_documento','victims.victima_fecha_nacimiento','casos.cavaj','casos.fecha_ingreso')
         ->where('victims.victima_nombre_y_apellido', 'like', '%'.$nomyap.'%')
         ->orWhere('victims.victima_numero_documento', $documento)
-        ->get();
+        ->get();*/
 
        return response()->json([
            'datos' => $datos,
@@ -105,7 +114,7 @@ class ApiController extends Controller
     }
 
     public function consumirApi(){
-        $url = "http://simpapi-pub-test.mpba.gov.ar/api/Visita/ConsultaVisita";
+        $url = "http://simpapi-pub-test.mpba.gov.ar/penal/swagger/index.html?urls.primaryName=Pub%20Docs";
         $cert_file = "/var/www/html/cert.pem";
         $cert_key_file = "/var/www/html/key.pem";
         
