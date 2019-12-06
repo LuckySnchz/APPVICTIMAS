@@ -39,7 +39,7 @@ class ApiController extends Controller
             
             $factory = JWTFactory::customClaims([            
                 'nombre'=> $request->input('nombre'), 
-                'dni'=> $request->input('dni'), 
+                'dni'=> $request->input('dni'),                 
             ]);
             
             $payload = JWTFactory::make($factory);
@@ -84,8 +84,8 @@ class ApiController extends Controller
             return response()->json([
                 'token_req' => $token_request,
                 '$token_sesion' => $token_sesion
-            ]);
-            */
+            ]);*/
+            
             if($compara_token){
 
                 $data = new \StdClass();
@@ -122,7 +122,7 @@ class ApiController extends Controller
                     $datos=DB::table('casos') 
                     ->join('victims', 'casos.id', '=', 'victims.idCaso') 
                     ->select('victims.victima_nombre_y_apellido','victims.tipodocumento','victims.victima_numero_documento','victims.victima_fecha_nacimiento','casos.cavaj','casos.fecha_ingreso')
-                    ->where('victims.victima_nombre_y_apellido', 'like', '%'.$nomyap.'%')
+                    ->orWhere('victims.victima_nombre_y_apellido', 'like', '%'.$nomyap.'%')
                     ->orWhere('victims.victima_numero_documento', $documento)
                     ->get();
 
