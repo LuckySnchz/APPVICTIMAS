@@ -80,7 +80,12 @@ class ApiController extends Controller
             $authorization_request = $request->header('Authorization');
             $token_request = \str_replace('Bearer ','',$authorization_request);
             $compara_token = $token_request == $token_sesion;
-            
+/*
+            return response()->json([
+                'token_req' => $token_request,
+                '$token_sesion' => $token_sesion
+            ]);
+            */
             if($compara_token){
 
                 $data = new \StdClass();
@@ -108,6 +113,12 @@ class ApiController extends Controller
                 }
                 
                 if ($nomyap == '' and $documento == ''){
+                    return response()->json([
+                        'datos' => 'Al menos un parametro de búsqueda debe estar completo',
+                        'codigo' => 5
+                    ]);
+                }
+                else{
                     $datos=DB::table('casos') 
                     ->join('victims', 'casos.id', '=', 'victims.idCaso') 
                     ->select('victims.victima_nombre_y_apellido','victims.tipodocumento','victims.victima_numero_documento','victims.victima_fecha_nacimiento','casos.cavaj','casos.fecha_ingreso')
@@ -119,12 +130,7 @@ class ApiController extends Controller
                         'datos' => $datos,
                         'codigo' => 0
                     ]);
-                }
-                else{
-                    return response()->json([
-                        'datos' => 'Al menos un parametro de búsqueda debe estar completo',
-                        'codigo' => 5
-                    ]);
+                    
                 }
                 
             }
