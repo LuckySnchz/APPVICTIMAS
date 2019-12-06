@@ -73,44 +73,92 @@ class ApiController extends Controller
     }
 
     public function getDatos(Request $request){
-        $token = JWTAuth::getToken()->get();
-        $datos = JWTAuth::getPayload($token)->toArray();
-        /*
-        $data = new \StdClass();
+        try {
+            $token_sesion = JWTAuth::getToken()->get();
+            // abajo se decodifica el token
+            //$datos_token = JWTAuth::getPayload($token_sesion)->toArray();            
+            $authorization_request = $request->header('Authorization');
+            $token_request = \str_replace('Bearer ','',$authorization_request);
+            $compara_token = $token_request == $token_sesion;
+            
+            if($compara_token){
 
-        $validator = Validator::make($request->all(), [
-            'nomyap' => ['min:3','max:255','regex:/^([a-zA-ZñÑ.\s*-])+$/'],
-            'documento' => ['integer'],
-        ]);
-        if ($validator->fails()) {
-            $data->ok = false;
-            $data->mensaje = $validator->messages();
-            return response()->json(['error' => $data], 400);
-        }
-        // Chequeo que se envian los parametros sino le asigna blanco
-        if ($request->input('nomyap')){
-            $nomyap = $request->input('nomyap');
-        }else{
-            $nomyap = '';
-        }
-        if ($request->input('documento')){
-            $documento = $request->input('documento');
-        }
-        else{
-            $documento = '';
-        }
-        // ------------
-        var_dump($nomyap);
-        $datos=DB::table('casos') 
-        ->join('victims', 'casos.id', '=', 'victims.idCaso') 
-        ->select('victims.victima_nombre_y_apellido','victims.tipodocumento','victims.victima_numero_documento','victims.victima_fecha_nacimiento','casos.cavaj','casos.fecha_ingreso')
-        ->where('victims.victima_nombre_y_apellido', 'like', '%'.$nomyap.'%')
-        ->orWhere('victims.victima_numero_documento', $documento)
-        ->get();*/
+                $data = new \StdClass();
 
-       return response()->json([
-           'datos' => $datos,
-       ]);
+                $validator = Validator::make($request->all(), [
+                    'nombreApellido' => ['min:3','max:255','regex:/^([a-zA-ZñÑ.\s*-])+$/'],
+                    'dni' => ['integer'],
+                ]);
+                if ($validator->fails()) {
+                    $data->ok = false;
+                    $data->mensaje = $validator->messages();
+                    return response()->json(['error' => $data], 400);
+                }
+                // Chequeo que se envian los parametros sino le asigna blanco
+                if ($request->input('nombreApellido')){
+                    $nomyap = $request->input('nombreApellido');
+                }else{
+                    $nomyap = '';
+                }
+                if ($request->input('dni')){
+                    $documento = $request->input('dni');
+                }
+                else{
+                    $documento = '';
+                }
+                
+                if ($nomyap == '' and $documento == ''){
+                    $datos=DB::table('casos') 
+                    ->join('victims', 'casos.id', '=', 'victims.idCaso') 
+                    ->select('victims.victima_nombre_y_apellido','victims.tipodocumento','victims.victima_numero_documento','victims.victima_fecha_nacimiento','casos.cavaj','casos.fecha_ingreso')
+                    ->where('victims.victima_nombre_y_apellido', 'like', '%'.$nomyap.'%')
+                    ->orWhere('victims.victima_numero_documento', $documento)
+                    ->get();
+
+                    return response()->json([
+                        'datos' => $datos,
+                        'codigo' => 0
+                    ]);
+                }
+                else{
+                    return response()->json([
+                        'datos' => 'Al menos un parametro de búsqueda debe estar completo',
+                        'codigo' => 5
+                    ]);
+                }
+                
+            }
+            else{
+                return response()->json([
+                    'error' => 'token incorrecto',
+                    'codigo' => 5
+                ], 400);
+            }
+        } catch (\Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
+            
+            return response()->json([
+                'excepcion' => 'expiró el token',
+                'codigo' => -1
+            ], 500);
+        } catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+            
+            return response()->json([
+                'excepcion' => 'token inválido',
+                'codigo' => -1
+            ], 500);
+        } catch (\Tymon\JWTAuth\Exceptions\TokenBlacklistedException $e) {
+            
+            return response()->json([
+                'excepcion' => 'token en lista negra',
+                'codigo' => -1
+            ], 500);
+        } catch (JWTException $e) {            
+            return response()->json([
+                'excepcion' => 'No se pudo obtener el token',
+                'codigo' => -1
+            ], 500);
+        }
+       
     }
 
     public function consumirApi(){
