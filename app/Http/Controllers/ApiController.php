@@ -73,13 +73,18 @@ class ApiController extends Controller
     }
 
     public function getDatos(Request $request){
-        try {
-            $token_sesion = JWTAuth::getToken()->get();
+        try {            
             // abajo se decodifica el token
-            //$datos_token = JWTAuth::getPayload($token_sesion)->toArray();            
-            $authorization_request = $request->header('Authorization');
-            $token_request = \str_replace('Bearer ','',$authorization_request);
-            $compara_token = $token_request == $token_sesion;
+            //$datos_token = JWTAuth::getPayload($token_sesion)->toArray(); 
+            $compara_token = false;           
+            if($request->header('Authorization'))   {
+                $token_sesion = JWTAuth::getToken()->get();
+                $authorization_request = '';
+                $authorization_request = $request->header('Authorization');
+                $token_request = \str_replace('Bearer ','',$authorization_request);
+                $compara_token = $token_request == $token_sesion;
+            }                     
+                        
 /*
             return response()->json([
                 'token_req' => $token_request,
