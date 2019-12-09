@@ -19,4 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('loginApi', 'ApiController@loginApi');
 Route::get('consumirApi', 'ApiController@consumirApi');
-Route::post('datos', 'ApiController@getDatos');//->middleware('jwt.auth');
+Route::post('datos', 'ApiController@getDatos')->middleware('jwt.check');
