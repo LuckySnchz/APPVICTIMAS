@@ -35,7 +35,7 @@ class ApiController extends Controller
 
         try {
             // setear el tiempo de expiración en minutos, por ejemplo, 10  minutos
-            JWTAuth::factory()->setTTL(1);
+            JWTAuth::factory()->setTTL(10);
             
             $factory = JWTFactory::customClaims([            
                 'nombre'=> $request->input('nombre'), 
