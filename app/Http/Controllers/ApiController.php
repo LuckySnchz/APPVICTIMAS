@@ -39,7 +39,8 @@ class ApiController extends Controller
             
             $factory = JWTFactory::customClaims([            
                 'nombre'=> $request->input('nombre'), 
-                'dni'=> $request->input('dni'),                              
+                'dni'=> $request->input('dni'), 
+                'sub' => '1234567'                             
             ]);
             
             $payload = JWTFactory::make($factory);
