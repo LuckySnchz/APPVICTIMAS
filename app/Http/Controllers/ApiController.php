@@ -173,7 +173,10 @@ class ApiController extends Controller
     }
 
     public function consumirApi(){
-        $url = "http://simpapi-pub-test.mpba.gov.ar/penal/swagger/index.html?urls.primaryName=Pub%20Docs";
+        $url_1 = "http://simpapi-pub-test.mpba.gov.ar/penal/swagger/index.html?urls.primaryName=Pub%20Docs";
+	$url_2 =  "https://simpapi-pub-test.mpba.gov.ar/penal/api/Visita/ConsultaVisita"
+	$url_3 =  "https://simpapi-pub-test.mpba.gov.ar/api/Visita/ConsultaVisita"
+
         $cert_file = "/var/www/html/cert.pem";
         $cert_key_file = "/var/www/html/key.pem";
         
@@ -181,7 +184,7 @@ class ApiController extends Controller
         $options = array(
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_URL => $url ,
+        CURLOPT_URL => $url_1 ,
         CURLOPT_SSLCERT => $cert_file ,
         CURLOPT_SSLKEY => $cert_key_file,
         CURLOPT_KEYPASSWD => 'TxCP4m' ,        
