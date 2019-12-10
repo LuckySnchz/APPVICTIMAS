@@ -1,29 +1,14 @@
 <?php
 
 session_start();
-  $apiCall = curl_init("http://whatsfarma.com.ar/api/v1/ApiVictim.json");
-  curl_setopt($apiCall, CURLOPT_RETURNTRANSFER, 1);
-  $apiOutput = curl_exec($apiCall);
-  curl_close($apiCall);
-  $victimas = json_decode($apiOutput, true); 
 
- $victimaInPost = '';
+$victimas='';
  $buscar = '';
   if ($_GET) {
-    $victimaInPost = $_GET['victimas'];
-    $buscar=$_GET['buscar'];
-
-  }
-
  
-
-
-    $apiCall = curl_init("http://whatsfarma.com.ar/api/v1/ApiCaso.json");
-  curl_setopt($apiCall, CURLOPT_RETURNTRANSFER, 1);
-  $apiOutput = curl_exec($apiCall);
-  curl_close($apiCall);
-  $casos = json_decode($apiOutput, true); 
-
+    $buscar=$_GET['buscar'];
+    $victimas=$_GET['victimas'];
+  }
 
 
 ?>
@@ -36,7 +21,6 @@ session_start();
       <style>
    .btn{margin-left: -3%}
 
-
       </style>
        <a name="Ancla" id="Ancla"></a>
    </head>
@@ -47,7 +31,6 @@ session_start();
 <br>
  <section class=" container jumbotron shadow p-3 mb-5 bg-white rounded"style="height: 20000px;width: 50%" >
      <form method="_GET" style=";margin-left:35%;margin-top: 10%">
-
 
 <input type="radio" name="buscar"  value="1" checked class="font-weight-bold" style="text-decoration:underline;margin-left: -30%" > <strong>Nombre y apellido</strong>
 
@@ -61,78 +44,144 @@ session_start();
 
 <div style="margin-left: -30%">
 @if($buscar==1)
-             @foreach ($casos as $caso)
-             @foreach ($victimas as $victima)
-             @if(($victimaInPost == $victima['victima_nombre_y_apellido'])&&($victima['idCaso']==$caso['id']))<br>
+            
+             @foreach ($datos as $dato)
+             @if($victimas == $dato->victima_nombre_y_apellido)<br>
 
               <label class="font-weight-bold" style="text-decoration:underline;"> Víctima: </label><br>
 
               <label class="font-weight-bold" style="text-decoration:underline;"> Nombre y Apellido: </label>
             
-             <?=$victima['victima_nombre_y_apellido']?><br>
+             {{$dato->victima_nombre_y_apellido}}<br>
              <label class="font-weight-bold" style="text-decoration:underline;"> Tipo de Documento: </label>
                       
-             <?=$victima['tipodocumento']==  'NULL'? 'No Posee / Se Desconoce' : $victima['tipodocumento']== 1 ? 'D.N.I.' :$victima['tipodocumento']== 2 ? 'Documento Extranjero' : $victima['tipodocumento']== 3 ? 'Libreta Cívica' : $victima['tipodocumento']== 4 ? 'Libreta de Enrolamiento' : $victima['tipodocumento']== 5 ? 'Pasaporte' : $victima['tipodocumento']== 6 ? 'Residencia Precaria' : $victima['tipodocumento']== 7 ? 'Se Desconoce' : $victima['tipodocumento']== 7 ? 'Se Desconoce' : $victima['tipodocumento']== 8 ? 'No posee' : $victima['tipodocumento']== 9 ? 'Otro' : null ?><br>                    
+            @if($dato->tipodocumento ==1) D.N.I.
+    @elseif($dato->tipodocumento ==2)Documento Extranjero
+    @elseif($dato->tipodocumento ==3)Libreta Cívica
+    @elseif($dato->tipodocumento ==4)Libreta de Enrolamiento
+    @elseif($dato->tipodocumento ==5)Pasaporte
+    @elseif($dato->tipodocumento ==6)Residencia Precaria
+    @elseif($dato->tipodocumento ==7)Se Desconoce
+    @elseif($dato->tipodocumento ==8)No posee
+    @elseif($dato->tipodocumento ==9)Otro
+    @endif<br>                    
 
 
               <label class="font-weight-bold" style="text-decoration:underline;"> Número de Documento: </label>
              
-             <?=$victima['victima_numero_documento']?><br>
+             {{$dato->victima_numero_documento}}<br>
 
                <label class="font-weight-bold" style="text-decoration:underline;"> Fecha de Nacimiento: </label>
              
-             <?=$victima['victima_fecha_nacimiento']?><br>
+             {{$dato->victima_fecha_nacimiento}}<br>
              <label class="font-weight-bold" style="text-decoration:underline;"> Caso: </label><br>
 
               <label class="font-weight-bold" style="text-decoration:underline;"> Cavaj: </label>
               <br>
-             <?=$caso['cavaj']?><br>
+            @if($dato->cavaj ==1) Sede Central (La Plata)
+    @elseif($dato->cavaj ==2)Morón
+    @elseif($dato->cavaj ==3)Azul
+    @elseif($dato->cavaj ==4)Pergamino
+    @elseif($dato->cavaj ==5)Bahía Blanca
+    @elseif($dato->cavaj ==6)Pilar
+    @elseif($dato->cavaj ==7)Ezeiza
+    @elseif($dato->cavaj ==8)Pinamar
+    @elseif($dato->cavaj ==9)Lanús
+    @elseif($dato->cavaj ==10)Quilmes
+    @elseif($dato->cavaj ==11)Lomas de Zamora
+    @elseif($dato->cavaj ==12)San Fernando
+    @elseif($dato->cavaj ==13)Los Toldos
+    @elseif($dato->cavaj ==14)San Martín
+    @elseif($dato->cavaj ==15)Mar del Plata
+    @elseif($dato->cavaj ==16)Tandil
+    @elseif($dato->cavaj ==17)Mercedes
+    @elseif($dato->cavaj ==18)Vicente López
+    @elseif($dato->cavaj ==19)Moreno
+    @elseif($dato->cavaj =20)Zárate
+    @elseif($dato->cavaj ==21)José C.Paz
+    @elseif($dato->cavaj ==22)Almirante Brown
+    @elseif($dato->cavaj ==23)La Matanza
+    @endif<br>   <br>
 
              <label class="font-weight-bold" style="text-decoration:underline;"> Fecha de Ingreso: </label>
              <br>
-             <?=$caso['fecha_ingreso']?><br>
+             {{$dato->fecha_ingreso}}<br>
 
             <p>__________________________________________________</p>
              @endif
              @endforeach
-             @endforeach
+           
    @endif
 
 
    @if($buscar==2)
-             @foreach ($casos as $caso)
-             @foreach ($victimas as $victima)
-             @if(($victimaInPost == $victima['victima_numero_documento'])&&($victima['idCaso']==$caso['id']))<br>
+      
+             @foreach ($datos as $dato)
+             @if($victimas == $dato->victima_numero_documento)<br>
              <label class="font-weight-bold" style="text-decoration:underline;"> Víctima: </label><br>
               <label class="font-weight-bold" style="text-decoration:underline;"> Nombre y Apellido: </label>
             
-             <?=$victima['victima_nombre_y_apellido']?><br>
+             {{$dato->victima_nombre_y_apellido}}<br>
              <label class="font-weight-bold" style="text-decoration:underline;"> Tipo de Documento: </label>
-             <?=$victima['tipodocumento']==  'NULL'? 'No Posee / Se Desconoce' : $victima['tipodocumento']== 1 ? 'D.N.I.' :$victima['tipodocumento']== 2 ? 'Documento Extranjero' : $victima['tipodocumento']== 3 ? 'Libreta Cívica' : $victima['tipodocumento']== 4 ? 'Libreta de Enrolamiento' : $victima['tipodocumento']== 5 ? 'Pasaporte' : $victima['tipodocumento']== 6 ? 'Residencia Precaria' : $victima['tipodocumento']== 7 ? 'Se Desconoce' : $victima['tipodocumento']== 7 ? 'Se Desconoce' : $victima['tipodocumento']== 8 ? 'No posee' : $victima['tipodocumento']== 9 ? 'Otro' : null ?><br>
+             
+    @if($dato->tipodocumento ==1) D.N.I.
+    @elseif($dato->tipodocumento ==2)Documento Extranjero
+    @elseif($dato->tipodocumento ==3)Libreta Cívica
+    @elseif($dato->tipodocumento ==4)Libreta de Enrolamiento
+    @elseif($dato->tipodocumento ==5)Pasaporte
+    @elseif($dato->tipodocumento ==6)Residencia Precaria
+    @elseif($dato->tipodocumento ==7)Se Desconoce
+    @elseif($dato->tipodocumento ==8)No posee
+    @elseif($dato->tipodocumento ==9)Otro
+    @endif
+             <br>
 
               <label class="font-weight-bold" style="text-decoration:underline;"> Número de Documento: </label>
              
-             <?=$victima['victima_numero_documento']?><br>
+             {{$dato->victima_numero_documento}}<br>
               <label class="font-weight-bold" style="text-decoration:underline;"> Fecha de Nacimiento: </label>
              
-             <?=$victima['victima_fecha_nacimiento']?><br>
+             {{$dato->victima_fecha_nacimiento}}<br>
               <label class="font-weight-bold" style="text-decoration:underline;"> Caso: </label><br>
 
               <label class="font-weight-bold" style="text-decoration:underline;"> Cavaj: </label>
             
              
 
-             <?=$caso['cavaj']==  1? 'Sede Central (La Plata)' : $caso['cavaj']==  2? 'Morón' : $caso['cavaj']==  3? 'Azul' : $caso['cavaj']==  4? 'Pergamino' : $caso['cavaj']==  5? 'Bahía Blanca' : $caso['cavaj']==  6? 'Pilar' :$caso['cavaj']==  7? 'Ezeiza' :$caso['cavaj']==  8? 'Pinamar' : $caso['cavaj']==  9? 'Lanús' : $caso['cavaj']==  10? 'Quilmes' : $caso['cavaj']==  11? 'Lomas de Zamora' : $caso['cavaj']==  12? 'San Fernando' : $caso['cavaj']==  13? 'Los Toldos' : $caso['cavaj']==  14? 'San Martín' : $caso['cavaj']==  15? 'Mar Del Plata' : $caso['cavaj']==  16? 'Tandil' : $caso['cavaj']==  17? 'Mercedes' : $caso['cavaj']==  18? 'Vicente López' : $caso['cavaj']==  19? 'Moreno' :$caso['cavaj']==  20? 'Zárate' : $caso['cavaj']==  21? 'José C. Paz' : $caso['cavaj']==  22? 'Almirante Brown' : $caso['cavaj']==  23? 'La Matanza' : null ?><br>
+         @if($dato->cavaj ==1) Sede Central (La Plata)
+    @elseif($dato->cavaj ==2)Morón
+    @elseif($dato->cavaj ==3)Azul
+    @elseif($dato->cavaj ==4)Pergamino
+    @elseif($dato->cavaj ==5)Bahía Blanca
+    @elseif($dato->cavaj ==6)Pilar
+    @elseif($dato->cavaj ==7)Ezeiza
+    @elseif($dato->cavaj ==8)Pinamar
+    @elseif($dato->cavaj ==9)Lanús
+    @elseif($dato->cavaj ==10)Quilmes
+    @elseif($dato->cavaj ==11)Lomas de Zamora
+    @elseif($dato->cavaj ==12)San Fernando
+    @elseif($dato->cavaj ==13)Los Toldos
+    @elseif($dato->cavaj ==14)San Martín
+    @elseif($dato->cavaj ==15)Mar del Plata
+    @elseif($dato->cavaj ==16)Tandil
+    @elseif($dato->cavaj ==17)Mercedes
+    @elseif($dato->cavaj ==18)Vicente López
+    @elseif($dato->cavaj ==19)Moreno
+    @elseif($dato->cavaj =20)Zárate
+    @elseif($dato->cavaj ==21)José C.Paz
+    @elseif($dato->cavaj ==22)Almirante Brown
+    @elseif($dato->cavaj ==23)La Matanza
+    @endif<br>   <br>
 
         
 
              <label class="font-weight-bold" style="text-decoration:underline;"> Fecha de Ingreso: </label>
         
-             <?=$caso['fecha_ingreso']?><br>
+             {{$dato->fecha_ingreso}}<br>
             <p>___________________________________________________</p>
              @endif
              @endforeach
-             @endforeach
+            
    @endif
 <br>
 
