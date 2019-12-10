@@ -148,12 +148,12 @@ return [
     */
 
     'required_claims' => [
-        /*'iss',
+        'iss',
         'iat',
         'exp',
         'nbf',
         'sub',
-        'jti',*/
+        'jti',
     ],
 
     /*

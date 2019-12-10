@@ -10,10 +10,11 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Validator;
 use Illuminate\Support\Facades\Auth;
-use JWTAuth;
+use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\PayloadFactory;
 use JWTFactory;
+use Tymon\JWTAuth\Providers\JWT;
 
 class ApiController extends Controller
 {
@@ -36,16 +37,17 @@ class ApiController extends Controller
         try {
             // setear el tiempo de expiración en minutos, por ejemplo, 10  minutos
             JWTAuth::factory()->setTTL(10);
-            
+            $nombre = $request->input('nombre');
+            $dni = $request->input('dni');
             $factory = JWTFactory::customClaims([            
-                'nombre'=> $request->input('nombre'), 
-                'dni'=> $request->input('dni'), 
-                'sub' => '1234567'                             
+                'sub' => ['nombre'=>$nombre, 'dni' => $dni]                
             ]);
             
             $payload = JWTFactory::make($factory);
             $token = JWTAuth::encode($payload);
-
+            
+            session(['token_api' => $token->get()]);
+                        
             return $this->respondWithToken($token);
 
         } catch (JWTException $e) {
@@ -75,21 +77,20 @@ class ApiController extends Controller
 
     public function getDatos(Request $request){
         try {            
-            // abajo se decodifica el token
-            //$datos_token = JWTAuth::getPayload($token_sesion)->toArray(); 
+            // abajo se decodifica el token            
             $compara_token = false;           
             if($request->header('Authorization'))   {
-                $token_sesion = JWTAuth::getToken()->get();                                              
+                $token_sesion = $request->session()->all()['token_api'];  
                 $authorization_request = $request->header('Authorization');
                 $token_request = \str_replace('Bearer ','',$authorization_request);
                 $compara_token = $token_request == $token_sesion;
+                if($compara_token){
+                    JWTAuth::getToken()->get();   
+                    $token_sesion = JWTAuth::getPayload()->toArray();
+                    $exp = $token_sesion['exp'];
+                }
+                                                                                                         
             }                     
-                        
-/*
-            return response()->json([
-                'token_req' => $token_request,
-                '$token_sesion' => $token_sesion
-            ]);*/
             
             if($compara_token){
 
@@ -147,13 +148,13 @@ class ApiController extends Controller
         } catch (\Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
             
             return response()->json([
-                'excepcion' => 'expiró el token',
+                'excepcion' => 'expiro el token',
                 'codigo' => -1
             ], 500);
         } catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
             
             return response()->json([
-                'excepcion' => 'token inválido',
+                'excepcion' => 'token invalido',
                 'codigo' => -1
             ], 500);
         } catch (\Tymon\JWTAuth\Exceptions\TokenBlacklistedException $e) {
