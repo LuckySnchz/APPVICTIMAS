@@ -1170,3 +1170,15 @@ storage/victimas.xlsx
 storage/casos.xlsx*/
 //-----------------------------------------API-------------------------------------------//
 //Route::get('ApiVictim','VictimController@getVictim')->middleware('auth');
+Route::get("/ApiVictim",function(){
+  
+  
+$datos=DB::table('casos')->join('victims', 'casos.id', '=', 'victims.idCaso') ->select('victims.victima_nombre_y_apellido','victims.tipodocumento','victims.victima_numero_documento','victims.victima_fecha_nacimiento','casos.cavaj','casos.fecha_ingreso')
+     ->get();
+
+
+
+   return view ("ApiVictim",compact("datos"));
+     
+})->middleware('auth');
+
