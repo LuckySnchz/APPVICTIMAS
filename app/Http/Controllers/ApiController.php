@@ -36,7 +36,7 @@ class ApiController extends Controller
 
         try {
             // setear el tiempo de expiración en minutos, por ejemplo, 10  minutos
-            JWTAuth::factory()->setTTL(1);
+            JWTAuth::factory()->setTTL(10);
             $nombre = $request->input('nombre');
             $dni = $request->input('dni');
             $factory = JWTFactory::customClaims([            
@@ -83,14 +83,16 @@ class ApiController extends Controller
                 $token_sesion = $request->session()->all()['token_api'];  
                 $authorization_request = $request->header('Authorization');
                 $token_request = \str_replace('Bearer ','',$authorization_request);
-                $compara_token = $token_request == $token_sesion;                                                                                                         
+                $compara_token = $token_request == $token_sesion;
+                if($compara_token){
+                    JWTAuth::getToken()->get();   
+                    $token_sesion = JWTAuth::getPayload()->toArray();
+                    $exp = $token_sesion['exp'];
+                }
+                                                                                                         
             }                     
             
             if($compara_token){
-                
-                JWTAuth::getToken()->get();   
-                // Actualiza el conteo de token y utiliza la instruccion JWTAuth::getToken()->get();  para que funcione 
-                JWTAuth::getPayload()->toArray();
 
                 $data = new \StdClass();
 
@@ -172,15 +174,15 @@ class ApiController extends Controller
 
     public function consumirApi(){
 	$url =  "https://simpapi-pub-test.mpba.gov.ar/api/Visita/ConsultaVisita";
-        $cert_file = "/etc/ssl/private/cert.pem";
-        $cert_key_file = "/etc/ssl/private/key.key";
+        $cert_file = "/etc/ssl/private/public.crt";
+        $cert_key_file = "/etc/ssl/private/private.rsa";
 
         $ch = curl_init();
         $options = array(
 	        CURLOPT_RETURNTRANSFER => true,
         	CURLOPT_FOLLOWLOCATION => true,
 	        CURLOPT_URL => $url ,
-		CURLOPT_CAPATH, '/etc/ssl/privete',
+		CURLOPT_CAPATH, '/etc/ssl/private',
 	        CURLOPT_SSLCERT => $cert_file,
 		CURLOPT_SSLKEY => $cert_key_file,
 		CURLOPT_KEYPASSWD => 'TxCP4m',
