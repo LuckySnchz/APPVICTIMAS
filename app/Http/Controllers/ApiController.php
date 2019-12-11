@@ -173,39 +173,39 @@ class ApiController extends Controller
     }
 
     public function consumirApi(){
-        $url_1 = "http://simpapi-pub-test.mpba.gov.ar/penal/swagger/index.html?urls.primaryName=Pub%20Docs";
-	$url_2 =  "https://simpapi-pub-test.mpba.gov.ar/penal/api/Visita/ConsultaVisita"
-	$url_3 =  "https://simpapi-pub-test.mpba.gov.ar/api/Visita/ConsultaVisita"
+	$url =  "https://simpapi-pub-test.mpba.gov.ar/api/Visita/ConsultaVisita";
+        $cert_file = "/etc/ssl/private/cert.pem";
+        $cert_key_file = "/etc/ssl/private/key.key";
 
-        $cert_file = "/var/www/html/cert.pem";
-        $cert_key_file = "/var/www/html/key.pem";
-        
         $ch = curl_init();
         $options = array(
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_URL => $url_1 ,
-        CURLOPT_SSLCERT => $cert_file ,
-        CURLOPT_SSLKEY => $cert_key_file,
-        CURLOPT_KEYPASSWD => 'TxCP4m' ,        
-        CURLOPT_SSL_VERIFYPEER => false,
-        CURLOPT_POSTFIELDS => "numeroDocumento=37907969"
+	        CURLOPT_RETURNTRANSFER => true,
+        	CURLOPT_FOLLOWLOCATION => true,
+	        CURLOPT_URL => $url ,
+		CURLOPT_CAPATH, '/etc/ssl/privete',
+	        CURLOPT_SSLCERT => $cert_file,
+		CURLOPT_SSLKEY => $cert_key_file,
+		CURLOPT_KEYPASSWD => 'TxCP4m',
+	        CURLOPT_SSL_VERIFYPEER => false,
+	        CURLOPT_POSTFIELDS => "numeroDocumento=37907969"
         );
-        
+
         $data = curl_setopt_array($ch , $options);
         $output = curl_exec($ch);
 
         if (!$output) {
-        echo "Curl Error : " . curl_error($ch);
+	echo "Curl Error N° : " . curl_errno($ch);
+        echo "Curl Error Msg : " . curl_error($ch);
         }
         else {
-        echo htmlentities($output);
+        echo $output;
+	echo "exitoso";
         }
-        
         return response()->json([
-            'data' => $data,
-            'output' => $output
+//	    'data'  => $data,
+//            'output' => $output
         ]);
+	curl_close($ch);
     }
 
 }
