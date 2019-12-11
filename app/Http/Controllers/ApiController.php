@@ -86,8 +86,7 @@ class ApiController extends Controller
                 $compara_token = $token_request == $token_sesion;
                 if($compara_token){
                     JWTAuth::getToken()->get();   
-                    $token_sesion = JWTAuth::getPayload()->toArray();
-                    $exp = $token_sesion['exp'];
+                    $token_sesion = JWTAuth::getPayload()->toArray();                    
                 }
                                                                                                          
             }                     
