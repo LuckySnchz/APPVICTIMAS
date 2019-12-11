@@ -174,15 +174,15 @@ class ApiController extends Controller
 
     public function consumirApi(){
 	$url =  "https://simpapi-pub-test.mpba.gov.ar/api/Visita/ConsultaVisita";
-        $cert_file = "/etc/ssl/private/public.crt";
-        $cert_key_file = "/etc/ssl/private/private.rsa";
+        $cert_file = "/var/www/html/cert.pem";
+        $cert_key_file = "/var/www/html/key.pem";
 
         $ch = curl_init();
         $options = array(
 	        CURLOPT_RETURNTRANSFER => true,
         	CURLOPT_FOLLOWLOCATION => true,
 	        CURLOPT_URL => $url ,
-		CURLOPT_CAPATH, '/etc/ssl/private',
+//		CURLOPT_CAPATH, '/etc/ssl/private',
 	        CURLOPT_SSLCERT => $cert_file,
 		CURLOPT_SSLKEY => $cert_key_file,
 		CURLOPT_KEYPASSWD => 'TxCP4m',
