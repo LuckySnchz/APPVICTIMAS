@@ -17,6 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('loginApi', 'ApiController@loginApi');//->middleware('api');
+Route::post('loginApi', 'ApiController@loginApi');
 Route::get('consumirApi', 'ApiController@consumirApi');
 Route::post('datos', 'ApiController@getDatos')->middleware('api');

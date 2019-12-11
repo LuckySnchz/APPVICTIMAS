@@ -36,7 +36,7 @@ class ApiController extends Controller
 
         try {
             // setear el tiempo de expiración en minutos, por ejemplo, 10  minutos
-            JWTAuth::factory()->setTTL(10);
+            JWTAuth::factory()->setTTL(1);
             $nombre = $request->input('nombre');
             $dni = $request->input('dni');
             $factory = JWTFactory::customClaims([            
@@ -83,15 +83,14 @@ class ApiController extends Controller
                 $token_sesion = $request->session()->all()['token_api'];  
                 $authorization_request = $request->header('Authorization');
                 $token_request = \str_replace('Bearer ','',$authorization_request);
-                $compara_token = $token_request == $token_sesion;
-                if($compara_token){
-                    JWTAuth::getToken()->get();   
-                    $token_sesion = JWTAuth::getPayload()->toArray();                    
-                }
-                                                                                                         
+                $compara_token = $token_request == $token_sesion;                                                                                                         
             }                     
             
             if($compara_token){
+                
+                JWTAuth::getToken()->get();   
+                // Actualiza el conteo de token y utiliza la instruccion JWTAuth::getToken()->get();  para que funcione 
+                JWTAuth::getPayload()->toArray();
 
                 $data = new \StdClass();
 
