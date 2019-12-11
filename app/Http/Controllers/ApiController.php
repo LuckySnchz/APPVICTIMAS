@@ -172,36 +172,39 @@ class ApiController extends Controller
     }
 
     public function consumirApi(){
-        $url = "http://simpapi-pub-test.mpba.gov.ar/penal/swagger/index.html?urls.primaryName=Pub%20Docs";
-        $cert_file = "/var/www/html/cert.pem";
-        $cert_key_file = "/var/www/html/key.pem";
-        
+	$url =  "https://simpapi-pub-test.mpba.gov.ar/api/Visita/ConsultaVisita";
+        $cert_file = "/etc/ssl/private/cert.pem";
+        $cert_key_file = "/etc/ssl/private/key.key";
+
         $ch = curl_init();
         $options = array(
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_URL => $url ,
-        CURLOPT_SSLCERT => $cert_file ,
-        CURLOPT_SSLKEY => $cert_key_file,
-        CURLOPT_KEYPASSWD => 'TxCP4m' ,        
-        CURLOPT_SSL_VERIFYPEER => false,
-        CURLOPT_POSTFIELDS => "numeroDocumento=37907969"
+	        CURLOPT_RETURNTRANSFER => true,
+        	CURLOPT_FOLLOWLOCATION => true,
+	        CURLOPT_URL => $url ,
+		CURLOPT_CAPATH, '/etc/ssl/privete',
+	        CURLOPT_SSLCERT => $cert_file,
+		CURLOPT_SSLKEY => $cert_key_file,
+		CURLOPT_KEYPASSWD => 'TxCP4m',
+	        CURLOPT_SSL_VERIFYPEER => false,
+	        CURLOPT_POSTFIELDS => "numeroDocumento=37907969"
         );
-        
+
         $data = curl_setopt_array($ch , $options);
         $output = curl_exec($ch);
 
         if (!$output) {
-        echo "Curl Error : " . curl_error($ch);
+	echo "Curl Error N° : " . curl_errno($ch);
+        echo "Curl Error Msg : " . curl_error($ch);
         }
         else {
-        echo htmlentities($output);
+        echo $output;
+	echo "exitoso";
         }
-        
         return response()->json([
-            'data' => $data,
-            'output' => $output
+//	    'data'  => $data,
+//            'output' => $output
         ]);
+	curl_close($ch);
     }
 
 }
