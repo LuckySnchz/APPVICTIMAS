@@ -122,10 +122,32 @@ class ApiController extends Controller
                         'codigo' => 5
                     ]);
                 }
-                else{                    
+                else{   
+
                     $datos=DB::table('casos')                     
-                    ->select('victims.victima_nombre_y_apellido','victims.tipodocumento','victims.victima_numero_documento','victims.victima_fecha_nacimiento','casos.cavaj','casos.fecha_ingreso')
+                    ->select('victims.victima_nombre_y_apellido',
+                    \DB::raw(
+                        '(CASE 
+                        WHEN victims.tipodocumento = "1" THEN "D.N.I." 
+                        WHEN victims.tipodocumento = "2" THEN "Documento Extranjero" 
+                        WHEN victims.tipodocumento = "3" THEN "Libreta Civica" 
+                        WHEN victims.tipodocumento = "4" THEN "Libreta de Enrolamiento" 
+                        WHEN victims.tipodocumento = "5" THEN "Pasaporte" 
+                        WHEN victims.tipodocumento = "6" THEN "Residencia Precaria" 
+                        WHEN victims.tipodocumento = "7" THEN "Se Desconoce" 
+                        WHEN victims.tipodocumento = "8" THEN "No posee" 
+                        WHEN victims.tipodocumento = "9" THEN "Otro" 
+                        END) AS tipodocumento'),
+                    'victims.victima_numero_documento',
+                    'victims.victima_fecha_nacimiento','cavajs.nombre as cavaj','casos.fecha_ingreso','departamentos.nombre as departamento',
+                    'personas.localidad_persona_asistida as localidad','delitos.nombre as delito','modalidades.nombre as modalidad','victims.telefono_victima',
+                    'victims.otro_telefono_victima','victims.domicilio_victima_asistida')
                     ->join('victims', 'casos.id', '=', 'victims.idCaso') 
+                    ->join('delitos', 'casos.delito', '=', 'delitos.id')
+                    ->join('cavajs', 'casos.cavaj', '=', 'cavajs.id')
+                    ->join('departamentos', 'casos.departamento_judicial', '=', 'departamentos.id')
+                    ->join('modalidades', 'casos.modalidad_ingreso', '=', 'modalidades.id')
+                    ->join('personas', 'casos.id', '=', 'personas.idCaso')
                     ->where('victims.victima_nombre_y_apellido', 'like', $nomyap)
                     ->orWhere('victims.victima_numero_documento','=', $documento)
                     ->get();                    
