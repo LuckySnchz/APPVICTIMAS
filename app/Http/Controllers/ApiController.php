@@ -127,7 +127,7 @@ class ApiController extends Controller
                 else{   
 
                     $datos=DB::table('casos')                     
-                    ->select('victims.victima_nombre_y_apellido',
+                    ->select('victims.victima_nombre_y_apellido as nombreapellido',
                     \DB::raw(
                         '(CASE 
                         WHEN victims.tipodocumento = "1" THEN "D.N.I." 
@@ -140,16 +140,14 @@ class ApiController extends Controller
                         WHEN victims.tipodocumento = "8" THEN "No posee" 
                         WHEN victims.tipodocumento = "9" THEN "Otro" 
                         END) AS tipodocumento'),
-                    'victims.victima_numero_documento',
-                    'victims.victima_fecha_nacimiento','cavajs.nombre as cavaj','casos.fecha_ingreso','departamentos.nombre as departamento',
-                    'personas.localidad_persona_asistida as localidad','delitos.nombre as delito','modalidades.nombre as modalidad','victims.telefono_victima',
-                    'victims.otro_telefono_victima','victims.domicilio_victima_asistida')
+                    'victims.victima_numero_documento as documento',
+                    'cavajs.nombre as cavaj','casos.fecha_ingreso as fechaVisita','departamentos.nombre as departamento',
+                    'delitos.nombre as delito','modalidades.nombre as modalidad')
                     ->join('victims', 'casos.id', '=', 'victims.idCaso') 
                     ->join('delitos', 'casos.delito', '=', 'delitos.id')
                     ->join('cavajs', 'casos.cavaj', '=', 'cavajs.id')
                     ->join('departamentos', 'casos.departamento_judicial', '=', 'departamentos.id')
-                    ->join('modalidades', 'casos.modalidad_ingreso', '=', 'modalidades.id')
-                    ->join('personas', 'casos.id', '=', 'personas.idCaso')
+                    ->join('modalidades', 'casos.modalidad_ingreso', '=', 'modalidades.id')                    
                     ->where('victims.victima_nombre_y_apellido', 'like', $nomyap)
                     ->orWhere('victims.victima_numero_documento','=', $documento)
                     ->get();                    
