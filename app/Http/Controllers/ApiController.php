@@ -95,27 +95,48 @@ class ApiController extends Controller
             if($compara_token){
 
                 $data = new \StdClass();
+                
+                if ($request->input('dni') && $request->input('nombreApellido')){
+                    $documento = $request->input('dni');
+                    $nomyap = '%'.$request->input('nombreApellido').'%';
+                    $validator = Validator::make($request->all(), [
+                        'nombreApellido' => ['min:3','max:255','regex:/^([a-zA-ZñÑ.\s*-])+$/'],
+                        'dni' => ['integer'],
+                    ]);
+                }
 
-                $validator = Validator::make($request->all(), [
-                    'nombreApellido' => ['min:3','max:255','regex:/^([a-zA-ZñÑ.\s*-])+$/'],
-                    'dni' => ['integer'],
-                ]);
+                else{
+                    $documento = '';
+                    $nomyap = '';
+                    if ($request->input('nombreApellido')){
+                        $nomyap = '%'.$request->input('nombreApellido').'%';
+                        $validator = Validator::make($request->all(), [
+                            'nombreApellido' => ['min:3','max:255','regex:/^([a-zA-ZñÑ.\s*-])+$/'],
+                            
+                        ]);
+                    }else{
+                        if ($request->input('dni')){
+                            $documento = $request->input('dni');
+                            $validator = Validator::make($request->all(), [
+                                
+                                'dni' => ['integer'],
+                            ]);
+                        }else{
+                            $validator = Validator::make($request->all(), [
+                                'nombreApellido' => ['min:3','max:255','regex:/^([a-zA-ZñÑ.\s*-])+$/'],
+                                'dni' => ['integer'],
+                            ]);
+                        }
+                    }
+                                        
+                }
+
+
+     
                 if ($validator->fails()) {
                     $data->ok = false;
                     $data->mensaje = $validator->messages();
                     return response()->json(['error' => $data], 400);
-                }
-                // Chequeo que se envian los parametros sino le asigna blanco
-                if ($request->input('nombreApellido')){
-                    $nomyap = '%'.$request->input('nombreApellido').'%';
-                }else{
-                    $nomyap = '';
-                }
-                if ($request->input('dni')){
-                    $documento = $request->input('dni');
-                }
-                else{
-                    $documento = '';
                 }
                 
                 if ($nomyap == '' and $documento == ''){
